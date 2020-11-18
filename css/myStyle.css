@@ -115,13 +115,17 @@ table, p,label, li, a{
 }
 
 .post{
-  padding: 10px 20px 0 20px;
+  padding: 10px 20px 10px 20px;
   margin: 10px 10px 10px 10px;
   border-radius: 15px;
-  border: 2px solid white;
+  border: 2px solid black;
 }
 
 .result{
   display: grid;
   grid-template-columns: 33% 33% 33%;
+}
+
+.bookImage {
+  float: right;
 }
