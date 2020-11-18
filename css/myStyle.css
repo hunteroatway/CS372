@@ -6,6 +6,19 @@ body {
     font-size:100%;
 
 }
+
+a {
+  color:blue;
+}
+
+a:hover{
+  color:rgba(0, 0, 255, 0.774);
+}
+
+a:visited{
+  color:purple;
+}
+
 header{
     text-align: center;
 }
@@ -264,16 +277,4 @@ table, p,label, li, a{
     display: grid;
     grid-template-columns: 100%;
   }
-}
-
-a {
-  color:blue;
-}
-
-a:hover{
-  color:rgba(0, 0, 255, 0.774);
-}
-
-a:visited{
-  color:purple;
 }
