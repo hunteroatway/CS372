@@ -29,15 +29,13 @@
 
 
         <h1>Sign Up</h1>
-
         <form id="SignUp" onsubmit ="return SignUpForm()" method="post">
             <table>  
                 <tr><td>Email: </td><td> <input type="text" name="email" size="30" required/></td></tr>
                 <tr><td>Username: </td><td> <input type="text" name="uname" size="30" required/></td></tr>
                 <tr><td>Date Of Birth: </td><td> <input type="date" placeholder="DD-MM-YYYY" id="brith" onfocusout="validate_birthday()" required/></td></tr> 
                 <tr><td>Password: </td><td> <input type="password" name="pswd" size="30" required/></td></tr>      
-                <tr><td>Confirm Password: </td><td> <input type="password" name="pswdr" size="30" required/></td></tr>  
-
+                <tr><td>Confirm Password: </td><td> <input type="password" name="pswdr" size="30" required/></td></tr> 
             </table>
             <br>
             <input type="submit" name="SignUp" value="SignUp" />
