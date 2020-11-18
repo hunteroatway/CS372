@@ -106,3 +106,9 @@ table, p,label, li, a{
 .type-selection button:hover {
   background-color: #007399;
 }
+
+.boxed {
+  border: 1px solid black ;
+  background-color: lightgrey;
+  width: 50%;
+}

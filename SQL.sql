@@ -23,6 +23,7 @@ CREATE TABLE Books(
     name VARCHAR(64) NOT NULL,
     publisher VARCHAR(64) NOT NULL,
     description VARCHAR(1024) NOT NULL,
+    edition VARCHAR(16),
     image VARCHAR(256) NOT NULL,
     price DECIMAL(6,2),
     PRIMARY KEY(isbn_13)
