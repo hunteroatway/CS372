@@ -59,6 +59,7 @@ CREATE TABLE Listings(
     image VARCHAR(256) NOT NULL,
     price DECIMAL(6,2),
 	list_date DATE NOT NULL,
+    active BOOLEAN NOT NULL,
     PRIMARY KEY(lid)
 
 ) engine = "innoDB";
@@ -69,6 +70,7 @@ CREATE TABLE Chats(
     lid INT NOT NULL,
     uid_buyer INT NOT NULL,
 	chat_open DATETIME NOT NULL,
+    active BOOLEAN NOT NULL,
     PRIMARY KEY(cid),
     FOREIGN KEY(lid) REFERENCES Listings(lid),
     FOREIGN KEY(uid_buyer) REFERENCES Users(uid)
