@@ -15,9 +15,12 @@ window.onload = function() {
 
           var authors = obj.items[0].volumeInfo.authors[0];
           var title = obj.items[0].volumeInfo.title;
+          var subtitle = obj.items[0].volumeInfo.subtitle;
+          var cover = obj.items[0].volumeInfo.imageLinks.smallThumbnail;
           
           document.getElementById("author").innerHTML = authors;
           document.getElementById("title").innerHTML = title;
+          document.getElementById("subtitle").innerHTML = subtitle;
           document.getElementById("cover").src = cover;
         }    
       };

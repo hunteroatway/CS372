@@ -1,25 +1,92 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Home</title>
-    <link rel="stylesheet" href="../css/style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-    <script type="text/javascript" src="../js/search.js"></script>
-  </head>
-  <body>
-    <div class="topnav">
-     <a class="active" href="index.html">Home</a>
-     <div class"search-container">
-        <form id="search-form">
-          <input id="search-field" type="text" placeholder="Search.." name="search" />
-          <input id="city-field" type="text" placeholder="City.." name="city" />
-          <button type="submit"><i class="fa fa-search"></i></button>
-        </form>        
-      </div>
-    </div>
+    <head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel = "stylesheet"
+              type = "text/css"
+              href = "../css/myStyle.css" />
+        <title>Pick-a-Book</title> 
+    </head>
 
-    <img id="cover"></img>
-    <h1 id="title"></h1>
-    <h1 id="subtitle"></h1>
-  </body>
+    <header>
+	<img src="../images/logo.png" style = "display:inline" width = "250" height = "200" />
+    </header>
+
+    <body>
+        <div class="topnav">
+            <a class="active" href="index.html">Home <i class="fa fa-fw fa-home"> </i></a>
+            <a href="signUp.html">SignUp</a>
+            <a href=".html">Manage</a>
+            <a href=".html">Book</a>
+			  <div class="search-container">
+				<form action="/action_page.php">
+				<input type="text" placeholder="Search.." name="search">
+				<input type="text" placeholder="City.." name="city">
+				<button type="submit"><i class="fa fa-search"></i></button>
+				</form>
+			</div>
+        </div>
+
+        <div class="login">
+            <h1>Log In</h1>
+            <form>
+                <table>
+                    <tr><td>Username: </td><td> <input type="text" name="uname" size="30" required/></td></tr>
+                    <tr><td>Password: </td><td> <input type="password" name="pswd" size="30" required /></td></tr>      
+                </table>
+                <br>
+                <button type="Login" class= "btn">Log in</button>
+                <input type="reset" name="Reset" value="Reset" /><br>
+                <p> Create an Account <a href="signUp.html">Sign Up</a></p>
+            </form>
+        </div>
+		<hr/>
+        <h1>Most Recent Posting</h1>
+         <div class="Polls">
+            <p class="question"><b>What’s your favourite brand?</b></p>
+            <ul>
+                <li>Gucci </li>
+                <li>Luise Vuitton</li>
+                <li>Valentino</li>
+                <li>Prada</li>
+            </ul> 
+        </div>
+        <div class="Polls">
+            <p class="question"><b>What will be your holiday destination?</b></p>
+            <ul>
+                <li>Maxico</li>
+                <li>Dubai</li>
+                <li>Maldives</li>
+                <li>Singapore</li>
+            </ul> 
+        </div>
+        <div class="Polls">
+            <p class="question"><b>What will be Your trip budget?</b></p>
+            <ul>
+                <li>Between $1k - $2k</li>
+                <li>Between $2k - $5k</li>
+                <li>Between $5k - $10k</li>
+                <li>Between $10k - $12k</li>
+            </ul> 
+        </div>
+        <div class="Polls">
+            <p class="question"><b>What type of food you like?</b></p>
+            <ul>
+                <li>Indian</li>
+                <li>Chinese</li>
+                <li>Italian</li>
+                <li>Thai</li>
+            </ul> 
+        </div>
+        <div class="Polls">
+            <p class="question"><b>If you win 10 million dollars what will u do?</b></p>
+            <ul>
+                <li>Buy a luxury house</li>
+                <li>Buy a dream car</li>
+                <li>World tour</li>
+                <li>Donate</li>
+            </ul> 
+        </div>
+    </body>
 </html>
