@@ -152,7 +152,7 @@ table, p,label, li, a{
 .slideShow{
   position: relative;
   margin: auto;
-  max-width: 450px;
+  max-width: 600px;
 }
 
 .image{
