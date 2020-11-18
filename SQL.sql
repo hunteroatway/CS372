@@ -24,11 +24,19 @@ CREATE TABLE Books(
     publisher VARCHAR(64) NOT NULL,
     description VARCHAR(1024) NOT NULL,
     edition VARCHAR(16),
-    image VARCHAR(256) NOT NULL,
     price DECIMAL(6,2),
     PRIMARY KEY(isbn_13)
 
 ) engine = "innoDB";
+
+-- image table to allow listings to have multiple photos
+CREATE TABLE Images(
+    iid INT NOT NULL AUTO_INCREMENT,
+    image VARCHAR(256) NOT NULL,
+    lid INT NOT NULL,
+    PRIMARY KEY(iid),
+    FOREIGN KEY(lid) REFERENCES Listings(lid)
+)
 
 CREATE TABLE Authors(
     aid INT NOT NULL AUTO_INCREMENT,

@@ -98,8 +98,96 @@ table, p,label, li, a{
 .boxed {
   border: 1px solid black ;
   background-color: lightgrey;
-  width: 50%;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2%;
+  padding-right: 2%;
 
+}
+
+.listing{
+  display: grid;
+  grid-template-columns: 70% 30%;
+  font-size: 13pt;
+}
+
+.bookInfo {
+  margin-left: 5%;
+  width: 70%;
+}
+
+.posterInfo{
+  margin-top: 5%;
+  width: 50%;
+  float: right;
+}
+
+.avatar{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100px;
+}
+
+.slideShow{
+  position: relative;
+  margin: auto;
+  max-width: 450px;
+}
+
+.image{
+  display:none;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: black;
+  font-weight: bold;
+  font-size: 18px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+.next {
+  right: 0;
+}
+
+/* Number text (1/3 etc) */
+.number {
+  color: #ec34e3; 
+  font-size: 16px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+.dot {
+  cursor: pointer;
+  height: 12px;
+  width: 12px;
+  margin: 0 2px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dots{
+  text-align:center;
+}
+
+.active{
+  background-color: #222222d0;
+}
+
+.dot:hover{
+  background-color: #22222262;
 }
 
 .post{
