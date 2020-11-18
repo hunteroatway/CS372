@@ -20,7 +20,8 @@ CREATE TABLE Books(
 
     isbn_10 INT NOT NULL,
     isbn_13 INT NOT NULL,    
-    name VARCHAR(64) NOT NULL,
+    title VARCHAR(256) NOT NULL,
+    subtitle VARCHAR(256) NOT NULL,
     publisher VARCHAR(64) NOT NULL,
     description VARCHAR(1024) NOT NULL,
     edition VARCHAR(16),
