@@ -190,16 +190,23 @@ table, p,label, li, a{
   background-color: #22222262;
 }
 
-.post{
-  padding: 10px 20px 10px 20px;
-  margin: 10px 10px 10px 10px;
-  border-radius: 15px;
-  border: 2px solid black;
+.bookImage {
+  float: right;
 }
 
-.result{
-  display: grid;
-  grid-template-columns: 33% 33% 33%;
+.search-term{
+  width: 100%;
+}
+
+.search-term p{
+  text-align: center;
+}
+
+.post{
+  padding: 10px 20px 10px 20px;
+  /* margin: 10px 10px 10px 10px; */
+  border-radius: 15px;
+  border: 2px solid black;
 }
 
 .bookImage {
@@ -212,4 +219,41 @@ table, p,label, li, a{
 
 .search-term p{
   text-align: center;
+}
+
+.result-row {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+
+/* Create four equal columns that sits next to each other */
+.result-column {
+  flex: 24%;
+  max-width: 25%;
+  padding: 0 4px;
+}
+
+/* Responsive layout - makes a 3 column-layout instead of four columns */
+@media screen and (max-width: 1450px) {
+  .result-column {
+    flex: 32%;
+    max-width: 33%;
+  }
+}
+
+/* Responsive layout - makes a two column-layout instead of 3 columns */
+@media screen and (max-width: 1000px) {
+  .result-column {
+    flex: 49%;
+    max-width: 50%;
+  }
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .result-column {
+    flex: 100%;
+    max-width: 100%;
+  }
 }
