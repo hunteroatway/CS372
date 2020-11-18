@@ -278,3 +278,9 @@ table, p,label, li, a{
     grid-template-columns: 100%;
   }
 }
+
+.side-bar {
+  width: 200px;
+  height: 100%;
+  border-right: black;
+}
