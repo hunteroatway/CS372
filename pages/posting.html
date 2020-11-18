@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel = "stylesheet" type = "text/css" href = "../css/myStyle.css" />
+        <title>Pick-a-Book</title> 
+    </head>
+    <header>
+	    <img src="../images/logo.png" style = "display:inline" width = "250" height = "200" />
+    </header>
+    <body>
+      <div class="topnav">
+        <a class="active" href="index.html">Home <i class="fa fa-fw fa-home"> </i></a>
+        <a href="signUp.html">SignUp</a>
+        <a href=".html">Manage</a>
+        <a href=".html">Book</a>
+			  <div class="search-container">
+				  <form id="search-form">
+				  <input type="text" placeholder="Search.." name="search">
+				  <input type="text" placeholder="City.." name="city">
+				  <button type="submit"><i class="fa fa-search"></i></button>
+				</form>
+        </div>
+      </div>      
+      <div class="type-selection">
+        <form id="create-posting">
+          <button id="automatic-button" type="button">Automatic</button>
+          <button id="manual-button" type="button">Manual</button>
+        </form>
+        <form id="manual-fields">
+          <input id="title" type="text" placeholder="Title.." name="title" /> 
+          <input id="subtitle" type="text" placeholder="Subtitle.." name="subtitle" /> 
+          <input id="author" type="text" placeholder="Author.." name="author" /> 
+          <input id="description" type="text" placeholder="Description.." name="description" /> 
+          <input id="publisher" type="text" placeholder="Publisher.." name="publisher" /> 
+          <input id="isbn-10" type="text" placeholder="ISBN-10.." name="isbn-10" /> 
+          <input id="isbn-13" type="text" placeholder="ISBN-13.." name="isbn-13" /> 
+          <img id="cover"></img> 
+        </form>
+        <form id="automatic-fields">
+          <input id="isbn" type="text" placeholder="ISBN" name="isbn" /> 
+        </form>
+      </div>
+    <script type="text/javascript" src="../js/JavaScript.js"></script>
+    </body>
+</html>
