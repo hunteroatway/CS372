@@ -1,6 +1,10 @@
+-- Can remove username and go for simply first/ last name. Can show it as first name, last initial
+-- ie Justin O
 CREATE TABLE Users (
 	uid INT NOT NULL AUTO_INCREMENT,
 	username VARCHAR(64) NOT NULL,
+    first_name VARCHAR (32) NOT NULL,
+    last_name VARCHAR (32) NOT NULL,
 	email VARCHAR (255) NOT NULL,
 	password VARCHAR(24) NOT NULL,
 	DOB DATE NOT NULL,
@@ -9,17 +13,27 @@ CREATE TABLE Users (
 	PRIMARY KEY (uid)
 ) engine = "innoDB";
 
+-- Author removed to put in seperate table. Will need to join them
 CREATE TABLE Books(
 
     isbn_10 INT NOT NULL,
     isbn_13 INT NOT NULL,    
     name VARCHAR(64) NOT NULL,
-    author VARCHAR(64) NOT NULL,
     publisher VARCHAR(64) NOT NULL,
     description VARCHAR(1024) NOT NULL,
     image VARCHAR(256) NOT NULL,
     price DECIMAL(6,2),
     PRIMARY KEY(isbn_13)
+
+) engine = "innoDB";
+
+CREATE TABLE Authors(
+    aid INT NOT NULL AUTO_INCREMENT,
+    isbn_13 INT NOT NULL,
+    first_name VARCHAR (32) NOT NULL,
+    last_name VARCHAR (32) NOT NULL,
+    PRIMARY KEY(aid),
+    FOREIGN KEY(isbn_13) REFERENCES Books(isbn_13)
 
 ) engine = "innoDB";
 
