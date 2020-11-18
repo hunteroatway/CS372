@@ -129,3 +129,11 @@ table, p,label, li, a{
 .bookImage {
   float: right;
 }
+
+.search-term{
+  width: 100%;
+}
+
+.search-term p{
+  text-align: center;
+}
