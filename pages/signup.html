@@ -7,6 +7,9 @@
               type = "text/css"
               href = "../css/myStyle.css" />
         <title>SignUp Page</title> 
+                <style>
+            .err_msg{ color:red;}
+        </style>
     </head>
 	<header>
 	<img src="../images/logo.png" style = "display:inline" width = "250" height = "200" />
@@ -30,13 +33,27 @@
 
         <h1>Sign Up</h1>
 
-        <form id="SignUp" onsubmit ="return SignUpForm()" method="post">
-            <table>  
-                <tr><td>Email: </td><td> <input type="text" name="email" size="30" required/></td></tr>
-                <tr><td>Username: </td><td> <input type="text" name="uname" size="30" required/></td></tr>
-                <tr><td>Date Of Birth: </td><td> <input type="date" placeholder="DD-MM-YYYY" id="brith" onfocusout="validate_birthday()" required/></td></tr> 
-                <tr><td>Password: </td><td> <input type="password" name="pswd" size="30" required/></td></tr>      
-                <tr><td>Confirm Password: </td><td> <input type="password" name="pswdr" size="30" required/></td></tr>  
+
+        <form id="SignUp" method="get">
+            <table>
+
+                <tr><td></td><td><label id="email_msg" class="err_msg"></label></td></tr>
+                <tr><td>Email: </td><td> <input type="text" name="email" size="30" /></td></tr>
+
+                <tr><td></td><td><label id="sname_msg" class="err_msg"></label></td></tr>   
+                <tr><td>User name: </td><td> <input type="text" name="uname" size="30" /></td></tr>
+
+                <tr><td></td><td><label id="uname_msg" class="err_msg"></label></td></tr>   
+                <tr><td>First name: </td><td> <input type="text" name="uname" size="30" /></td></tr>
+
+                <tr><td></td><td><label id="name_msg" class="err_msg"></label></td></tr>   
+                <tr><td>Last name: </td><td> <input type="text" name="name" size="30" /></td></tr>
+
+                <tr><td></td><td><label id="pswd_msg" class="err_msg"></label></td></tr>
+                <tr><td>Password: </td><td> <input type="password" name="pswd" size="30" /></td></tr>  
+
+                <tr><td></td><td><label id="pswdr_msg" class="err_msg"></label></td></tr>    
+                <tr><td>Confirm Password: </td><td> <input type="password" name="pswdr" size="30" /></td></tr>  
 
             </table>
             <br>
@@ -45,5 +62,6 @@
             <p> Already have an account? <a href="index.html">Sign in</a></p>
 
         </form>
+        <script type="text/javascript" src="../js/JavaScript.js"></script>
     </body>
 </html>
