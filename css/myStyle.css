@@ -79,18 +79,6 @@ table, p,label, li, a{
   }
 }
 
-.Polls{
-    Width: 48%;
-    margin-left: 10px;
-    height: fit;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    border-style: solid;
-    border-color: white;
-    float:left;
-    position: relative;
-}
-
 .type-selection button {
   background-color: #008cba;
   border: none;
