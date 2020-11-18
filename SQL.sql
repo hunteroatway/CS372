@@ -8,7 +8,9 @@ CREATE TABLE Users (
 	email VARCHAR (255) NOT NULL,
 	password VARCHAR(24) NOT NULL,
 	DOB DATE NOT NULL,
-    location VARCHAR(50) NOT NULL,
+    city VARCHAR(50) NOT NULL,
+    province VARCHAR(50) NOT NULL,
+    country VARCHAR(50) NOT NULL,
 	avatar VARCHAR (255) NOT NULL,
 	PRIMARY KEY (uid)
 ) engine = "innoDB";
