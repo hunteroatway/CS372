@@ -106,3 +106,15 @@ table, p,label, li, a{
 .type-selection button:hover {
   background-color: #007399;
 }
+
+.post{
+  padding: 10px 20px 0 20px;
+  margin: 10px 10px 10px 10px;
+  border-radius: 15px;
+  border: 2px solid white;
+}
+
+.result{
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+}
