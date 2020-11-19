@@ -119,7 +119,7 @@ table, p,label, li, a{
 
 }
 
-.message{
+.messageListing{
   padding: 3%;
   border: 7px outset;
   background-color: lightgrey;
@@ -279,8 +279,107 @@ table, p,label, li, a{
   }
 }
 
+
+.messages {
+  background-color: lightgrey;
+}
+
 .side-bar {
-  width: 200px;
-  height: 100%;
+  grid-area: side;
   border-right: black;
+}
+
+.sender{
+  grid-area: sender;
+  background-color: red;
+}
+
+.receiver{
+  grid-area: reciever;
+  background-color: blue;
+}
+
+.message{
+  font-size: 16pt;
+  border: 2px solid white;
+  border-radius: 8px;
+  padding: 5px;
+  margin: 15px 0px;
+}
+
+.you{
+  text-align: right;
+  background-color: teal;
+}
+
+.other{
+  background-color: royalblue;
+}
+
+/*adds space for the time */
+.message::after{
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.message img.avatarRight {
+  float: right;
+  max-width: 60px;
+  width: 100%;
+  margin-left: 20px;
+}
+
+.message img.avatarLeft {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+}
+
+.timeRight{
+  font-size: 12pt;
+  padding-right: 10px;
+  color: white;
+  float: right;
+}
+
+.timeLeft{
+  font-size: 12pt;
+  padding-left: 10px;
+  color: white;
+  float: left;
+}
+
+.sidebar {
+  margin-top: 252px; /* set to be just under the nav bar */
+  height: 100%; 
+  width: 160px; /* Set the width of the sidebar */
+  position: fixed; 
+  z-index: 1; /* Stay on top */
+  top: 0; 
+  left: 0;
+  background-color: lightgrey; 
+  overflow-x: hidden; 
+  padding-top: 60px;
+}
+
+.main {
+  margin-left: 160px; /* Same as the width of the sidebar so that sidebar works */
+  padding: 0px 10px;
+}
+
+.chat{
+  border: 2px solid black;
+  border-radius: 8px;
+  width: 90%;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.sellerName{
+  font-size: 10pt;
 }
