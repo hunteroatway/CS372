@@ -383,3 +383,30 @@ table, p,label, li, a{
 .sellerName{
   font-size: 10pt;
 }
+
+.message-area {
+  position: fixed;
+  left: 170px;
+  bottom: 0;
+  width: calc(100% - 170px);
+}
+
+.message-box {
+  width: calc(100% - 90px);
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.message-button {
+  background-color: #4CAF50;
+  padding: 12px 20px;
+  border: none;
+  color: white;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
