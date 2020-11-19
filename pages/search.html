@@ -10,6 +10,8 @@
                 <style>
             .err_msg{ color:red;}
         </style>
+        <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIwzALxUPNbatRBj3Xi1Uhp0fFzwWNBkE&callback=initMap&libraries=places&v=weekly" defer></script>
     </head>
 
     <header>
@@ -17,18 +19,19 @@
     </header>
 
     <body>
-        <div class="topnav">
+        <div class="topnav" id="pac-card">
             <a class="active" href="index.html">Home <i class="fa fa-fw fa-home"> </i></a>
             <a href="signUp.html">SignUp <i class="fa fa-user"> </i></a>
             <a href=".html">Manage</a>
             <a href=".html">Book <i class="fa fa-book"> </i></a>
 			  <div class="search-container">
 				<form action="/action_page.php">
-                <input type="text" placeholder="City.." name="city">
+                <input id="pac-input" type="text" placeholder="City.." name="city">
 				<input type="text" placeholder="Search.." name="search">
 				<button type="submit"><i class="fa fa-search"></i></button>
 				</form>
-			</div>
+            </div>
+            <div id="map"></div>
         </div>
 
         

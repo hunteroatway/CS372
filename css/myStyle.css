@@ -410,3 +410,8 @@ table, p,label, li, a{
   margin: 4px 2px;
   cursor: pointer;
 }
+
+#map {
+  height: 100%;
+  display: none;
+}
