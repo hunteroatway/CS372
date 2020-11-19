@@ -1,6 +1,7 @@
-a// This example requires the Places library. Include the libraries=places
-// parameter when you first load the API. For example:
-// <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIwzALxUPNbatRBj3Xi1Uhp0fFzwWNBkE&libraries=places">
+// Code is based off Google Maps API examples page.
+// Code that was not required was removed.
+// being used to help autofill a search of a location
+// Google Maps API page: https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete
 function initMap() {
     const map = new google.maps.Map(document.getElementById("map"), {
       center: { lat: -33.8688, lng: 151.2195 },
@@ -10,11 +11,6 @@ function initMap() {
     const input = document.getElementById("pac-input");
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
     const autocomplete = new google.maps.places.Autocomplete(input);
-    // Bind the map's bounds (viewport) property to the autocomplete object,
-    // so that the autocomplete requests use the current map bounds for the
-    // bounds option in the request.
-    //autocomplete.bindTo("bounds", map);
-    // Set the data fields to return when the user selects a place.
   
     const marker = new google.maps.Marker({
       map,
@@ -23,7 +19,9 @@ function initMap() {
     autocomplete.addListener("place_changed", () => {
       marker.setVisible(false);
       const place = autocomplete.getPlace();
-      
-    console.log(input.value.split(', '));
+    
+    // delim the autofilled location to be stored into the database
+    var location = input.value.split(', ')
+    console.log(location);
     });
-  }
+}
