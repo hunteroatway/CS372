@@ -37,7 +37,7 @@ CREATE TABLE Images(
     lid INT NOT NULL,
     PRIMARY KEY(iid),
     FOREIGN KEY(lid) REFERENCES Listings(lid)
-)
+);
 
 CREATE TABLE Authors(
     aid INT NOT NULL AUTO_INCREMENT,

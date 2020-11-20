@@ -17,6 +17,7 @@
 	<img src="../images/logo.png" style = "display:inline" width = "250" height = "200" />
     </header>
 
+
     <body>
         <div class="topnav" id="pac-card">
             <a class="active" href="index.html">Home <i class="fa fa-fw fa-home"> </i></a>
@@ -32,7 +33,7 @@
             </div>
             <div id="map"></div>
         </div>
-		<p> Click here to login <a href="Login.html">LogIn</a></p>
+		<p> Click here to login <a href="Login.php">LogIn</a></p>
 		<hr/>
         <h1>Most Recent Posting</h1>
         <div class="result">

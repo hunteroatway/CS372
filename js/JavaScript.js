@@ -10,15 +10,15 @@ if ( b = document.getElementById("SignUp")){
     b.addEventListener("submit", SignUpForm, false);
 }
 
-
 function LogInForm(event) {
-
 
     var elements = event.currentTarget;
 
-    var a = elements[0].value;
-    var b = elements[1].value;
+    var a = elements[1].value;
+    var b = elements[2].value;
 
+    console.log(a);
+    console.log(b);
 
     var result = true;
 

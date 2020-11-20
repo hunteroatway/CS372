@@ -18,6 +18,10 @@
 
     <body>
         <div class="topnav">
+        <?php 
+            session_start();
+            $_SESSION["error"] = "";
+		?>
             <a class="active" href="index.html">Home <i class="fa fa-fw fa-home"> </i></a>
             <a href="signUp.html">SignUp <i class="fa fa-user"> </i></a>
             <a href=".html">Manage</a>
@@ -32,20 +36,21 @@
         </div>
 		<div class="login">
             <h1>Log In</h1>
-            <form id="LogIn" method="get">
-            <form>
+            <form id="LogIn" class = "input" action="signin.php" method="post">
+                <input type="hidden" name="submitted" value="1">
+                <form>
                 <table>
                     <tr><td></td><td><label id="email_msg" class="err_msg"></label></td></tr>
                     <tr><td>Email: </td><td> <input type="text" name="email" size="30" /></td></tr>
                     <tr><td></td><td><label id="pswd_msg" class="err_msg"></label></td></tr>
-                    <tr><td>Password: </td><td> <input type="password" name="pswd" size="30" /></td></tr>  
+                    <tr><td>Password: </td><td> <input type="password" name="password" size="30" /></td></tr>  
                 </table>
                 <br>
-                <button  type="Login" class= "btn">Log in</button>
+                <span class = "err"><?=$_SESSION["error"]?></span><input type="submit" class = "logIn btn" value="Log In">
                 <input type="reset" name="Reset" value="Reset" /><br>
                 <p> Create an Account <a href="signUp.html">Sign Up</a></p>
             </form>
         </div>
-		 <script type="text/javascript" src="../js/JavaScript.js"></script>
+		<script type="text/javascript" src="../js/JavaScript.js"></script>
     </body>
 </html>
