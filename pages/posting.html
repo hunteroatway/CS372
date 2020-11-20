@@ -24,8 +24,14 @@
         </div>     
       <div class="type-selection">
         <form id="create-posting">
-          <button id="automatic-button" type="button">Automatic</button>
-          <button id="manual-button" type="button">Manual</button>
+          <div class="switch-container">
+            <label>Manual</label>
+            <label class="switch">
+              <input id="toggle-switch" type="checkbox" checked>
+              <span class="slider round"></span>
+            </label>
+            <label>Automatic</label>
+          </div>
           <button id="submit-posting" type="button">Submit</button>
         </form>
         <form id="manual-fields" style="visibility:hidden">

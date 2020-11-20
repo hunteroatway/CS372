@@ -1,12 +1,14 @@
 function selectPostingType(event) {
-  var e = event.currentTarget.id;
+  var e = event.currentTarget;
   var af = document.getElementById("automatic-fields");
   var mf = document.getElementById("manual-fields");
 
-  if (e === "automatic-button") {
+  if (!e.hasAttribute("checked")) {
+    e.setAttribute("checked", true);
     toggleVisible(af, true);
     toggleVisible(mf, false);
-  } else if (e === "manual-button") {
+  } else if (e.hasAttribute("checked")) {
+    e.removeAttribute("checked");
     toggleVisible(mf, true);
     toggleVisible(af, false); 
   }
@@ -20,6 +22,9 @@ function toggleVisible(e, v) {
 function searchBookByISBN() {
   var search = document.getElementById("isbn").value;
 
+  // TODO: Add more input validation
+  // * Empty fields
+  // * Incorrect isbn-10 / isbn-13 formatting
   if (search == '') {
     alert("Please enter a value in the search field");
   } else {      
