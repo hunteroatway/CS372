@@ -20,8 +20,8 @@
 
     <body>
         <div class="topnav" id="pac-card">
-            <a class="active" href="index.html">Home <i class="fa fa-fw fa-home"> </i></a>
-            <a href="signUp.html">SignUp <i class="fa fa-user"> </i></a>
+            <a class="active" href="index.php">Home <i class="fa fa-fw fa-home"> </i></a>
+            <a href="signUp.php">SignUp <i class="fa fa-user"> </i></a>
             <a href=".html">Manage</a>
             <a href=".html">Book <i class="fa fa-book"> </i></a>
 			  <div class="search-container">

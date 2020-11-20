@@ -55,12 +55,12 @@ function SignUpForm(event) {
 
     var elements = event.currentTarget;
 
-    var q = elements[0].value;
-    var t = elements[1].value;
-    var w = elements[2].value;
-    var x = elements[3].value;
-    var e = elements[4].value;
-    var r = elements[5].value;
+    var q = elements[1].value;
+    var t = elements[2].value;
+    var w = elements[3].value;
+    var x = elements[4].value;
+    var e = elements[5].value;
+    var r = elements[6].value;
 
     var result = true;
 
