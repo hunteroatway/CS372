@@ -1,3 +1,4 @@
+// Changes input fields based on toggle switch input for automatic or manual data entry
 function selectPostingType(event) {
   var e = event.currentTarget;
   var af = document.getElementById("automatic-fields");
@@ -14,20 +15,27 @@ function selectPostingType(event) {
   }
 }
 
+// Utility function that toggles a DOM elements visibility
 function toggleVisible(e, v) {
   if (v) e.style.visibility = "visible";
   else if (!v) e.style.visibility = "hidden";
 }
 
+// Google API function to search by ISBN
 function searchBookByISBN() {
   var search = document.getElementById("isbn").value;
 
-  // TODO: Add more input validation
-  // * Empty fields
-  // * Incorrect isbn-10 / isbn-13 formatting
-  if (search == '') {
-    alert("Please enter a value in the search field");
-  } else {      
+  // isbn-10 or isbn-13 regex
+  var isbn_format = /^(97(8|9))?\d{9}(\d|X)$/;
+
+  // Input field validation, must be non-empty, and be in either isbn-10 or isbn-13 format
+  if (search == null || search == "") {
+    document.getElementById("search_msg").innerHTML = "Search field cannot be empty!";
+  } else if (!isbn_format.test(search)) {
+    document.getElementById("search_msg").innerHTML = "Search field must be in ISBN-10 or ISBN-13 format!";
+  } else {   
+    document.getElementById("search_msg").innerHTML = "";
+    
     var req_url = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + search;
     var req = new XMLHttpRequest();
 

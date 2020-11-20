@@ -3,7 +3,10 @@
   <head>
 	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel = "stylesheet" type = "text/css" href = "../css/myStyle.css" />
-        <title>Pick-a-Book</title> 
+    <style>
+      .err_msg { color:red; }
+    </style>
+    <title>Pick-a-Book</title> 
     </head>
     <header>
 	    <img src="../images/logo.png" style = "display:inline" width = "250" height = "200" />
@@ -45,6 +48,7 @@
         </form>
         </div>
         <form id="automatic-fields" style="visibility:visible">
+          <label id="search_msg" class="err_msg"></label>
           <input id="isbn" type="text" placeholder="ISBN" name="isbn" /> 
           <button id="auto-fill" type="button">Auto-Fill</button> 
         </form>
