@@ -26,6 +26,7 @@
         <form id="create-posting">
           <button id="automatic-button" type="button">Automatic</button>
           <button id="manual-button" type="button">Manual</button>
+          <button id="submit-posting" type="button">Submit</button>
         </form>
         <form id="manual-fields" style="visibility:hidden">
           <input id="title" type="text" placeholder="Title.." name="title" /> 
@@ -35,12 +36,17 @@
           <input id="publisher" type="text" placeholder="Publisher.." name="publisher" /> 
           <input id="isbn-10" type="text" placeholder="ISBN-10.." name="isbn-10" /> 
           <input id="isbn-13" type="text" placeholder="ISBN-13.." name="isbn-13" /> 
-          <img id="cover"></img> 
         </form>
         </div>
-        <form id="automatic-fields" style="visibility:hidden">
+        <form id="automatic-fields" style="visibility:visible">
           <input id="isbn" type="text" placeholder="ISBN" name="isbn" /> 
+          <button id="auto-fill" type="button">Auto-Fill</button> 
         </form>
+      </div>
+      <div class="book-info">
+        <p id="auto-author"></p>
+        <p id="auto-title"></p>
+        <img id="auto-cover"></img>
       </div>
     <script type="text/javascript" src="../js/JavaScript.js"></script>
     <script type="text/javascript" src="../js/search.js"></script>
