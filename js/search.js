@@ -35,7 +35,7 @@ function searchBookByISBN() {
     document.getElementById("search_msg").innerHTML = "Search field must be in ISBN-10 or ISBN-13 format!";
   } else {   
     document.getElementById("search_msg").innerHTML = "";
-    
+
     var req_url = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + search;
     var req = new XMLHttpRequest();
 
@@ -45,12 +45,18 @@ function searchBookByISBN() {
         console.log("Book Content from Google Books API");
         console.log(obj);          
 
-        var authors = obj.items[0].volumeInfo.authors[0];
         var title = obj.items[0].volumeInfo.title;
+        var subtitle = obj.items[0].volumeInfo.subtitle;
+        var authors = obj.items[0].volumeInfo.authors[0];
+        var description = obj.items[0].volumeInfo.description;
+        var publisher = obj.items[0].volumeInfo.publisher;
         var cover = obj.items[0].volumeInfo.imageLinks.smallThumbnail;
         
-        document.getElementById("auto-author").innerHTML = authors;
-        document.getElementById("auto-title").innerHTML = title;
+        document.getElementById("auto-title").innerHTML += title;
+        document.getElementById("auto-subtitle").innerHTML += subtitle;
+        document.getElementById("auto-author").innerHTML += authors;
+        document.getElementById("auto-description").innerHTML += description;
+        document.getElementById("auto-publisher").innerHTML += publisher;
         document.getElementById("auto-cover").src = cover;
       }    
     };
