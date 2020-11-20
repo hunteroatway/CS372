@@ -27,7 +27,7 @@
           <button id="automatic-button" type="button">Automatic</button>
           <button id="manual-button" type="button">Manual</button>
         </form>
-        <form id="manual-fields">
+        <form id="manual-fields" style="visibility:hidden">
           <input id="title" type="text" placeholder="Title.." name="title" /> 
           <input id="subtitle" type="text" placeholder="Subtitle.." name="subtitle" /> 
           <input id="author" type="text" placeholder="Author.." name="author" /> 
@@ -37,10 +37,13 @@
           <input id="isbn-13" type="text" placeholder="ISBN-13.." name="isbn-13" /> 
           <img id="cover"></img> 
         </form>
-        <form id="automatic-fields">
+        </div>
+        <form id="automatic-fields" style="visibility:hidden">
           <input id="isbn" type="text" placeholder="ISBN" name="isbn" /> 
         </form>
       </div>
     <script type="text/javascript" src="../js/JavaScript.js"></script>
+    <script type="text/javascript" src="../js/search.js"></script>
+    <script type="text/javascript" src="../js/search-r.js"></script>
     </body>
 </html>

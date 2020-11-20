@@ -4,7 +4,6 @@ body {
     background-size: auto;
     font-family:Verdana,sans-serif;
     font-size:100%;
-
 }
 
 a {
@@ -92,6 +91,20 @@ table, p,label, li, a{
   }
 }
 
+#create-posting {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#manual-fields {
+  text-align: center;
+  display: inline-block;
+}
+
 .type-selection button {
   background-color: #008cba;
   border: none;
@@ -116,7 +129,6 @@ table, p,label, li, a{
   margin-right: auto;
   padding-left: 2%;
   padding-right: 2%;
-
 }
 
 .messageListing{

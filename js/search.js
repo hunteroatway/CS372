@@ -1,9 +1,28 @@
-//Function to search ISBN
-window.onload = function() {
+function selectPostingType(event) {
+  var e = event.currentTarget.id;
+  var af = document.getElementById("automatic-fields");
+  var mf = document.getElementById("manual-fields");
+
+  if (e === "automatic-button") {
+    toggleVisible(af, true);
+    toggleVisible(mf, false);
+  } else if (e === "manual-button") {
+    toggleVisible(mf, true);
+    toggleVisible(af, false); 
+  }
+}
+
+function toggleVisible(e, v) {
+  if (v) e.style.visibility = "visible";
+  else if (!v) e.style.visibility = "hidden";
+}
+
+/*window.onload = function() {
   document.getElementById("search-form").onsubmit = function() {
     var search = document.getElementById("search-field").value;
 
     if (search == '') {
+      alert("Please enter a value in the search field");
     } else {      
       var req_url = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + search;
       var req = new XMLHttpRequest();
@@ -31,4 +50,4 @@ window.onload = function() {
     
     return false;
   }
-}
+}*/
