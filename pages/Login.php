@@ -48,7 +48,7 @@
                 <br>
                 <span class = "err"><?=$_SESSION["error"]?></span><input type="submit" class = "logIn btn" value="Log In">
                 <input type="reset" name="Reset" value="Reset" /><br>
-                <p> Create an Account <a href="signUp.html">Sign Up</a></p>
+                <p> Create an Account <a href="signUp.php">Sign Up</a></p>
             </form>
         </div>
 		<script type="text/javascript" src="../js/JavaScript.js"></script>
