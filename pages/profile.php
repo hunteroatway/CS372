@@ -36,7 +36,7 @@
 
         <div class="topnav" id="pac-card">
             <a class="active" href="index.php">Home <i class="fa fa-fw fa-home"> </i></a>
-            <a href="listing.php">Post Ad <i class="fa fa-book"></i></a>
+            <a href="posting.php">Post Ad <i class="fa fa-book"></i></a>
             <a href="profile.php">Profile <i class="fa fa-user"></i></a>
             <a href="logout.php">LogOut <i class="fa fa-sign-out"></i></a></a>
 			  <div class="search-container">
