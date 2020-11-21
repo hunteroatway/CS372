@@ -61,7 +61,7 @@
             $_SESSION["uid"] = $row["uid"];
             $_SESSION["avatar"] = $row["avatar"];
             // redirect back to home page
-            header("Location: index.php");
+            header("Location: profile.php");
             $db->close();
             exit();
         }

@@ -1,9 +1,7 @@
 <?php
 
 session_start();
-if(($_SESSION['email'] == true && $_SESSION['password'] == true)){
-	true;
-}else{
+if(!isset($_SESSION["username"])){
 	echo ("<script LANGUAGE='JavaScript'>
     window.alert('You need to LogIn in order to access on this page.');
     window.location.href='index.php';
