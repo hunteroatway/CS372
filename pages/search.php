@@ -1,8 +1,3 @@
-<?php 
-  // start the php session
-  session_start();
-?>
-
 <?php
 
     // connect to DB and check connection
@@ -12,14 +7,24 @@
         die ("Connection failed: " . $db->connect_error);
     }
 
-    $q1 = "SELECT L.lid, L.isbn_10, L.isbn_13, L.price, L.list_date, L.active, A.first_name, A.last_name, B.title, U.city, U.province, U.country
+    $q1 = "SELECT L.lid, L.isbn_10, L.isbn_13, L.price, L.list_date, A.first_name, A.last_name, B.title, U.city, U.province, U.country
     FROM Listings L INNER JOIN Books B 
     ON L.isbn_13 = B.isbn_13 INNER JOIN Authors A
     ON B.isbn_13 = A.isbn_13 INNER JOIN Users U
     ON L.uid = U.uid
+    WHERE L.active = true
     ORDER BY L.list_date, L.lid, A.last_name";
 
     $r1 = $db->query($q1);
+
+    $q2 = "SELECT COUNT(L.lid) as total
+    FROM Listings L
+    WHERE L.active = true";
+
+    $r2 = $db->query($q2);
+    $resultsRow = $r2->fetch_assoc();
+    $totalResults = $resultsRow["total"];
+
 
 ?>
 
@@ -43,17 +48,11 @@
     </header>
 
     <body>
-    <body>
-        <?php 
-            // if logged in
-            if(isset($_SESSION["username"])) {
-        ?>
-
         <div class="topnav" id="pac-card">
             <a class="active" href="index.php">Home <i class="fa fa-fw fa-home"> </i></a>
-            <a href="posting.php">Post Ad <i class="fa fa-book"></i></a>
-            <a href="profile.php">Profile <i class="fa fa-user"></i></a>
-            <a href="logout.php">LogOut <i class="fa fa-sign-out"></i></a></a>
+            <a href="signUp.html">SignUp <i class="fa fa-user"> </i></a>
+            <a href=".html">Manage</a>
+            <a href=".html">Book <i class="fa fa-book"> </i></a>
 			  <div class="search-container">
 				<form action="/action_page.php">
                 <input id="pac-input" type="text" placeholder="City..">
@@ -63,32 +62,10 @@
             </div>
             <div id="map"></div>
         </div>
-
-        
-        <?php
-            //if not logged in have links to sign up
-            } else {
-
-        ?>
-        <div class="topnav" id="pac-card">
-            <a class="active" href="index.php">Home <i class="fa fa-fw fa-home"> </i></a>
-            <a href="signUp.php">SignUp <i class="fa fa-user-plus"> </i></a>
-            <a href="Login.php">LogIn <i class="fa fa-sign-in"></i></a>
-			  <div class="search-container">
-				<form action="/action_page.php">
-                <input id="pac-input" type="text" placeholder="City..">
-				<input type="text" placeholder="Search.." name="search">
-				<button type="submit"><i class="fa fa-search"></i></button>
-				</form>
-            </div>
-            <div id="map"></div>
-        </div>
-
-        <?php }?>
 
         
 		<hr/>
-        <div class="search-term"><p>Showing 1-40 of 50 results for <i>Search</i></p></div>
+        <div class="search-term"><p>Showing <?=$totalResults?> results for <i>Search</i></p></div>
 
         <div class="result">
 
