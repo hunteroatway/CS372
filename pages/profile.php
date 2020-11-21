@@ -1,12 +1,12 @@
 <?php
 
-session_start();
-if(!isset($_SESSION["username"])){
-	echo ("<script LANGUAGE='JavaScript'>
-    window.alert('You need to LogIn in order to access on this page.');
-    window.location.href='index.php';
-    </script>");
-}
+    session_start();
+    if(!isset($_SESSION["username"])){
+        echo ("<script LANGUAGE='JavaScript'>
+        window.alert('You need to LogIn in order to access on this page.');
+        window.location.href='index.php';
+        </script>");
+    }
 ?>
 
 <!DOCTYPE html>
@@ -28,19 +28,47 @@ if(!isset($_SESSION["username"])){
     </header>
 
     <body>
-         <div class="topnav">
-            <a class="active" href="index.html">Home <i class="fa fa-fw fa-home"> </i></a>
-            <a href="signUp.html">SignUp <i class="fa fa-user"> </i></a>
-            <a href=".html">Manage</a>
-            <a href=".html">Book <i class="fa fa-book"> </i></a>
+    <body>
+        <?php 
+            // if logged in
+            if(isset($_SESSION["username"])) {
+        ?>
+
+        <div class="topnav" id="pac-card">
+            <a class="active" href="index.php">Home <i class="fa fa-fw fa-home"> </i></a>
+            <a href="profile.php">Profile <i class="fa fa-user"></i></a>
+            <a href="logout.php">LogOut <i class="fa fa-sign-out"></i></a></a>
 			  <div class="search-container">
 				<form action="/action_page.php">
-                <input type="text" placeholder="City.." name="city">
+                <input id="pac-input" type="text" placeholder="City..">
 				<input type="text" placeholder="Search.." name="search">
 				<button type="submit"><i class="fa fa-search"></i></button>
 				</form>
-			</div>
+            </div>
+            <div id="map"></div>
         </div>
+
+        
+        <?php
+            //if not logged in have links to sign up
+            } else {
+
+        ?>
+        <div class="topnav" id="pac-card">
+            <a class="active" href="index.php">Home <i class="fa fa-fw fa-home"> </i></a>
+            <a href="signUp.php">SignUp <i class="fa fa-user-plus"> </i></a>
+            <a href="Login.php">LogIn <i class="fa fa-sign-in"></i></a>
+			  <div class="search-container">
+				<form action="/action_page.php">
+                <input id="pac-input" type="text" placeholder="City..">
+				<input type="text" placeholder="Search.." name="search">
+				<button type="submit"><i class="fa fa-search"></i></button>
+				</form>
+            </div>
+            <div id="map"></div>
+        </div>
+
+        <?php }?>
 <br>
         <img class="pic" src="../images/avatar.gif" alt="profile" style = "display:inline" width = "100" height = "100" />
         <p>UserID: hello@34</p>
