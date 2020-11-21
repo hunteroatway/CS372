@@ -86,6 +86,11 @@
 
             // see how many rows in the query for listing there is
             $rowsL = $r1->num_rows;
+
+            // if less than 1. Go to error section
+            if($rowsL < 1)
+                goto error;
+
             // go through all the listings and combine the authors into one string
             $authors = "";
             for($i = 0; $i < $rowsL; $i++){
@@ -97,6 +102,7 @@
             <div class = "listing">
 
                 <div class = "bookInfo">
+                    <input type="hidden" id="slideValid" value = 1>
                     <div class ="slideShow">
 
                         <?php
@@ -132,13 +138,26 @@
                     <div class = "bookInfoText">
 
                         <h2 id = "bookTitle">
-                            <?=$rowL["title"]?>
+                            <?php
+                                // check to see if listing is active
+                                if ($rowL["active"])
+                                    echo $rowL["title"];
+                                else 
+                                    echo "<strike>" . $rowL["title"] . "</strike>";
+                            ?>
                         </h2>        
                         <h3 id = "bookSubitle">
                             <?=$rowL["subtitle"]?>
                         </h3>      
                         <h4 id = "price">
-                            Price: $<?=$rowL["price"]?>
+                            Price: 
+                            <?php
+                                // check to see if listing is active
+                                if ($rowL["active"])
+                                    echo "$" . $rowL["price"];
+                                else 
+                                    echo "<b>SOLD</b>";
+                            ?>
                         </h4>
 
                         <p id = "authors">
@@ -210,7 +229,15 @@
                     </div>
                         <?php }?>
 
-                <?php }  else {?>
+                <?php 
+                
+                    }  else {
+                    error:
+                    
+                ?>
+
+                    <h1 class = "errorList"> 404 Listing Not Found. </h1>
+                    <input type="hidden" id="slideValid" value = 0>
 
                 <?php } ?>
 

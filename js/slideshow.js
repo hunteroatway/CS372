@@ -1,6 +1,13 @@
-// set the default slide shown to 1
-var index = 0;
-showSlide(index);
+//check to make sure there will be a slideshow to show
+var valid = document.getElementById("slideValid").value;
+valid = parseInt(valid);
+
+// if its valid start the function to show slides
+if(valid === 1){
+    // set the default slide shown to 1
+    var index = 0;
+    showSlide(index);
+}
 
 // set up left/right buttons
 function change(n) {
