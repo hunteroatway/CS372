@@ -19,13 +19,12 @@ CREATE TABLE Users (
 CREATE TABLE Books(
 
     isbn_10 INT NOT NULL,
-    isbn_13 INT NOT NULL,    
+    isbn_13 BIGINT NOT NULL,    
     title VARCHAR(256) NOT NULL,
     subtitle VARCHAR(256) NOT NULL,
     publisher VARCHAR(64) NOT NULL,
     description VARCHAR(1024) NOT NULL,
     edition VARCHAR(16),
-    price DECIMAL(6,2),
     PRIMARY KEY(isbn_13)
 
 ) engine = "innoDB";
@@ -41,7 +40,7 @@ CREATE TABLE Images(
 
 CREATE TABLE Authors(
     aid INT NOT NULL AUTO_INCREMENT,
-    isbn_13 INT NOT NULL,
+    isbn_13 BIGINT NOT NULL,
     first_name VARCHAR (32) NOT NULL,
     last_name VARCHAR (32) NOT NULL,
     PRIMARY KEY(aid),
@@ -53,10 +52,9 @@ CREATE TABLE Listings(
 
 	lid INT NOT NULL AUTO_INCREMENT,
     isbn_10 INT NOT NULL,
-    isbn_13 INT NOT NULL,
+    isbn_13 BIGINT NOT NULL,
     uid INT NOT NULL,   
     book_condition VARCHAR(20) NOT NULL,
-    image VARCHAR(256) NOT NULL,
     price DECIMAL(6,2),
 	list_date DATE NOT NULL,
     active BOOLEAN NOT NULL,
