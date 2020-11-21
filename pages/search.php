@@ -15,7 +15,6 @@
     ORDER BY L.list_date, L.lid, A.last_name";
 
     $r1 = $db->query($q1);
-    $db->close();
 
 ?>
 
@@ -73,6 +72,15 @@
                             $multipleAuthors = true;
                         }
                     } else {
+                        $lid = $currentRow["lid"];
+                        $q2 = "SELECT image FROM Images WHERE lid = '$lid'";
+
+                        $r2 = $db->query($q2);
+
+                        $row = $r2->fetch_assoc();
+
+                        $image = $row["image"]; 
+
                         $title = $currentRow["title"];                        
                         $isbn13 = $currentRow["isbn_13"];
                         $price = $currentRow["price"];
@@ -89,7 +97,7 @@
 
 
             <div class="post">
-                <img class="bookImage" src="../images/book_placeholder.jpg" width="200" height="200" alt="Book Image"/>
+                <img class="bookImage" src="<?=$image?>" width="200" height="200" alt="Book Image"/>
                 <p><?=$title?></p>
                 <p><?=$author?></p>
                 <p><?=$isbn13?></p>
@@ -100,6 +108,7 @@
             <?php
                     }
                 }
+                $db->close();
             ?>
             
         </div>
