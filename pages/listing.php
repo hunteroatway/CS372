@@ -3,6 +3,13 @@
     // start the php session
     session_start();
 
+    // connect to database
+    $db = new mysqli("localhost", "ottenbju", "Passw0rd", "ottenbju");
+    if ($db->connect_error)
+    {
+        die ("Connection to database failed: " . $db->connect_error);
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -66,115 +73,146 @@
 
         <?php }?>
 
-        <div class = "listing">
+        <?php  // get information for the listing
+		
+        $lid = $_GET["lid"];
+        if(isset($lid)){ 
+            // query to get the information needed
+            $q1 = "SELECT L.isbn_13, L.isbn_10, L.uid, L.book_condition, L.price, L.list_date, L.active, A.first_name as auth_first, A.last_name as auth_last, B.title, B.subtitle, B.publisher, B.description, B.edition, U.first_name as user_first, U.last_name as user_last, U.avatar, U.city, U.province, U.country FROM Listings L INNER JOIN Books B on B.isbn_13 = L.isbn_13 INNER JOIN Authors A ON A.isbn_13 = L.isbn_13 INNER JOIN Users U on L.uid = U.uid WHERE L.lid = $lid";
+            $q2 = "SELECT I.image from Images I WHERE I.lid = '$lid'";
 
-            <div class = "bookInfo">
-                <div class ="slideShow">
+            $r1 = $db->query($q1);
+            $r2 = $db->query($q2);
 
-                    <div class="image">
-                        <div class = "number">1/3</div>
-                        <img src="../images/logo.png" style = "display:inline" width = "600 " height = "600" />
+            // see how many rows in the query for listing there is
+            $rowsL = $r1->num_rows;
+            // go through all the listings and combine the authors into one string
+            $authors = "";
+            for($i = 0; $i < $rowsL; $i++){
+                $rowL = $r1->fetch_assoc();
+                $authors .= $rowL["auth_first"] . " " . $rowL["auth_last"] . ", "; 
+            }
+
+        ?>
+            <div class = "listing">
+
+                <div class = "bookInfo">
+                    <div class ="slideShow">
+
+                        <?php
+
+                            // loop through images query and put the images into slideshow
+                            $rows = $r2->num_rows;
+                            $i;
+                            for($i = 0; $i < $rows; $i++){
+                                $rowA = $r2->fetch_assoc();
+                                ?>
+                                    <div class="image">
+                                        <div class = "number"><?=$i+1?>/<?=$rows?></div>
+                                        <img src="<?=$rowA["image"]?>" style = "display:inline" width = "600 " height = "600" />
+                                    </div>
+                                <?php
+                            }
+
+                        ?>
+    
+                        <!-- Next and previous buttons -->
+                        <a class="prev" onclick="change(-1)">&#10094;</a>
+                        <a class="next" onclick="change(1)">&#10095;</a>
                     </div>
-                    <div class="image">
-                        <div class = "number">2/3</div>
-                        <img src="../images/book_placeholder.jpg" style = "display:inline" width = "600 " height = "600" />
+
+                    <div class = "dots">
+                        <?php
+                            for($i = 0; $i < $rows; $i++){
+                        ?>
+                            <div class = "dot" onclick="slide(<?=$i+1?>)"></div>
+                        <?php }?>
                     </div>
-                    <div class="image">
-                        <div class = "number">3/3</div>
-                        <img src="../images/test.gif" style = "display:inline" width = "600 " height = "600" />
-                    </div>
- 
-                    <!-- Next and previous buttons -->
-                    <a class="prev" onclick="change(-1)">&#10094;</a>
-                    <a class="next" onclick="change(1)">&#10095;</a>
-                </div>
 
-                <div class = "dots">
-                    <div class = "dot" onclick="slide(1)"></div>
-                    <div class = "dot" onclick="slide(2)"></div>
-                    <div class = "dot" onclick="slide(3)"></div>
-                </div>
+                    <div class = "bookInfoText">
 
-                <div class = "bookInfoText">
+                        <h2 id = "bookTitle">
+                            <?=$rowL["title"]?>
+                        </h2>        
+                        <h3 id = "bookSubitle">
+                            <?=$rowL["subtitle"]?>
+                        </h3>      
+                        <h4 id = "price">
+                            Price: $<?=$rowL["price"]?>
+                        </h4>
 
-                    <h2 id = "bookTitle">
-                        Book Title (PHP)
-                    </h2>        
-                    <h3 id = "bookSubitle">
-                        Book Subtitle (Learn in 7 seconds)
-                    </h3>      
-                    <h4 id = "price">
-                        Price: $73.73
-                    </h4>
+                        <p id = "authors">
+                            Author: <?=substr($authors, 0, -2)?>
+                        </p>
 
-                    <p id = "authors">
-                        Author: John Cena
-                    </p>
+                        <p id = "edition">
+                            Edition: <?=$rowL["edition"]?>
+                        </p>
 
-                    <p id = "edition">
-                        Edition: 120th
-                    </p>
+                        <p id = "publisher">
+                            Publisher: <?=$rowL["publisher"]?>
+                        </p>
 
-                    <p id = "publisher">
-                        Publisher: Someone
-                    </p>
+                        <p id = "isbn">
+                            isbn-10: <?=$rowL["isbn_10"]?> 
+                            </br>
+                            isbn-13: <?=$rowL["isbn_13"]?>
+                        </p>
 
-                    <p id = "isbn">
-                        isbn-10: 0130463469 
-                        </br>
-                        isbn-13: 9780130463463
-                    </p>
+                        <div class="boxed">
+                            <p id = "description">
+                                <?=$rowL["description"]?>
+                            </p>
+                        </div>
 
-                    <div class="boxed">
-                        <p id = "description">
-                            Demonstrates the construction and deployment of robust Web applications, covering syntax, scripts, functions, sorting, searching, parsing, program design, and debugging.
+                        <p id = "condtion">
+                            Condtion: <?=$rowL["book_condition"]?>
                         </p>
                     </div>
+                </div>  
 
-                    <p id = "condtion">
-                        Condtion: amazing
-                    </p>
-                </div>
-            </div>  
-
-            <div class = "posterInfo">
-                <h2>
-                    <u>Poster Information:</u>
-                </h2>
-                <div class="avatar">
-                    <img src="../images/avatar.gif" style = "display:inline" width = "100 " height = "100" />
-                </div>
-
-                <p id = "poster">
-                    <b>Listing posted by: Franics Z.</b>
-                </p>        
-                <p id = "listing">
-                    Located in: Atlantas, SE, UnderWater
-                </p> 
-                <p id = "postingDate">
-                    Posted on: December 17, 3059
-                </p>
-
-                <?php 
-                    // if logged in
-                    if(isset($_SESSION["username"])) {
-		        ?>
-
-                <a href="index.php" style="text-decoration:none;">
-                    <div class = "messageListing sendMessage">
-                        <span class = "messageListingText">Click here to message this seller.</span>
+                <div class = "posterInfo">
+                    <h2>
+                        <u>Poster Information:</u>
+                    </h2>
+                    <div class="avatar">
+                        <img src="<?=$rowL["avatar"]?>" style = "display:inline" width = "100 " height = "100" />
                     </div>
-                </a>
 
-                <?php
-                    //if not logged in
-                    } else {
+                    <p id = "poster">
+                        <b>Listing posted by: <?=$rowL["user_first"]?> <?=$rowL["user_last"][0]?>.</b>
+                    </p>        
+                    <p id = "listing">
+                        Located in: <?=$rowL["city"]?>, <?=$rowL["province"]?>, <?=$rowL["country"]?>
+                    </p> 
+                    <p id = "postingDate">
+                        Posted on: <?=date("M jS, Y", strtotime($rowL["list_date"]))?>
+                    </p>
 
-                ?>
-                <div class = "messageListing">
-                    <span class = "messageListingText">Please <a href="Login.php">log in</a> to message the poster about this item.</span>
-                </div>
-                    <?php }?>
+                    <?php 
+                        // if logged in
+                        if(isset($_SESSION["username"])) {
+                    ?>
+
+                    <a href="index.php" style="text-decoration:none;">
+                        <div class = "messageListing sendMessage">
+                            <span class = "messageListingText">Click here to message this seller.</span>
+                        </div>
+                    </a>
+
+                    <?php
+                        //if not logged in
+                        } else {
+
+                    ?>
+                    <div class = "messageListing">
+                        <span class = "messageListingText">Please <a href="Login.php">log in</a> to message the poster about this item.</span>
+                    </div>
+                        <?php }?>
+
+                <?php }  else {?>
+
+                <?php } ?>
 
             </div>
         </div> 
@@ -184,3 +222,6 @@
     <script type="text/javascript" src="../js/JavaScript.js"></script>
     <script type="text/javascript" src="../js/slideshow.js"></script>
 </html>
+<?php 
+	$db->close();
+?>
