@@ -39,9 +39,6 @@
 				else {
 					echo "Your Login Name or Password is invalid";
 					echo "This page will be redirected to logIn page.";
-			?>
-				<META HTTP-EQUIV="Refresh" CONTENT="3; URL=index.php">
-			    <?php
 				}
 			}
 			?>
