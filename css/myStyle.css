@@ -110,10 +110,32 @@ table, p,label, li, a{
   padding-right: 2%;
 }
 
+.bookInfoText{
+  background-color: lightgrey;
+  padding: 10px;
+}
+
 .messageListing{
+
   padding: 3%;
   border: 7px outset;
-  background-color: lightgrey;
+  background-color: silver;
+  text-align: center;
+  width: 250px;
+  height: 75px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.sendMessage:hover{
+  
+  background-color: rgb(211, 211, 211);
+}
+
+.messageListingText{
+  font-size: 14pt;
 }
 
 .listing{

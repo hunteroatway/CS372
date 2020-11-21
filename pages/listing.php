@@ -1,3 +1,10 @@
+<?php
+
+    // start the php session
+    session_start();
+
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,8 +25,8 @@
 
     <body>
         <div class="topnav">
-            <a class="active" href="index.html">Home <i class="fa fa-fw fa-home"> </i></a>
-            <a href="signUp.html">SignUp <i class="fa fa-user"> </i></a>
+            <a class="active" href="index.php">Home <i class="fa fa-fw fa-home"> </i></a>
+            <a href="signUp.php">SignUp <i class="fa fa-user"> </i></a>
             <a href=".html">Manage</a>
             <a href=".html">Book <i class="fa fa-book"> </i></a>
 			  <div class="search-container">
@@ -60,44 +67,46 @@
                     <div class = "dot" onclick="slide(3)"></div>
                 </div>
 
-                <h2 id = "bookTitle">
-                    Book Title (PHP)
-                </h2>        
-                <h3 id = "bookSubitle">
-                    Book Subtitle (Learn in 7 seconds)
-                </h3>      
-                <h4 id = "price">
-                    Price: $73.73
-                </h4>
+                <div class = "bookInfoText">
 
-                <p id = "authors">
-                    Author: John Cena
-                </p>
+                    <h2 id = "bookTitle">
+                        Book Title (PHP)
+                    </h2>        
+                    <h3 id = "bookSubitle">
+                        Book Subtitle (Learn in 7 seconds)
+                    </h3>      
+                    <h4 id = "price">
+                        Price: $73.73
+                    </h4>
 
-                <p id = "edition">
-                    Edition: 120th
-                </p>
+                    <p id = "authors">
+                        Author: John Cena
+                    </p>
 
-                <p id = "publisher">
-                    Publisher: Someone
-                </p>
+                    <p id = "edition">
+                        Edition: 120th
+                    </p>
 
-                <p id = "isbn">
-                    isbn-10: 0130463469 
-                    </br>
-                    isbn-13: 9780130463463
-                </p>
+                    <p id = "publisher">
+                        Publisher: Someone
+                    </p>
 
-                <div class="boxed">
-                    <p id = "description">
-                        Demonstrates the construction and deployment of robust Web applications, covering syntax, scripts, functions, sorting, searching, parsing, program design, and debugging.
+                    <p id = "isbn">
+                        isbn-10: 0130463469 
+                        </br>
+                        isbn-13: 9780130463463
+                    </p>
+
+                    <div class="boxed">
+                        <p id = "description">
+                            Demonstrates the construction and deployment of robust Web applications, covering syntax, scripts, functions, sorting, searching, parsing, program design, and debugging.
+                        </p>
+                    </div>
+
+                    <p id = "condtion">
+                        Condtion: amazing
                     </p>
                 </div>
-
-                <p id = "condtion">
-                    Condtion: amazing
-                </p>
-
             </div>  
 
             <div class = "posterInfo">
@@ -118,9 +127,26 @@
                     Posted on: December 17, 3059
                 </p>
 
+                <?php 
+                    // if logged in
+                    if(isset($_SESSION["username"])) {
+		        ?>
+
+                <a href="index.php" style="text-decoration:none;">
+                    <div class = "messageListing sendMessage">
+                        <span class = "messageListingText">Click here to message this seller.</span>
+                    </div>
+                </a>
+
+                <?php
+                    //if not logged in
+                    } else {
+
+                ?>
                 <div class = "messageListing">
-                    Please <a href>log in</a> to message the poster about this item.
+                    <span class = "messageListingText">Please <a href="Login.php">log in</a> to message the poster about this item.</span>
                 </div>
+                    <?php }?>
 
             </div>
         </div> 
