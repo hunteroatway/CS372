@@ -61,7 +61,6 @@
             <div class="login">
                 <h1>Log In</h1>
                 <form id="LogIn" action="login.php" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="submitted" value="1">
                         <table>
                             <tr><td></td><td><label id="email_msg" class="err_msg"></label></td></tr>
                             <tr><td>Email: </td><td> <input type="text" name="email" size="30" /></td></tr>
@@ -69,7 +68,7 @@
                             <tr><td>Password: </td><td> <input type="password" name="password" size="30" /></td></tr>  
                         </table>
                         <br>
-                        <span class = "err"><?=$_SESSION["error"]?></span><input type="submit" class = "logIn btn" value="Log In">
+                        <button type="Login" class= "btn">Log in</button>
                         <input type="reset" name="Reset" value="Reset" /><br>
                         <p> Create an Account <a href="signUp.php">Sign Up</a></p>
                 </form>
