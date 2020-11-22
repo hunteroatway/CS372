@@ -500,7 +500,7 @@ input:checked + .slider:before {
 
 }
 
-.test {
+.splitPage {
 
   display:grid;
   grid-template-columns: 170px calc(100% - 170px);
