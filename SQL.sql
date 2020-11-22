@@ -69,6 +69,7 @@ CREATE TABLE Chats(
     uid_buyer INT NOT NULL,
 	chat_open DATETIME NOT NULL,
     active BOOLEAN NOT NULL,
+	last_message DATETIME NOT NULL,
     PRIMARY KEY(cid),
     FOREIGN KEY(lid) REFERENCES Listings(lid),
     FOREIGN KEY(uid_buyer) REFERENCES Users(uid)

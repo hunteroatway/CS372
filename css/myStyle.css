@@ -488,3 +488,10 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+.errorList {
+
+  color: red;
+  text-align: center;
+
+}
