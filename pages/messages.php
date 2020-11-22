@@ -1,3 +1,31 @@
+<?php
+
+    // connect to DB and check connection
+    $db = new mysqli("localhost", "ottenbju", "Passw0rd", "ottenbju");
+    if ($db->connect_error)
+    {
+        die ("Connection failed: " . $db->connect_error);
+    }
+
+    $uid = 10;
+
+    $q1 = "SELECT B.title, C.uid_buyer, L.uid, 
+            CASE
+                WHEN C.uid_buyer = '$uid' THEN US.first_name + ' ' US.last_name
+                WHEN L.uid = '$uid' THEN UB.first_name + ' ' UB.last_name
+            END AS name
+            FROM Chats C INNER JOIN Listings L
+            ON C.lid = L.lid INNER JOIN Users UB
+            ON C.uid_buyer = UB.uid INNER JOIN Users US
+            ON l.uid = US.uid
+            WHERE C.uid_buyer = '$uid' OR L.uid = '$uid'";
+    $r1 = $db->query($q1);
+    $db->close();
+
+?>
+
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,14 +60,23 @@
         </div>
 
         <div class="sidebar">
+
+            <?php
+                for($i = 0; $i < $r1->num_rows; $i++) {
+                    $row = $r1->fetch_assoc();
+
+                    $title = $row["title"];
+                    $name = $row["name"];
+            ?>
+
             <div class = "chat">
-                <p>Book Name1</p>
-                <p class = "sellerName">John Cena</p>
+                <p><?=$title?></p>
+                <p class = "sellerName"><?=$name?></p>
             </div>
-            <div class = "chat">
-                <p>Book Name2</p>
-                <p class = "sellerName">Patrick Star</p>
-            </div>
+                
+            <?php
+                }
+            ?>
         </div>
           
         <div class="main">
