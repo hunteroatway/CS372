@@ -25,8 +25,6 @@
     $r1 = $db->query($q1);
 ?>
 
-
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -39,6 +37,8 @@
                 <style>
             .err_msg{ color:red;}
         </style>
+        
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
 
     <header>
@@ -60,7 +60,9 @@
 			</div>
         </div>
 
-        <div class="sidebar">
+        <div class = "test">
+        <div class = "one">
+        <div class="sidebar" id ="sidebar">
 
             <?php
                 for($i = 0; $i < $r1->num_rows; $i++) {
@@ -76,9 +78,33 @@
                 
             <?php
                 }
-            ?>
+            ?>            <div class = "chat">
+            <p>Book Name2</p>
+            <p class = "sellerName">Patrick Star</p></div><div class = "chat">
+            <p>Book Name2</p>
+            <p class = "sellerName">Patrick Star</p></div><div class = "chat">
+            <p>Book Name2</p>
+            <p class = "sellerName">Patrick Star</p></div><div class = "chat">
+            <p>Book Name2</p>
+            <p class = "sellerName">Patrick Star</p></div><div class = "chat">
+            <p>Book Name2</p>
+            <p class = "sellerName">Patrick Star</p></div><div class = "chat">
+            <p>Book Name2</p>
+            <p class = "sellerName">Patrick Star</p></div><div class = "chat">
+            <p>Book Name2</p>
+            <p class = "sellerName">Patrick Star</p></div><div class = "chat">
+            <p>Book Name2</p>
+            <p class = "sellerName">Patrick Star</p></div><div class = "chat">
+            <p>Book Name2</p>
+            <p class = "sellerName">Patrick Star</p></div><div class = "chat">
+            <p>Book Name2</p>
+            <p class = "sellerName">Patrick Star</p></div><div class = "chat">
+            <p>Book Name2</p>
+            <p class = "sellerName">Patrick Star</p></div>
         </div>
-
+        
+            </div>
+        <div class = "Two">
         <div class="main">
             <h2>
                 Fancy book that is for sale
@@ -134,15 +160,19 @@
             </div>
 
             <div class="message-area">
-                <form>
-                    <input type="text" placeholder="Type your message here..." class="message-box"/>
-                    <input type="button" value="Send" class="message-button"/>
+                <form name = "messageForm">
+                    <input type="hidden" name="cid" value="<?=$cid?>">
+                    <input type="hidden" name="uid" value="<?=$uid?>">
+                    <input type="text" name = "message" placeholder="Type your message here..." class="message-box" id ="message-box"/>
+                    <input type="submit" name = "submit" id="submitButton" value="Send" class="message-button"/>
                 </form>
             </div>
-
         </div>
+                </div>
+                </div>
 
 
-              <script type="text/javascript" src="../js/JavaScript.js"></script>
+        <script type="text/javascript" src="../js/JavaScript.js"></script>
+        <script type="text/javascript" src="../js/ajax.js"></script>
     </body>
 </html>

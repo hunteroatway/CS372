@@ -317,7 +317,7 @@ table, p,label, li, a{
   border: 2px solid white;
   border-radius: 8px;
   padding: 5px;
-  margin: 15px 0px;
+  margin: 15px 0px 15px 75px;
 }
 
 .you{
@@ -366,7 +366,7 @@ table, p,label, li, a{
 
 .sidebar {
   margin-top: 252px; /* set to be just under the nav bar */
-  height: 100%; 
+  height: calc(100vh - 312px); /*set to be the hight of the screen*/
   width: 160px; /* Set the width of the sidebar */
   position: fixed; 
   z-index: 1; /* Stay on top */
@@ -374,11 +374,15 @@ table, p,label, li, a{
   left: 0;
   background-color: lightgrey; 
   overflow-x: hidden; 
+  overflow: auto;
   padding-top: 60px;
 }
 
+.one{
+  height: 100vh;
+}
+
 .main {
-  margin-left: 160px; /* Same as the width of the sidebar so that sidebar works */
   padding: 0px 10px;
 }
 
@@ -493,5 +497,12 @@ input:checked + .slider:before {
 
   color: red;
   text-align: center;
+
+}
+
+.test {
+
+  display:grid;
+  grid-template-columns: 170px calc(100% - 170px);
 
 }
