@@ -19,13 +19,10 @@
         ON C.uid_buyer = UB.uid INNER JOIN Users US
         ON L.uid = US.uid INNER JOIN Books B
         ON L.isbn_13 = B.isbn_13
-        WHERE C.uid_buyer = '$uid' OR L.uid = '$uid'";
-    $r1 = $db->query($q1);
-    
-    $rowsL = $r1->num_rows;
-    ?> <script>console.log("<?=$rowsL?>");</script><?php>
-    $db->close();
+        WHERE C.uid_buyer = '$uid' OR L.uid = '$uid'
+        ORDER BY C.last_message DESC";
 
+    $r1 = $db->query($q1);
 ?>
 
 
@@ -81,29 +78,59 @@
                 }
             ?>
         </div>
-          
+
         <div class="main">
             <h2>
                 Fancy book that is for sale
             </h2>
+
+
+            
             <div class ="messages">
-                <div class = "message you">
-                    <img class = "avatarRight" src="../images/avatar.gif" style = "display:inline" width = "64 " height = "64" /> 
-                    <p>Hello</p>
-                    <span class = "timeRight"> September 83rd, 2015. 12:00</span>
-                </div>
+
+                <?php
+                    $cid = 1;
+
+                    $q2 = "SELECT M.message, M.time_sent, M.uid_sender, U.avatar
+                    FROM Messages M INNER JOIN Users U
+                    ON M.uid_sender = U.uid
+                    WHERE M.cid = '$cid'
+                    ORDER BY M.time_sent";
+
+                    $r2 = $db->query($q2);
                 
-                <div class = "message other">
-                    <img class = "avatarLeft" src="../images/avatar.gif" style = "display:inline" width = "64 " height = "64" /> 
-                    <p>Bye</p>
-                    <span class = "timeLeft"> September 90th, 2015. 12:05</span>
-                </div>
+                    $db->close();
+
+                    for($i = 0; $i < $r2->num_rows; $i++) {
+                        $row = $r2->fetch_assoc();
+                        $message = $row["message"];
+                        $uidSender = $row["uid_sender"];
+                        $avatar = $row["avatar"];
+                        $date = date("M jS, Y g:i:s a", strtotime($row["time_sent"]));
+
+                        if($uidSender == $uid){
+                            $class1 = "avatarRight";
+                            $class2 = "message you";
+                            $class3 = "timeRight";
+                        }
+                        else {
+                            $class1 = "avatarLeft";
+                            $class2 = "message other";
+                            $class3 = "timeLeft";
+                        }
+
+                ?>
                 
-                <div class = "message you">
-                    <img class = "avatarRight" src="../images/avatar.gif" style = "display:inline" width = "64 " height = "64" /> 
-                    <p>Hello</p>
-                    <span class = "timeRight"> September 83rd, 2015. 12:00</span>
+                <div class = "<?=$class2?>">
+                    <img class = "<?=$class1?>" src="<?=$avatar?>" style = "display:inline" width = "64 " height = "64" /> 
+                    <p><?=$message?></p>
+                    <span class = "<?=$class3?>"> <?=$date?></span>
                 </div>
+
+                <?php
+                    }
+                ?>
+
             </div>
 
             <div class="message-area">
