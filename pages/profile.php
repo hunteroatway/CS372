@@ -3,8 +3,8 @@
     session_start();
     if(!isset($_SESSION["username"])){
         echo ("<script LANGUAGE='JavaScript'>
-        window.alert('You need to LogIn in order to access on this page.');
-        window.location.href='index.php';
+        window.alert('You need to LogIn in order to access Profile page.');
+        window.location.href='Login.php';
         </script>");
     }
 ?>
