@@ -7,19 +7,23 @@
         die ("Connection failed: " . $db->connect_error);
     }
 
-    $uid = 10;
+    $uid = 1;
 
-    $q1 = "SELECT B.title, C.uid_buyer, L.uid, 
-            CASE
-                WHEN C.uid_buyer = '$uid' THEN US.first_name + ' ' US.last_name
-                WHEN L.uid = '$uid' THEN UB.first_name + ' ' UB.last_name
-            END AS name
-            FROM Chats C INNER JOIN Listings L
-            ON C.lid = L.lid INNER JOIN Users UB
-            ON C.uid_buyer = UB.uid INNER JOIN Users US
-            ON l.uid = US.uid
-            WHERE C.uid_buyer = '$uid' OR L.uid = '$uid'";
+    $q1 = "SELECT B.title, C.uid_buyer as Buyer, L.uid as Seller, 
+        CASE
+            WHEN C.uid_buyer = '$uid' THEN CONCAT(US.first_name, ' ', US.last_name)
+            WHEN L.uid = '$uid' THEN CONCAT(UB.first_name, ' ', UB.last_name)
+        END AS name
+        FROM Chats C INNER JOIN Listings L
+        ON C.lid = L.lid INNER JOIN Users UB
+        ON C.uid_buyer = UB.uid INNER JOIN Users US
+        ON L.uid = US.uid INNER JOIN Books B
+        ON L.isbn_13 = B.isbn_13
+        WHERE C.uid_buyer = '$uid' OR L.uid = '$uid'";
     $r1 = $db->query($q1);
+    
+    $rowsL = $r1->num_rows;
+    ?> <script>console.log("<?=$rowsL?>");</script><?php>
     $db->close();
 
 ?>
@@ -64,7 +68,6 @@
             <?php
                 for($i = 0; $i < $r1->num_rows; $i++) {
                     $row = $r1->fetch_assoc();
-
                     $title = $row["title"];
                     $name = $row["name"];
             ?>
