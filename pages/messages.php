@@ -1,5 +1,6 @@
 <?php
 
+    session_start();
     // connect to DB and check connection
     $db = new mysqli("localhost", "ottenbju", "Passw0rd", "ottenbju");
     if ($db->connect_error)
