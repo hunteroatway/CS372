@@ -23,6 +23,8 @@
         ORDER BY C.last_message DESC";
 
     $r1 = $db->query($q1);
+    $db->close();
+
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +48,7 @@
     </header>
 
     <body>
-        <div class="topnav">
+        <div class="topnav" id = "topNav">
             <a class="active" href="index.html">Home <i class="fa fa-fw fa-home"> </i></a>
             <a href="signUp.html">SignUp <i class="fa fa-user"> </i></a>
             <a href=".html">Manage</a>
@@ -71,7 +73,8 @@
                         $name = $row["name"];
                 ?>
 
-                <div class = "chat">
+                <div onclick="getMessages(1,<?=$uid?>)" class = "chat">
+                        <form><input type="hidden" name="cid" value="<?=$cid?>"></form>
                     <p><?=$title?></p>
                     <p class = "sellerName"><?=$name?></p>
                 </div>
@@ -83,66 +86,8 @@
             </div>
 
             <div class = "two">
-                <div class="main">
-                <h2>
-                    Fancy book that is for sale
-                </h2>
+                <div class="main" id="msgs">
 
-                    <div class ="messages">
-
-                        <?php
-                            $cid = 1;
-
-                            $q2 = "SELECT M.message, M.time_sent, M.uid_sender, U.avatar
-                            FROM Messages M INNER JOIN Users U
-                            ON M.uid_sender = U.uid
-                            WHERE M.cid = '$cid'
-                            ORDER BY M.time_sent";
-
-                            $r2 = $db->query($q2);
-                        
-                            $db->close();
-
-                            for($i = 0; $i < $r2->num_rows; $i++) {
-                                $row = $r2->fetch_assoc();
-                                $message = $row["message"];
-                                $uidSender = $row["uid_sender"];
-                                $avatar = $row["avatar"];
-                                $date = date("M jS, Y g:i:s a", strtotime($row["time_sent"]));
-
-                                if($uidSender == $uid){
-                                    $class1 = "avatarRight";
-                                    $class2 = "message you";
-                                    $class3 = "timeRight";
-                                }
-                                else {
-                                    $class1 = "avatarLeft";
-                                    $class2 = "message other";
-                                    $class3 = "timeLeft";
-                                }
-
-                        ?>
-                        
-                        <div class = "<?=$class2?>">
-                            <img class = "<?=$class1?>" src="<?=$avatar?>" style = "display:inline" width = "64 " height = "64" /> 
-                            <p><?=$message?></p>
-                            <span class = "<?=$class3?>"> <?=$date?></span>
-                        </div>
-
-                        <?php
-                            }
-                        ?>
-
-                    </div>
-
-                    <div class="message-area">
-                        <form name = "messageForm">
-                            <input type="hidden" name="cid" value="<?=$cid?>">
-                            <input type="hidden" name="uid" value="<?=$uid?>">
-                            <input type="text" name = "message" placeholder="Type your message here..." class="message-box" id ="message-box"/>
-                            <input type="submit" name = "submit" id="submitButton" value="Send" class="message-button"/>
-                        </form>
-                    </div>
                 </div>
             </div>
         </div>
