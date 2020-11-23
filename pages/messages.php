@@ -103,7 +103,7 @@
 
                 ?>
 
-                <div onclick="getMessages(<?=$cid?>,<?=$uid?>,'<?=$title?>',0)" class = "chat">
+                <div onclick="getMessages(<?=$cid?>,<?=$uid?>,'<?=$title?>',0)" class = "chat clickable">
                     <p><?=$title?></p>
                     <p class = "sellerName"><?=$name?></p>
                 </div>

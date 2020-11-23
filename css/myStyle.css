@@ -253,6 +253,15 @@ table, p,label, li, a{
   border: 2px solid black;
 }
 
+.clickable{
+  cursor: pointer;
+  background-color: rgba(172, 172, 172, 0.397);
+}
+
+.clickable:hover{
+  background-color: rgba(126, 126, 126, 0.397);
+}
+
 .result{
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;

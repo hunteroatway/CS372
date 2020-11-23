@@ -174,3 +174,8 @@ function ValidateFileUpload() {
     }
 }
 
+
+//Function for clickable divs in the search results page
+function clickableSearch(lid){
+    window.location = 'listing.php?lid=' + lid;
+}

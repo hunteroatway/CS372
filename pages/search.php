@@ -106,7 +106,7 @@
             ?>
 
 
-            <div class="post">
+            <div onclick="clickableSearch(<?=$lid?>)" class="post clickable">
                 <img class="bookImage" src="<?=$image?>" width="200" height="200" alt="Book Image"/>
                 <p><?=$title?></p>
                 <p><?=$author?></p>
