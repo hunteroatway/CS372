@@ -21,7 +21,10 @@
     }
 
     // set up query to add message to database
-    $q = "INSERT INTO Messages (uid_sender, cid, message, time_sent) VALUES ('$uid', '$cid', '$message', NOW());";
-    $r = $db->query($q);
+    $q1 = "INSERT INTO Messages (uid_sender, cid, message, time_sent) VALUES ('$uid', '$cid', '$message', NOW());";
+    // update the time sent in chats
+    $q2 = "UPDATE Chats SET  last_message = NOW() WHERE cid = '$cid';";
+    $r1 = $db->query($q1);
+    $r2 = $db->query($q2);
 
 ?>

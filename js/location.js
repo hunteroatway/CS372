@@ -11,14 +11,9 @@ function initMap() {
     const input = document.getElementById("pac-input");
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
     const autocomplete = new google.maps.places.Autocomplete(input);
-  
-    const marker = new google.maps.Marker({
-      map,
-      anchorPoint: new google.maps.Point(0, -29),
-    });
+
     autocomplete.addListener("place_changed", () => {
       marker.setVisible(false);
-      const place = autocomplete.getPlace();
     
     // delim the autofilled location to be stored into the database
     var location = input.value.split(', ')

@@ -2,6 +2,8 @@
     $cid = $_REQUEST['cid'];
     $uid = $_REQUEST['uid'];
     $title = $_REQUEST['title'];
+    $lastUpdate = $_REQUEST['lastUpdate'];
+    $lastUpdate = urldecode($lastUpdate);
 
     // connect to DB and check connection
     $db = new mysqli("localhost", "ottenbju", "Passw0rd", "ottenbju");
@@ -10,6 +12,7 @@
         die ("Connection failed: " . $db->connect_error);
     }
 
+    // fetch all the messages for that chat
     $q1 = "SELECT M.message, M.time_sent, M.uid_sender, U.avatar
     FROM Messages M INNER JOIN Users U
     ON M.uid_sender = U.uid
@@ -17,14 +20,26 @@
     ORDER BY M.time_sent";
 
     $r1 = $db->query($q1);
+    
+    // fetch the time for the last message, used to see if update needed
+    $q2 = "SELECT C.last_message FROM Chats C WHERE C.cid = '$cid'";
+    $r2 = $db->query($q2);
 
     $db->close();
 
+?>
+<?php
+
+    // if the times have changed
+    // store the last time
+    $lastR = $r2->fetch_assoc();
+    $last = $lastR["last_message"];
+
+    if($last != $lastUpdate){
 
 ?>
 
-
-<h2><?=$title?></h2>
+<h2 id ="chatTitle"><?=$title?></h2>
 
 <div class ="messages">
 
@@ -58,6 +73,9 @@
 
     <?php
         }
-    ?>
+
+        ?>
+        <p id = "lastUpdate" style="display:none;"><?=$last?></p>
 
 </div>
+<?php }?>

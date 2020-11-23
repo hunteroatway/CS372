@@ -47,20 +47,48 @@
 	<img src="../images/logo.png" style = "display:inline" width = "250" height = "200" />
     </header>
 
-    <body>
-        <div class="topnav" id = "topNav">
-            <a class="active" href="index.html">Home <i class="fa fa-fw fa-home"> </i></a>
-            <a href="signUp.html">SignUp <i class="fa fa-user"> </i></a>
-            <a href=".html">Manage</a>
-            <a href=".html">Book <i class="fa fa-book"> </i></a>
+   <body>
+        <?php 
+            // if logged in
+            if(isset($_SESSION["username"])) {
+        ?>
+
+        <div class="topnav" id="pac-card">
+            <a class="active" href="index.php">Home <i class="fa fa-fw fa-home"> </i></a>
+            <a href="posting.php">Post Ad <i class="fa fa-book"></i></a>
+            <a href="profile.php">Profile <i class="fa fa-user"></i></a>
+            <a href="logout.php">LogOut <i class="fa fa-sign-out"></i></a></a>
 			  <div class="search-container">
 				<form action="/action_page.php">
-                <input type="text" placeholder="City.." name="city">
+                <input id="pac-input" type="text" placeholder="City..">
 				<input type="text" placeholder="Search.." name="search">
 				<button type="submit"><i class="fa fa-search"></i></button>
 				</form>
-			</div>
+            </div>
+            <div id="map"></div>
         </div>
+
+        
+        <?php
+            //if not logged in have links to sign up
+            } else {
+
+        ?>
+        <div class="topnav" id="pac-card">
+            <a class="active" href="index.php">Home <i class="fa fa-fw fa-home"> </i></a>
+            <a href="signUp.php">SignUp <i class="fa fa-user-plus"> </i></a>
+            <a href="Login.php">LogIn <i class="fa fa-sign-in"></i></a>
+			  <div class="search-container">
+				<form action="/action_page.php">
+                <input id="pac-input" type="text" placeholder="City..">
+				<input type="text" placeholder="Search.." name="search">
+				<button type="submit"><i class="fa fa-search"></i></button>
+				</form>
+            </div>
+            <div id="map"></div>
+        </div>
+
+        <?php }?>
 
         <div class = "splitPage">
             <div class = "one">
@@ -75,7 +103,7 @@
 
                 ?>
 
-                <div onclick="getMessages(<?=$cid?>,<?=$uid?>,'<?=$title?>')" class = "chat">
+                <div onclick="getMessages(<?=$cid?>,<?=$uid?>,'<?=$title?>',0)" class = "chat">
                     <p><?=$title?></p>
                     <p class = "sellerName"><?=$name?></p>
                 </div>
@@ -90,11 +118,10 @@
                 <div class="main">
                     <div id="msgs"></div>
 
-
                     <div class="message-area">
                         <form name = "messageForm">
                             <input id="cidValue" type="hidden" name="cid" value="<?=$cid?>">
-                            <input type="hidden" name="uid" value="<?=$uid?>">
+                            <input id="uidValue" type="hidden" name="uid" value="<?=$uid?>">
                             <input type="text" name = "message" placeholder="Type your message here..." class="message-box" id ="message-box"/>
                             <input type="submit" name = "submit" id="submitButton" value="Send" class="message-button"/>
                         </form>

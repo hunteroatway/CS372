@@ -41,7 +41,7 @@ $(function(){
             $('#sidebar').css( "height", height);
 
             // allow nav bar to stick to top
-            $('#topNav').removeClass("fixedNav");
+            $('#pac-card').removeClass("fixedNav");
             $('.main').css( "margin-top", 0);
         // if past the nav bar, set the values to be the full height of the screen
         } else if ($(window).scrollTop() > 203){
@@ -50,7 +50,7 @@ $(function(){
             $('#sidebar').css( "height", $(window).height()-109);
             // edit the nav bar/ top of messages by same values
             $('.main').css( "margin-top", 79);
-            $('#topNav').addClass("fixedNav");
+            $('#pac-card').addClass("fixedNav");
 
         // if scroll to top set values to default
         }  else if ($(window).scrollTop() == 0){
@@ -58,7 +58,7 @@ $(function(){
             $('.main').css( "margin-top", 0);
             $('#sidebar').css( "margin-top", 252);
             $('#sidebar').css( "height", $(window).height()-312);
-            $('#topNav').removeClass("fixedNav");
+            $('#pac-card').removeClass("fixedNav");
 
         }
 
@@ -66,19 +66,36 @@ $(function(){
 });
 
 //Function to load the message thread the user selected
-function getMessages(cid, uid, title) {
+function getMessages(cid, uid, title, lastUpdate) {
     var xmlhttp=new XMLHttpRequest();
     xmlhttp.onreadystatechange=function() {
-      if (this.readyState==4 && this.status==200) {
+      if (this.readyState==4 && this.status==200 && this.responseText != "") {
         document.getElementById("msgs").innerHTML=this.responseText;
-      }
+      } 
+      
     }
-    
+
     //Change value of cid within message-area
     document.getElementById("cidValue").value = cid;
 
     title = encodeURIComponent(title);
-    xmlhttp.open("GET","messagesLoad.php?cid="+cid+"&uid="+uid+"&title="+title,true);
+    xmlhttp.open("GET","messagesLoad.php?cid="+cid+"&uid="+uid+"&title="+title+"&lastUpdate="+lastUpdate,true);
     xmlhttp.send();
     
-  }
+}
+
+// set it to refresh the page every 10s
+setInterval(updatePage, 1000);
+
+function updatePage(){
+
+    // get the values from the current chat
+    var cidValue = document.getElementById("cidValue").value;
+    var title = document.getElementById("chatTitle").innerHTML;
+    var uidValue = document.getElementById("uidValue").value;
+    var lastUpdate  = document.getElementById("lastUpdate").innerHTML;
+    lastUpdate = encodeURIComponent(lastUpdate);
+
+    getMessages(cidValue, uidValue, title, lastUpdate);
+
+}
