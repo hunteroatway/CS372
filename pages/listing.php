@@ -76,13 +76,16 @@
         <?php  // get information for the listing
 		
         $lid = $_GET["lid"];
+        $uid = $_SESSION["uid"];
         if(isset($lid)){ 
             // query to get the information needed
-            $q1 = "SELECT L.isbn_13, L.isbn_10, L.uid, L.book_condition, L.price, L.list_date, L.active, A.first_name as auth_first, A.last_name as auth_last, B.title, B.subtitle, B.publisher, B.description, B.edition, U.first_name as user_first, U.last_name as user_last, U.avatar, U.city, U.province, U.country FROM Listings L INNER JOIN Books B on B.isbn_13 = L.isbn_13 INNER JOIN Authors A ON A.isbn_13 = L.isbn_13 INNER JOIN Users U on L.uid = U.uid WHERE L.lid = $lid";
+            $q1 = "SELECT L.isbn_13, L.isbn_10, L.uid, L.book_condition, L.price, L.list_date, L.active, A.first_name as auth_first, A.last_name as auth_last, B.title, B.subtitle, B.publisher, B.description, B.edition, U.first_name as user_first, U.last_name as user_last, U.avatar, U.city, U.province, U.country, U.uid as sellerID FROM Listings L INNER JOIN Books B on B.isbn_13 = L.isbn_13 INNER JOIN Authors A ON A.isbn_13 = L.isbn_13 INNER JOIN Users U on L.uid = U.uid WHERE L.lid = $lid";
             $q2 = "SELECT I.image from Images I WHERE I.lid = '$lid'";
+            $q3 = "SELECT C.cid from Chats C where C.lid = '$lid' AND C.uid_buyer = '$uid'";
 
             $r1 = $db->query($q1);
             $r2 = $db->query($q2);
+            $r3 = $db->query($q3);
 
             // see how many rows in the query for listing there is
             $rowsL = $r1->num_rows;
@@ -213,10 +216,63 @@
                         if(isset($_SESSION["username"])) {
                     ?>
 
-                    <a href="index.php" style="text-decoration:none;">
-                        <div class = "messageListing sendMessage">
-                            <span class = "messageListingText">Click here to message this seller.</span>
-                        </div>
+                    <?php
+                    
+                        // if its not the seller 
+                        if($uid != $rowL["sellerID"]) {
+                            // see if there is a chat open, if there is set redirect to it
+                            $rowsC = $r3->num_rows;
+                            if($rowsC > 0){
+                                $chat = $r3->fetch_assoc();
+                                $cid = $chat["cid"];
+                            ?>
+                            <a href="messages.php?cid=<?=$cid?>" style="text-decoration:none;">
+                            <div class = "messageListing sendMessage clickable">
+                                <span class = "messageListingText">Click here to message this seller.</span>
+                            </div>
+                            <?php 
+                            // if there isnt a chat open. redirect it to start a new chat
+                            } else {
+                            ?>
+                            <a href="messageStart.php?uid=<?=$uid?>&lid=<?=$lid?>" style="text-decoration:none;">
+                            <div class = "messageListing sendMessage clickable">
+                                <span class = "messageListingText">Click here to message this seller.</span>
+                            </div>
+                            <?php
+                            }
+                        // if seller
+                        } else if ($uid == $rowL["sellerID"]){
+                            // fetch all the chats
+                            $q4 = "SELECT C.cid FROM Chats C INNER JOIN Listings L on C.lid = L.lid WHERE L.lid = '$lid' AND L.uid = '$lid' ORDER BY C.last_message DESC";
+                            $r4 = $db->query($q4);
+                            $numChats = $r4->num_rows;
+                            if($numChats == 0){
+                            ?>
+                            <a style="text-decoration:none;"> 
+                            <div class = "messageListing sendMessage clickable">
+                                <span class = "messageListingText">No Chats Available.</span>
+                            </div>
+                            <?php
+                            } else {
+                                // set it to the most recent chat
+                                $recentChat = $r4->fetch_assoc();
+                                $cid = $recentChat["cid"];
+                                ?>
+                                <a href="messages.php?cid=<?=$cid?>" style="text-decoration:none;"> 
+                                <div class = "messageListing sendMessage clickable">
+                                    <span class = "messageListingText">View Chats.</span>
+                                </div>
+                                <?php
+                            }
+                            // give area for seller to mark as sold
+                            ?>
+                            <a href="markSold.php?lid=<?=$lid?>" style="text-decoration:none;">
+                            <div class = "messageListing sendMessage clickable">
+                                <span class = "messageListingText">Mark Item as Sold.</span>
+                            </div>
+                            <?php
+                        }
+                    ?>
                     </a>
 
                     <?php
