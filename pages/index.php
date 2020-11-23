@@ -1,6 +1,26 @@
 <?php 
   // start the php session
   session_start();
+
+      // connect to DB and check connection
+      $db = new mysqli("localhost", "ottenbju", "Passw0rd", "ottenbju");
+      if ($db->connect_error)
+      {
+          die ("Connection failed: " . $db->connect_error);
+      }
+  
+      //Query to pull most recent posts
+      $q1 = "SELECT L.lid, L.isbn_10, L.isbn_13, L.price, L.list_date, A.first_name, A.last_name, B.title, U.city, U.province, U.country
+      FROM Listings L INNER JOIN Books B 
+      ON L.isbn_13 = B.isbn_13 INNER JOIN Authors A
+      ON B.isbn_13 = A.isbn_13 INNER JOIN Users U
+      ON L.uid = U.uid
+      WHERE L.active = true
+      ORDER BY L.list_date, L.lid, A.last_name
+      LIMIT 12";
+  
+      //Query the DB
+      $r1 = $db->query($q1);
 ?>
 
 <!DOCTYPE html>
@@ -69,41 +89,57 @@
         <h1>Most Recent Posting</h1>
         <div class="result">
 
-            <div class="post">
-                <img class="bookImage" src="../images/book_placeholder.jpg" width="200" height="200" alt="Book Image"/>
-                <p>Book Title</p>
-                <p>Book Author</p>
-                <p>ISBN</p>
-                <p>Price</p>
-                <p>Location</p>
+        <?php
+                $currentRow = $r1->fetch_assoc();
+                $multipleAuthors = false;
+                for($i = 0; $i < $r1->num_rows; $i++) {
+                    
+                    $nextRow = $r1->fetch_assoc();
+
+                    if ($currentRow["lid"] == $nextRow["lid"]) {
+                        if ($multipleAuthors == false) {
+                            $author = $currentRow["last_name"] . ", " . $currentRow["first_name"] . " ...";
+                            $multipleAuthors = true;
+                        }
+                    } else {
+                        $lid = $currentRow["lid"];
+                        $q2 = "SELECT image FROM Images WHERE lid = '$lid'";
+
+                        $r2 = $db->query($q2);
+
+                        $row = $r2->fetch_assoc();
+
+                        $image = $row["image"]; 
+
+                        $title = $currentRow["title"];                        
+                        $isbn13 = $currentRow["isbn_13"];
+                        $price = $currentRow["price"];
+                        $location = $currentRow["city"] . ", " . $currentRow["province"] . ", " . $currentRow["country"];
+
+                        if ($multipleAuthors == false) {
+                            $author = $currentRow["last_name"] . ", " . $currentRow["first_name"];
+                        }
+
+                        $multipleAuthors = false;
+                        $currentRow = $nextRow;
+
+            ?>
+
+
+            <div onclick="clickableSearch(<?=$lid?>)" class="post clickable">
+                <img class="bookImage" src="<?=$image?>" width="200" height="200" alt="Book Image"/>
+                <p><?=$title?></p>
+                <p><?=$author?></p>
+                <p><?=$isbn13?></p>
+                <p><?=$price?></p>
+                <p><?=$location?></p>
             </div>
 
-            <div class="post">
-                <img class="bookImage" src="../images/book_placeholder.jpg" width="200" height="200" alt="Book Image"/>
-                <p>Book Title</p>
-                <p>Book Author</p>
-                <p>ISBN</p>
-                <p>Price</p>
-                <p>Location</p>
-            </div>
-
-            <div class="post">
-                <img class="bookImage" src="../images/book_placeholder.jpg" width="200" height="200" alt="Book Image"/>
-                <p>Book Title</p>
-                <p>Book Author</p>
-                <p>ISBN</p>
-                <p>Price</p>
-                <p>Location</p>
-            </div>
-
-            <div class="post">
-                <img class="bookImage" src="../images/book_placeholder.jpg" width="200" height="200" alt="Book Image"/>
-                <p>Book Title</p>
-                <p>Book Author</p>
-                <p>ISBN</p>
-                <p>Price</p>
-                <p>Location</p>
-            </div>
+            <?php
+                    }
+                }
+                $db->close();
+            ?>
             
         </div>
 
