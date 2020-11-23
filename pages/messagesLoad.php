@@ -61,12 +61,3 @@
     ?>
 
 </div>
-
-<div class="message-area">
-    <form name = "messageForm">
-        <input type="hidden" name="cid" value="<?=$cid?>">
-        <input type="hidden" name="uid" value="<?=$uid?>">
-        <input type="text" name = "message" placeholder="Type your message here..." class="message-box" id ="message-box"/>
-        <input type="submit" name = "submit" id="submitButton" value="Send" class="message-button"/>
-    </form>
-</div>

@@ -9,7 +9,7 @@
 
     $uid = 1;
 
-    $q1 = "SELECT B.title, C.uid_buyer as Buyer, L.uid as Seller, 
+    $q1 = "SELECT B.title, C.cid, C.uid_buyer as Buyer, L.uid as Seller, 
         CASE
             WHEN C.uid_buyer = '$uid' THEN CONCAT(US.first_name, ' ', US.last_name)
             WHEN L.uid = '$uid' THEN CONCAT(UB.first_name, ' ', UB.last_name)
@@ -71,10 +71,11 @@
                         $row = $r1->fetch_assoc();
                         $title = $row["title"];
                         $name = $row["name"];
+                        $cid = $row["cid"];
+
                 ?>
 
-                <div onclick="getMessages(1,<?=$uid?>)" class = "chat">
-                        <form><input type="hidden" name="cid" value="<?=$cid?>"></form>
+                <div onclick="getMessages(<?=$cid?>,<?=$uid?>,'<?=$title?>')" class = "chat">
                     <p><?=$title?></p>
                     <p class = "sellerName"><?=$name?></p>
                 </div>
@@ -86,8 +87,18 @@
             </div>
 
             <div class = "two">
-                <div class="main" id="msgs">
+                <div class="main">
+                    <div id="msgs"></div>
 
+
+                    <div class="message-area">
+                        <form name = "messageForm">
+                            <input id="cidValue" type="hidden" name="cid" value="<?=$cid?>">
+                            <input type="hidden" name="uid" value="<?=$uid?>">
+                            <input type="text" name = "message" placeholder="Type your message here..." class="message-box" id ="message-box"/>
+                            <input type="submit" name = "submit" id="submitButton" value="Send" class="message-button"/>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
