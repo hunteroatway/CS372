@@ -66,13 +66,13 @@ $(function(){
 });
 
 //Function to load the message thread the user selected
-function getMessages(cid, uid, title) {
+function getMessages(cid, uid) {
     var xmlhttp=new XMLHttpRequest();
     xmlhttp.onreadystatechange=function() {
       if (this.readyState==4 && this.status==200) {
         document.getElementById("msgs").innerHTML=this.responseText;
       }
     }
-    xmlhttp.open("GET","messagesLoad.php?cid="+cid+"&uid="+uid+"&title="+title,true);
+    xmlhttp.open("GET","messagesLoad.php?cid="+cid+"&uid="+uid,true);
     xmlhttp.send();
   }
