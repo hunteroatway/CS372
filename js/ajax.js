@@ -31,7 +31,7 @@ $(function(){
      // function to automatically change the size of the scroll bar
      $(document).scroll(function(e) {
         // if scrolled within the top nav bar
-        if($(window).scrollTop() > 0 && $(window).scrollTop() <= 203){
+        if($(window).scrollTop() > 0 && $(window).scrollTop() <= 190){
             // compute how far from top of screen it is
             var top = 252 - $(window).scrollTop();
             // edit the top margin to be this new value to keep sidebar touching nav bar
@@ -44,13 +44,14 @@ $(function(){
             $('#pac-card').removeClass("fixedNav");
             $('.main').css( "margin-top", 0);
         // if past the nav bar, set the values to be the full height of the screen
-        } else if ($(window).scrollTop() > 203){
+        } else if ($(window).scrollTop() > 190){
             
             $('#sidebar').css( "margin-top", 49);
             $('#sidebar').css( "height", $(window).height()-109);
             // edit the nav bar/ top of messages by same values
             $('.main').css( "margin-top", 79);
             $('#pac-card').addClass("fixedNav");
+            console.log($(window).scrollTop());
 
         // if scroll to top set values to default
         }  else if ($(window).scrollTop() == 0){

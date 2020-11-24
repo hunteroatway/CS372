@@ -1,22 +1,32 @@
-// Code is based off Google Maps API examples page.
-// Code that was not required was removed.
-// being used to help autofill a search of a location
-// Google Maps API page: https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete
-function initMap() {
-    const map = new google.maps.Map(document.getElementById("map"), {
-      center: { lat: -33.8688, lng: 151.2195 },
-      zoom: 13,
-    });
-    const card = document.getElementById("pac-card");
-    const input = document.getElementById("pac-input");
-    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
-    const autocomplete = new google.maps.places.Autocomplete(input);
+// using locationIQ API to autocomplete the locations
+// store values for the map
+var map = L.map('map',{
+  // center at Regina
+  center: [50.4452, -104.6189], 
+  zoom: 12, // default values needed
+  scrollWheelZoom: true, // default values needed
+});
 
-    autocomplete.addListener("place_changed", () => {
-      marker.setVisible(false);
-    
-    // delim the autofilled location to be stored into the database
-    var location = input.value.split(', ')
-    console.log(location);
-    });
+// set the geocoder options
+var geocoderOptions = {
+  markers: false, // avoid putting a marker on an invisible map
+  attribution: null, // set to null as map invisible
+  expanded: true, // start the box open
+  panToPoint: false, // set to null as map invisible
+  params: {               
+    dedupe: 1, // avoid duplicate values
+  }
 }
+
+// initalize the geocoder
+var geocoder = new L.control.geocoder('pk.6bbc944b7fcc9bef50be322773aaeaa2', geocoderOptions).addTo(map).on('select', function(res){
+  //get the values
+  console.log(res.feature.feature.address.name, res.feature.feature.address.state, res.feature.feature.address.country);
+});
+
+// get the search div
+var searchBox = document.getElementById("search-box");
+//get geocoder container
+var geocoderContainer = geocoder.getContainer();
+//append container to searchbox to create spot to search
+searchBox.appendChild(geocoderContainer);

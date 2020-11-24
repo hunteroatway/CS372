@@ -23,9 +23,12 @@ header{
 }
 
 .topnav {
-    overflow: hidden;
+    width: 100%;
+    height: 49px;
     background-color: darkslategray;
+    display: inline-block;
 }
+
 
 .topnav a {
     float: left;
@@ -523,4 +526,27 @@ input:checked + .slider:before {
   width: 100%;
   left: 0;
 
+}
+
+#map {
+  width: 0;
+  height: 0;
+  background-color:transparent;
+  display: hidden;
+}
+
+.leaflet-locationiq-results{
+  margin-top: 45px;
+  top:0 !important;
+}
+
+#search-box{
+  margin-right: 250px;
+}
+#bookSearch{
+  margin-left: 10px;;
+}
+
+.leaflet-locationiq-search-icon{
+  padding: 0 !important;
 }
