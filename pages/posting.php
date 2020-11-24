@@ -36,6 +36,9 @@
                     <div id="map"></div>
                     <div id="search-box"></div>
                 </div>
+                <input type="hidden" id ="city" value = "">
+                <input type="hidden" id ="province" value = "">
+                <input type="hidden" id ="country" value = "">
 				<input id = "bookSearch" type="text" placeholder="Search.." name="search">
 				<button type="submit"><i class="fa fa-search"></i></button>
 				</form>
@@ -55,6 +58,9 @@
                     <div id="map"></div>
                     <div id="search-box"></div>
                 </div>
+                <input type="hidden" id ="city" value = "">
+                <input type="hidden" id ="province" value = "">
+                <input type="hidden" id ="country" value = "">
 				<input id = "bookSearch" type="text" placeholder="Search.." name="search">
 				<button type="submit"><i class="fa fa-search"></i></button>
 				</form>

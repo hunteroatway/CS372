@@ -24,7 +24,7 @@ var geocoderOptions = {
 // initalize the geocoder
 var geocoder = new L.control.geocoder('pk.6bbc944b7fcc9bef50be322773aaeaa2', geocoderOptions).addTo(map).on('select', function(res){
   //get the values
-  console.log(res.feature.feature.address.name, res.feature.feature.address.state, res.feature.feature.address.country);
+  updateValues(res.feature.feature.address.name, res.feature.feature.address.state, res.feature.feature.address.country);
 });
 
 // get the search div
@@ -33,3 +33,17 @@ var searchBox = document.getElementById("search-box");
 var geocoderContainer = geocoder.getContainer();
 //append container to searchbox to create spot to search
 searchBox.appendChild(geocoderContainer);
+
+function updateValues(city, province, country){
+
+  //get the input fields
+  var cityID = document.getElementById("city");
+  var provinceID = document.getElementById("province");
+  var countryID = document.getElementById("country");
+
+  // change the value to what was got from auto complete
+  cityID.value = city;
+  provinceID.value = province;
+  countryID.value = country;
+
+}
