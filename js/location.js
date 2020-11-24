@@ -13,8 +13,11 @@ var geocoderOptions = {
   attribution: null, // set to null as map invisible
   expanded: true, // start the box open
   panToPoint: false, // set to null as map invisible
+  placeholder: 'Search Location',
+  focus: true,
   params: {               
     dedupe: 1, // avoid duplicate values
+    tag: 'place:*', // used to limit to only places. Remove buisness/ attractions from results
   }
 }
 
