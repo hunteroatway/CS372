@@ -24,6 +24,7 @@ var geocoderOptions = {
 // initalize the geocoder
 var geocoder = new L.control.geocoder('pk.6bbc944b7fcc9bef50be322773aaeaa2', geocoderOptions).addTo(map).on('select', function(res){
   //get the values
+    console.log("update");
   updateValues(res.feature.feature.address.name, res.feature.feature.address.state, res.feature.feature.address.country);
 });
 
@@ -35,6 +36,8 @@ var geocoderContainer = geocoder.getContainer();
 searchBox.appendChild(geocoderContainer);
 
 function updateValues(city, province, country){
+
+  console.log("hit");
 
   //get the input fields
   var cityID = document.getElementById("city");

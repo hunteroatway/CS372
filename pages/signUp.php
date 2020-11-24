@@ -18,10 +18,9 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
     $first_name = trim($_POST["first_name"]);
     $last_name = trim($_POST["last_name"]);
     $DOB = trim($_POST['DOB']);
-    $city = trim($_POST['city']);
-    $province = trim($_POST['province']);
-    $country = trim($_POST['country']);
-    $avatar = trim($_POST['avatar']);
+    $city = trim($_POST['citySU']);
+    $province = trim($_POST['provinceSU']);
+    $country = trim($_POST['countrySU']);
 
     // connect to DB and check connection
     $db = new mysqli("localhost", "ottenbju", "Passw0rd", "ottenbju");
@@ -77,7 +76,7 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
     {
 
         // querry to inset into database
-        $q2 = "INSERT INTO Users (username, first_name, last_name, email, password, DOB, city, province, country, avatar) VALUES ('$username', '$first_name', '$last_name', '$email', '$password', '$DOB', '$city', '$province', '$country', '$avatar');";
+        $q2 = "INSERT INTO Users (username, first_name, last_name, email, password, DOB, city, province, country, avatar) VALUES ('$username', '$first_name', '$last_name', '$email', '$password', '$DOB', '$city', '$province', '$country', '../avatar/default.png');";
 
         $r2 = $db->query($q2);
 
@@ -85,26 +84,12 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
         // RENAME PHOTO BASED ON UID (CALL IT UID.(FILEEXTENSION))
         // UPDATE AVATAR IN DATABASE
         
-        $target_dir = "uploads/";
-        $target_file = $target_dir . basename($_FILES["Choosepic"]["name"]);
+        // php code to upload an image
+        $target_dir = "../avatar/";
+        $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
         $uploadOk = 1;
-        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION)); // holds extension
 
-        // Check if image file is a actual image or fake image
-        if (isset($_POST["submitted"]))
-        {
-            $check = getimagesize($_FILES["Choosepic"]["tmp_name"]);
-            if ($check !== false)
-            {
-                echo "File is an image - " . $check["mime"] . ".";
-                $uploadOk = 1;
-            }
-            else
-            {
-                echo "File is not an image.";
-                $uploadOk = 0;
-            }
-        }
 
         // Check if file already exists
         if (file_exists($target_file))
@@ -119,11 +104,16 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
             echo "Sorry, your file is too large.";
             $uploadOk = 0;
         }
+        // get the userID to create a unique file name
+        $q3 = "SELECT U.uid FROM Users U WHERE U.username = '$username' AND U.email = '$email'";
+        $r3 = $db->query($q3);
+        $row = $r3->fetch_assoc();
+        $uid = $row["uid"];
 
         // Allow certain file formats
-        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif")
-        {
-            echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" && $imageFileType ) {    
+            // set error to this
+            $error =  "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
             $uploadOk = 0;
         }
 
@@ -136,15 +126,15 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
         }
         else
         {
-            if (move_uploaded_file($_FILES["Choosepic"]["tmp_name"], $target_file))
-            {
-                echo "The file " . htmlspecialchars(basename($_FILES["Choosepic"]["name"])) . " has been uploaded.";
-            }
-            else
-            {
-                echo "Sorry, there was an error uploading your file.";
-            }
+            //change the name of the file to the userID
+            $target_file = $target_dir . $uid . "." . $imageFileType;
+            // upload the file
+            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file));
         }
+            
+        // update the database
+        $q4 = "UPDATE Users U SET U.avatar = '$target_file' WHERE U.uid = '$uid'";
+        $r4 = $db->query($q4);
 
     }
     // if there is an error. inform the user
@@ -249,14 +239,10 @@ session_start();
         <h1>Sign Up</h1>
              
 
-	<div>
-            <p> Profile Picture: <input type="file" name="dataFile" id="Choosepic" onclick="return ValidateFileUpload()" onchange="return ValidateFileUpload()" /></p>
-        </div> 
-
-	<form id="SignUp" action="signUp.php" method="post">
+        <form id="SignUp" action="signUp.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="submitted" value="1">
             <table>
-
+                <tr><td>Upload an Avatar: </td><td><input type="file" name="fileToUpload" id="fileToUpload"></td></tr>
                 <tr><td></td><td><label id="email_msg" class="err_msg"></label></td></tr>
                 <tr><td>Email: </td><td> <input type="text" name="email" placeholder= "Ex. Email@email.com" size="30" /></td></tr>
 
@@ -276,25 +262,27 @@ session_start();
                 <tr><td>Confirm Password: </td><td> <input type="password" name="confirmPassword" placeholder= "Ex. confirmPassword" size="30" /></td></tr>  
 
                 <tr><td></td><td><label id="bday_msg" class="err_msg"></label></td></tr>   
-                <tr><td>Date of Birth: </td><td> <input type="text" name="birthday" placeholder= "Ex. mm/dd/yyyy or mm-dd-yyyy" size="30" /></td></tr>
+                <tr><td>Date of Birth: </td><td> <input type="date" name="birthday" placeholder= "Ex. mm/dd/yyyy or mm-dd-yyyy" size="30" /></td></tr>
 
-            	<tr><td></td><td><label id="city_msg" class="err_msg"></label></td></tr>   
-                <tr><td>City: </td><td> <input type="text" name="city" placeholder= "Ex. Regina" size="30" /></td></tr>
-
-            	<tr><td></td><td><label id="province_msg" class="err_msg"></label></td></tr>   
-                <tr><td>Province: </td><td> <input type="text" name="province" placeholder= "Ex. Saskatchewan" size="30" /></td></tr>
-
-            	<tr><td></td><td><label id="country_msg" class="err_msg"></label></td></tr>   
-                <tr><td>Country: </td><td> <input type="text" name="country" placeholder= "Ex. Canada" size="30" /></td></tr>
+            	<tr><td></td><td><label id="location_msg" class="err_msg"></label></td></tr>   
+                <tr><td>Location: </td><td><div class = "container">
+                    <div id="map2"></div>
+                    <div id="search-boxSU"></div>
+                </div></td></tr>
+                <input type="hidden" id ="citySU" name = "citySU" value = "">
+                <input type="hidden" id ="provinceSU" name ="provinceSU" value = "">
+                <input type="hidden" id ="countrySU" name = "countrySU" value = "">
 
             </table>
             <br>
             <input type="submit" name="SignUp" value="SignUp" />
             <input type="reset" name="Reset" value="Reset" /><br><br>
+            <p><?=$error?></p>
             <p> Already have an account? <a href="Login.php">LogIn</a></p>
 
         </form>
         <script type="text/javascript" src="../js/location.js"></script>
+        <script type="text/javascript" src="../js/locationSU.js"></script>
         <script type="text/javascript" src="../js/JavaScript.js"></script>
     </body>
 </html>

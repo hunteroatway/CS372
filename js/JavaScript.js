@@ -55,16 +55,16 @@ function SignUpForm(event) {
 
     var elements = event.currentTarget;
 
-    var q = elements[1].value;
-    var t = elements[2].value;
-    var w = elements[3].value;
-    var x = elements[4].value;
-    var e = elements[5].value;
-    var r = elements[6].value;
-    var h = elements[7].value;
-    var j = elements[8].value;
-    var i = elements[9].value;
-    var k = elements[10].value;
+    var q = elements[2].value;
+    var t = elements[3].value;
+    var w = elements[4].value;
+    var x = elements[5].value;
+    var e = elements[6].value;
+    var r = elements[7].value;
+    var h = elements[8].value;
+    var j = elements[9].value;
+    var i = elements[10].value;
+    var k = elements[11].value;
 
     var result = true;
 
@@ -72,10 +72,10 @@ function SignUpForm(event) {
     var sname_v = /^[a-zA-Z0-9_-]+$/;
     var uname_v = /^[a-zA-Z '.-]*$/;
     var pswd_v = /^(\S*)?\d+(\S*)?$/;
-    var bday_v = /^((0?[1-9]|1[012])[- /.](0?[1-9]|[12][0-9]|3[01])[- /.](19|20)?[0-9]{2})*$/;
-    var city_v = /^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/;
-    var province_v = /^[a-zA-Z '.,]*$/;;
-    var country_v = /^[a-zA-Z '.,]*$/;;
+    //var bday_v = /^((0?[1-9]|1[012])[- /.](0?[1-9]|[12][0-9]|3[01])[- /.](19|20)?[0-9]{2})*$/;
+    //var city_v = /^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/;
+    //var province_v = /^[a-zA-Z '.,]*$/;;
+    //var country_v = /^[a-zA-Z '.,]*$/;;
 
 
     document.getElementById("email_msg").innerHTML = "";
@@ -85,10 +85,7 @@ function SignUpForm(event) {
     document.getElementById("pswd_msg").innerHTML = "";
     document.getElementById("pswdr_msg").innerHTML = "";
     document.getElementById("bday_msg").innerHTML = "";
-    document.getElementById("city_msg").innerHTML = "";
-    document.getElementById("province_msg").innerHTML = "";
-    document.getElementById("country_msg").innerHTML = "";
-
+    document.getElementById("location_msg").innerHTML = "";
 
     if (q == null || q == "" || !email_v.test(q)) {
         document.getElementById("email_msg").innerHTML = "Email is empty or invalid(example: email@gmail.com)";
@@ -121,25 +118,15 @@ function SignUpForm(event) {
         result = false;
     }
    
-    if (h == null || h == "" || !bday_v.test(h)) {
+/*     if (h == null || h == "" || !bday_v.test(h)) {
         document.getElementById("bday_msg").innerHTML = "Birth date is empty or invalid (Enter date in mm/dd/yyyy Or mm-dd-yyyy)";
         result = false;
     }
 
-    if (j == null || j == "" || !city_v.test(j)) {
-        document.getElementById("city_msg").innerHTML = "City is empty or invalid (Please enter the valid city)";
+    if (j == null || j == "" || !city_v.test(j) || i == null || i == "" || !province_v.test(i) || k == null || k == "" || !country_v.test(k)) {
+        document.getElementById("location_msg").innerHTML = "Location is empty or invalid (Please enter a valid location)";
         result = false;
-    }
-
-    if (i == null || i == "" || !province_v.test(i)) {
-        document.getElementById("province_msg").innerHTML = "Province is empty or invalid (Please enter the valid province)";
-        result = false;
-    }
-
-    if (k == null || k == "" || !country_v.test(k)) {
-        document.getElementById("country_msg").innerHTML = "Country is empty or invalid (Please enter the valid country)";
-        result = false;
-    }
+    } */
 
     if (result == false) {
         event.preventDefault();
@@ -152,11 +139,12 @@ function SignUpForm(event) {
 /********************************************************************************************************************************************************/
 
 function ValidateFileUpload() {
-    var fuData = document.getElementById('Choosepic');
+    var fuData = document.getElementById('fileToUpload');
     var FileUploadPath = fuData.value;
 
     if (FileUploadPath == '') {
-        alert("Please chosse a profile picture");
+        //alert("Please chosse a profile picture");
+        console.log("not done");
 
     } else {
         var Extension = FileUploadPath.substring(
