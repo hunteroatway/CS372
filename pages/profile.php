@@ -21,13 +21,17 @@
                 <style>
             .err_msg{ color:red;}
         </style>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.3/leaflet.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.3/leaflet.css" rel="stylesheet" type="text/css" />
+
+        <link rel="stylesheet" href="https://maps.locationiq.com/v2/libs/leaflet-geocoder/1.9.6/leaflet-geocoder-locationiq.min.css?v=0.1.7">
+        <script src="https://maps.locationiq.com/v2/libs/leaflet-geocoder/1.9.6/leaflet-geocoder-locationiq.min.js?v=0.1.7"></script>
     </head>
 
     <header>
 	<img src="../images/logo.png" style = "display:inline" width = "250" height = "200" />
     </header>
 
-    <body>
     <body>
         <?php 
             // if logged in
@@ -39,14 +43,16 @@
             <a href="posting.php">Post Ad <i class="fa fa-book"></i></a>
             <a href="profile.php">Profile <i class="fa fa-user"></i></a>
             <a href="logout.php">LogOut <i class="fa fa-sign-out"></i></a></a>
-			  <div class="search-container">
-				<form action="/action_page.php">
-                <input id="pac-input" type="text" placeholder="City..">
-				<input type="text" placeholder="Search.." name="search">
+            <div class="search-container">
+                <form action="/action_page.php">
+                <div class = "container">
+                    <div id="map"></div>
+                    <div id="search-box"></div>
+                </div>
+				<input id = "bookSearch" type="text" placeholder="Search.." name="search">
 				<button type="submit"><i class="fa fa-search"></i></button>
 				</form>
             </div>
-            <div id="map"></div>
         </div>
 
         
@@ -60,13 +66,15 @@
             <a href="signUp.php">SignUp <i class="fa fa-user-plus"> </i></a>
             <a href="Login.php">LogIn <i class="fa fa-sign-in"></i></a>
 			  <div class="search-container">
-				<form action="/action_page.php">
-                <input id="pac-input" type="text" placeholder="City..">
-				<input type="text" placeholder="Search.." name="search">
+                <form action="/action_page.php">
+                <div class = "container">
+                    <div id="map"></div>
+                    <div id="search-box"></div>
+                </div>
+				<input id = "bookSearch" type="text" placeholder="Search.." name="search">
 				<button type="submit"><i class="fa fa-search"></i></button>
 				</form>
             </div>
-            <div id="map"></div>
         </div>
 
         <?php }?>
@@ -115,6 +123,7 @@
             
         </div>
 
-              <script type="text/javascript" src="../js/JavaScript.js"></script>
+            <script type="text/javascript" src="../js/JavaScript.js"></script>
+            <script type="text/javascript" src="../js/location.js"></script>
     </body>
 </html>
