@@ -61,6 +61,7 @@ table, p,label, li, a{
 
 .search-container {
   float: right;
+  width: 570px;
 }
 .search-container button {
   float: right;
@@ -544,9 +545,14 @@ input:checked + .slider:before {
   margin-right: 250px;
 }
 #bookSearch{
-  margin-left: 10px;;
+  margin-left: 10px;
 }
 
 .leaflet-locationiq-search-icon{
   padding: 0 !important;
+}
+
+.leaflet-locationiq-expanded {
+  margin-top: 8px;
+  height: 32px !important;
 }
