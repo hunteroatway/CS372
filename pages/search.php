@@ -7,19 +7,26 @@
         die ("Connection failed: " . $db->connect_error);
     }
 
+    $search = $_GET['search'];
+    $city = $_GET['city'];
+    $province = $_GET['province'];
+    $country = $_GET['country'];
+
     $q1 = "SELECT L.lid, L.isbn_10, L.isbn_13, L.price, L.list_date, A.first_name, A.last_name, B.title, U.city, U.province, U.country
     FROM Listings L INNER JOIN Books B 
     ON L.isbn_13 = B.isbn_13 INNER JOIN Authors A
     ON B.isbn_13 = A.isbn_13 INNER JOIN Users U
     ON L.uid = U.uid
-    WHERE L.active = true
+    WHERE L.active = true AND U.city = '$city' AND U.province = '$province' AND U.country = '$country' AND B.title LIKE CONCAT('$search', '%')
     ORDER BY L.list_date, L.lid, A.last_name";
 
     $r1 = $db->query($q1);
 
     $q2 = "SELECT COUNT(L.lid) as total
-    FROM Listings L
-    WHERE L.active = true";
+    FROM Listings L INNER JOIN Users U
+    ON L.uid = U.uid INNER JOIN Books B
+    ON L.isbn_13 = B.isbn_13
+    WHERE L.active = true AND U.city = '$city' AND U.province = '$province' AND U.country = '$country' AND B.title LIKE CONCAT('$search', '%')";
 
     $r2 = $db->query($q2);
     $resultsRow = $r2->fetch_assoc();
@@ -63,14 +70,14 @@
             <a href="profile.php">Profile <i class="fa fa-user"></i></a>
             <a href="logout.php">LogOut <i class="fa fa-sign-out"></i></a></a>
             <div class="search-container">
-                <form action="/action_page.php">
+                <form action="search.php" method="get">
                 <div class = "container">
                     <div id="map"></div>
                     <div id="search-box"></div>
                 </div>
-                <input type="hidden" id ="city" value = "">
-                <input type="hidden" id ="province" value = "">
-                <input type="hidden" id ="country" value = "">
+                <input type="hidden" id ="city" value = "" name="city">
+                    <input type="hidden" id ="province" value = "" name="province">
+                    <input type="hidden" id ="country" value = "" name="country">
 				<input id = "bookSearch" type="text" placeholder="Search.." name="search">
 				<button type="submit"><i class="fa fa-search"></i></button>
 				</form>
@@ -88,22 +95,21 @@
             <a href="signUp.php">SignUp <i class="fa fa-user-plus"> </i></a>
             <a href="Login.php">LogIn <i class="fa fa-sign-in"></i></a>
 			  <div class="search-container">
-                <form action="/action_page.php">
-                <div class = "container">
-                    <div id="map"></div>
-                    <div id="search-box"></div>
-                </div>
-                <input type="hidden" id ="city" value = "">
-                <input type="hidden" id ="province" value = "">
-                <input type="hidden" id ="country" value = "">
-				<input id = "bookSearch" type="text" placeholder="Search.." name="search">
-				<button type="submit"><i class="fa fa-search"></i></button>
+                <form action="search.php" method="get">
+                    <div class = "container">
+                        <div id="map"></div>
+                        <div id="search-box"></div>
+                    </div>
+                    <input type="hidden" id ="city" value = "" name="city">
+                    <input type="hidden" id ="province" value = "" name="province">
+                    <input type="hidden" id ="country" value = "" name="country">
+                    <input id = "bookSearch" type="text" placeholder="Search.." name="search">
+                    <button type="submit"><i class="fa fa-search"></i></button>
 				</form>
             </div>
         </div>
 
         <?php }?>
-
         
 		<hr/>
         <div class="search-term"><p>Showing <?=$totalResults?> results for <i>Search</i></p></div>
