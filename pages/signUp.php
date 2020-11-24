@@ -262,7 +262,7 @@ session_start();
                 <tr><td>Confirm Password: </td><td> <input type="password" name="confirmPassword" placeholder= "Ex. confirmPassword" size="30" /></td></tr>  
 
                 <tr><td></td><td><label id="bday_msg" class="err_msg"></label></td></tr>   
-                <tr><td>Date of Birth: </td><td> <input type="date" name="birthday" placeholder= "Ex. mm/dd/yyyy or mm-dd-yyyy" size="30" /></td></tr>
+                <tr><td>Date of Birth: </td><td> <input type="date" name="DOB" size="30" /></td></tr>
 
             	<tr><td></td><td><label id="location_msg" class="err_msg"></label></td></tr>   
                 <tr><td>Location: </td><td><div class = "container">
