@@ -225,60 +225,66 @@
                     ?>
 
                     <?php
-                    
+    
                         // if its not the seller 
                         if($uid != $rowL["sellerID"]) {
-                            // see if there is a chat open, if there is set redirect to it
-                            $rowsC = $r3->num_rows;
-                            if($rowsC > 0){
-                                $chat = $r3->fetch_assoc();
-                                $cid = $chat["cid"];
-                            ?>
-                            <a href="messages.php?cid=<?=$cid?>" style="text-decoration:none;">
-                            <div class = "messageListing sendMessage clickable">
-                                <span class = "messageListingText">Click here to message this seller.</span>
-                            </div>
-                            <?php 
-                            // if there isnt a chat open. redirect it to start a new chat
-                            } else {
-                            ?>
-                            <a href="messageStart.php?uid=<?=$uid?>&lid=<?=$lid?>" style="text-decoration:none;">
-                            <div class = "messageListing sendMessage clickable">
-                                <span class = "messageListingText">Click here to message this seller.</span>
-                            </div>
-                            <?php
+                            // if posting is active. display information to get to chats/ mark sold. Otherwise leave area blank
+                            if($rowL["active"]){
+                                // see if there is a chat open, if there is set redirect to it
+                                $rowsC = $r3->num_rows;
+                                if($rowsC > 0){
+                                    $chat = $r3->fetch_assoc();
+                                    $cid = $chat["cid"];
+                                ?>
+                                <a href="messages.php?cid=<?=$cid?>" style="text-decoration:none;">
+                                <div class = "messageListing sendMessage clickable">
+                                    <span class = "messageListingText">Click here to message this seller.</span>
+                                </div>
+                                <?php 
+                                // if there isnt a chat open. redirect it to start a new chat
+                                } else {
+                                ?>
+                                <a href="messageStart.php?uid=<?=$uid?>&lid=<?=$lid?>" style="text-decoration:none;">
+                                <div class = "messageListing sendMessage clickable">
+                                    <span class = "messageListingText">Click here to message this seller.</span>
+                                </div>
+                                <?php
+                                }
                             }
                         // if seller
                         } else if ($uid == $rowL["sellerID"]){
-                            // fetch all the chats
-                            $q4 = "SELECT C.cid FROM Chats C INNER JOIN Listings L on C.lid = L.lid WHERE L.lid = '$lid' AND L.uid = '$lid' ORDER BY C.last_message DESC";
-                            $r4 = $db->query($q4);
-                            $numChats = $r4->num_rows;
-                            if($numChats == 0){
-                            ?>
-                            <a style="text-decoration:none;"> 
-                            <div class = "messageListing sendMessage clickable">
-                                <span class = "messageListingText">No Chats Available.</span>
-                            </div>
-                            <?php
-                            } else {
-                                // set it to the most recent chat
-                                $recentChat = $r4->fetch_assoc();
-                                $cid = $recentChat["cid"];
+                            // if posting is active. display information to get to chats/ mark sold. Otherwise leave area blank
+                            if($rowL["active"]){
+                                // fetch all the chats
+                                $q4 = "SELECT C.cid FROM Chats C INNER JOIN Listings L on C.lid = L.lid WHERE L.lid = '$lid' AND L.uid = '$lid' ORDER BY C.last_message DESC";
+                                $r4 = $db->query($q4);
+                                $numChats = $r4->num_rows;
+                                if($numChats == 0){
                                 ?>
-                                <a href="messages.php?cid=<?=$cid?>" style="text-decoration:none;"> 
+                                <a style="text-decoration:none;"> 
                                 <div class = "messageListing sendMessage clickable">
-                                    <span class = "messageListingText">View Chats.</span>
+                                    <span class = "messageListingText">No Chats Available.</span>
+                                </div>
+                                <?php
+                                } else {
+                                    // set it to the most recent chat
+                                    $recentChat = $r4->fetch_assoc();
+                                    $cid = $recentChat["cid"];
+                                    ?>
+                                    <a href="messages.php?cid=<?=$cid?>" style="text-decoration:none;"> 
+                                    <div class = "messageListing sendMessage clickable">
+                                        <span class = "messageListingText">View Chats.</span>
+                                    </div>
+                                    <?php
+                                }
+                                // give area for seller to mark as sold
+                                ?>
+                                <a href="markSold.php?lid=<?=$lid?>" style="text-decoration:none;">
+                                <div class = "messageListing sendMessage clickable">
+                                    <span class = "messageListingText">Mark Item as Sold.</span>
                                 </div>
                                 <?php
                             }
-                            // give area for seller to mark as sold
-                            ?>
-                            <a href="markSold.php?lid=<?=$lid?>" style="text-decoration:none;">
-                            <div class = "messageListing sendMessage clickable">
-                                <span class = "messageListingText">Mark Item as Sold.</span>
-                            </div>
-                            <?php
                         }
                     ?>
                     </a>
@@ -286,12 +292,16 @@
                     <?php
                         //if not logged in
                         } else {
+                            // check to make sure it is active
+                            if($rowL["active"]){
 
+                        ?>
+                        <div class = "messageListing">
+                            <span class = "messageListingText">Please <a href="Login.php">log in</a> to message the poster about this item.</span>
+                        </div>
+                    <?php }
+                        }
                     ?>
-                    <div class = "messageListing">
-                        <span class = "messageListingText">Please <a href="Login.php">log in</a> to message the poster about this item.</span>
-                    </div>
-                        <?php }?>
 
                 <?php 
                 
