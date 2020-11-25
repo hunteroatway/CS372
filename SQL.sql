@@ -21,7 +21,7 @@ CREATE TABLE Books(
     isbn_10 INT NOT NULL,
     isbn_13 BIGINT NOT NULL,    
     title VARCHAR(256) NOT NULL,
-    subtitle VARCHAR(256) NOT NULL,
+    subtitle VARCHAR(256),
     publisher VARCHAR(64) NOT NULL,
     description VARCHAR(1024) NOT NULL,
     photo VARCHAR(255),
