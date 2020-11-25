@@ -1,7 +1,7 @@
 $(function(){
 
     // ajax code for submitting without forcing user to leave the page
-    $("form").on("submit", function (e){
+    $("#test").on("submit", function (e){
 
         // get the input and serilaize it and remove any single quotes
         var string = $(this).serialize().replace("'", "&#39;");

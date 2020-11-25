@@ -1,5 +1,7 @@
 <?php
 
+    session_start();
+    
     // connect to DB and check connection
     $db = new mysqli("localhost", "ottenbju", "Passw0rd", "ottenbju");
     if ($db->connect_error)
@@ -112,7 +114,6 @@
             </div>
         </div>      
         
-		<hr/>
         <div class="search-term"><p>Showing <?=$totalResults?> results for <i><?=$search?></i></p></div>
 
         <div class="result">
