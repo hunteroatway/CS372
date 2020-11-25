@@ -9,6 +9,7 @@
     }
 
     $uid = 1;
+    $cidGet = $_GET["cid"];
 
     $q1 = "SELECT B.title, C.cid, C.uid_buyer as Buyer, L.uid as Seller, 
         CASE
@@ -120,10 +121,11 @@
                 <div class="main">
                     <div id="msgs"></div>
 
-                    <div class="message-area" id="test">
-                        <form name = "messageForm">
-                            <input id="cidValue" type="hidden" name="cid" value="<?=$cid?>">
+                    <div class="message-area">
+                        <form name = "messageForm" id="test">
+                            <input id="cidValue" type="hidden" name="cid" value="<?=$cidGet?>">
                             <input id="uidValue" type="hidden" name="uid" value="<?=$uid?>">
+                            <input id="titleValue" type="hidden" name="title" value="<?=$title?>">
                             <input type="text" name = "message" placeholder="Type your message here..." class="message-box" id ="message-box"/>
                             <input type="submit" name = "submit" id="submitButton" value="Send" class="message-button"/>
                         </form>

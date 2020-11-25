@@ -1,3 +1,15 @@
+// on load, load the chat
+$(document).ready(function(){
+
+    // get the values
+    var cidValue = document.getElementById("cidValue").value;
+    var title = document.getElementById("titleValue").innerHTML;
+    var uidValue = document.getElementById("uidValue").value;
+
+    // make call to update chat
+    getMessages(cidValue, uidValue, title, 0);
+});
+
 $(function(){
 
     // ajax code for submitting without forcing user to leave the page
@@ -20,6 +32,7 @@ $(function(){
                 // on success, clear the chat box
                 success: function(){
                     $("#message-box").val('');
+                    console.log("test");
                 }
             });
 
@@ -51,7 +64,6 @@ $(function(){
             // edit the nav bar/ top of messages by same values
             $('.main').css( "margin-top", 79);
             $('#pac-card').addClass("fixedNav");
-            console.log($(window).scrollTop());
 
         // if scroll to top set values to default
         }  else if ($(window).scrollTop() == 0){
