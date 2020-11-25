@@ -8,25 +8,6 @@
         die ("Connection failed: " . $db->connect_error);
     }
 
-    $uid = 1;
-    $cidGet = $_GET["cid"];
-
-    $q1 = "SELECT B.title, C.cid, C.uid_buyer as Buyer, L.uid as Seller, 
-        CASE
-            WHEN C.uid_buyer = '$uid' THEN CONCAT(US.first_name, ' ', US.last_name)
-            WHEN L.uid = '$uid' THEN CONCAT(UB.first_name, ' ', UB.last_name)
-        END AS name
-        FROM Chats C INNER JOIN Listings L
-        ON C.lid = L.lid INNER JOIN Users UB
-        ON C.uid_buyer = UB.uid INNER JOIN Users US
-        ON L.uid = US.uid INNER JOIN Books B
-        ON L.isbn_13 = B.isbn_13
-        WHERE C.uid_buyer = '$uid' OR L.uid = '$uid'
-        ORDER BY C.last_message DESC";
-
-    $r1 = $db->query($q1);
-    $db->close();
-
 ?>
 
 <!DOCTYPE html>
@@ -68,15 +49,13 @@
             <a href="logout.php">LogOut <i class="fa fa-sign-out"></i></a></a>
 
         <?php
-            //if not logged in have links to sign up
+            //if not logged in direct user to logon page.
             } else {
 
-        ?>
-
-            <a href="signUp.php">SignUp <i class="fa fa-user-plus"> </i></a>
-            <a href="Login.php">LogIn <i class="fa fa-sign-in"></i></a>
-
-         <?php }?>
+                /* Redirect user to login page */
+                header("Location: Login.php"); 
+                exit();
+        }?>
 
             <div class="search-container">
                 <form action="search.php" method="get">
@@ -87,7 +66,7 @@
                 <input type="hidden" id ="city" value = "" name="city">
                     <input type="hidden" id ="province" value = "" name="province">
                     <input type="hidden" id ="country" value = "" name="country">
-				<input id = "bookSearch" type="text" placeholder="Search.." name="search" value="<?=$search?>">
+				<input id = "bookSearch" type="text" placeholder="Search.." name="search">
 				<button type="submit"><i class="fa fa-search"></i></button>
 				</form>
             </div>
@@ -98,6 +77,37 @@
                 <div class="sidebar" id ="sidebar">
 
                 <?php
+                    $uid = 1;
+                    $cidGet = $_GET["cid"];
+                
+                    //Query to get all chats the signed in user is apart of
+                    $q1 = "SELECT B.title, C.cid, C.uid_buyer as Buyer, L.uid as Seller, 
+                        CASE
+                            WHEN C.uid_buyer = '$uid' THEN CONCAT(US.first_name, ' ', US.last_name)
+                            WHEN L.uid = '$uid' THEN CONCAT(UB.first_name, ' ', UB.last_name)
+                        END AS name
+                        FROM Chats C INNER JOIN Listings L
+                        ON C.lid = L.lid INNER JOIN Users UB
+                        ON C.uid_buyer = UB.uid INNER JOIN Users US
+                        ON L.uid = US.uid INNER JOIN Books B
+                        ON L.isbn_13 = B.isbn_13
+                        WHERE C.active = true AND (C.uid_buyer = '$uid' OR L.uid = '$uid')
+                        ORDER BY C.last_message DESC";
+                
+                    $r1 = $db->query($q1);
+                
+                    $q2 = "SELECT C.uid_buyer as buyer, L.uid as seller
+                    FROM Chats C INNER JOIN Listings L
+                    ON C.lid = L.lid
+                    WHERE C.cid = '$cidGet'";
+
+                    $r2 = $db->query($q2);
+                    $chat = $r2->fetch_assoc();
+                    $b_uid = $chat["buyer"];
+                    $s_uid = $chat["seller"];
+
+                    $db->close();
+
                     for($i = 0; $i < $r1->num_rows; $i++) {
                         $row = $r1->fetch_assoc();
                         $title = $row["title"];
@@ -126,6 +136,8 @@
                             <input id="cidValue" type="hidden" name="cid" value="<?=$cidGet?>">
                             <input id="uidValue" type="hidden" name="uid" value="<?=$uid?>">
                             <input id="titleValue" type="hidden" name="title" value="<?=$title?>">
+                            <input id="buid" type="hidden" name="buid" value="<?=$b_uid?>">
+                            <input id="suid" type="hidden" name="suid" value="<?=$s_uid?>">
                             <input type="text" name = "message" placeholder="Type your message here..." class="message-box" id ="message-box"/>
                             <input type="submit" name = "submit" id="submitButton" value="Send" class="message-button"/>
                         </form>

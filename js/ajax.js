@@ -5,9 +5,16 @@ $(document).ready(function(){
     var cidValue = document.getElementById("cidValue").value;
     var title = document.getElementById("titleValue").innerHTML;
     var uidValue = document.getElementById("uidValue").value;
+    var buid = document.getElementById("buid").value;
+    var suid = document.getElementById("suid").value;
 
-    // make call to update chat
-    getMessages(cidValue, uidValue, title, 0);
+    if(cidValue != ""){
+        if(buid == uidValue || suid == uidValue)
+            // make call to update chat
+            getMessages(cidValue, uidValue, title, 0);
+        else
+            window.location = 'messages.php';
+    }
 });
 
 $(function(){
