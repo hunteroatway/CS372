@@ -238,10 +238,6 @@ table, p,label, li, a{
   text-align: center;
 }
 
-.bookImage {
-  float: right;
-}
-
 .search-term{
   width: 100%;
 }
@@ -255,6 +251,11 @@ table, p,label, li, a{
   margin: 10px 10px 10px 10px;
   border-radius: 15px;
   border: 2px solid black;
+  text-overflow: ellipsis;
+}
+
+.postImage {
+  float: right;
 }
 
 .clickable{
