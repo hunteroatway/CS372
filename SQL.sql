@@ -24,6 +24,7 @@ CREATE TABLE Books(
     subtitle VARCHAR(256) NOT NULL,
     publisher VARCHAR(64) NOT NULL,
     description VARCHAR(1024) NOT NULL,
+    photo VARCHAR(255),
     edition VARCHAR(16),
     PRIMARY KEY(isbn_13)
 

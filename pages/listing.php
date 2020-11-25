@@ -88,7 +88,7 @@
         $uid = $_SESSION["uid"];
         if(isset($lid)){ 
             // query to get the information needed
-            $q1 = "SELECT L.isbn_13, L.isbn_10, L.uid, L.book_condition, L.price, L.list_date, L.active, A.first_name as auth_first, A.last_name as auth_last, B.title, B.subtitle, B.publisher, B.description, B.edition, U.first_name as user_first, U.last_name as user_last, U.avatar, U.city, U.province, U.country, U.uid as sellerID FROM Listings L INNER JOIN Books B on B.isbn_13 = L.isbn_13 INNER JOIN Authors A ON A.isbn_13 = L.isbn_13 INNER JOIN Users U on L.uid = U.uid WHERE L.lid = $lid";
+            $q1 = "SELECT L.isbn_13, L.isbn_10, L.uid, L.book_condition, L.price, L.list_date, L.active, A.first_name as auth_first, A.last_name as auth_last, B.title, B.subtitle, B.publisher, B.description, B.edition, B.photo, U.first_name as user_first, U.last_name as user_last, U.avatar, U.city, U.province, U.country, U.uid as sellerID FROM Listings L INNER JOIN Books B on B.isbn_13 = L.isbn_13 INNER JOIN Authors A ON A.isbn_13 = L.isbn_13 INNER JOIN Users U on L.uid = U.uid WHERE L.lid = $lid";
             $q2 = "SELECT I.image from Images I WHERE I.lid = '$lid'";
             $q3 = "SELECT C.cid from Chats C where C.lid = '$lid' AND C.uid_buyer = '$uid'";
 
@@ -121,12 +121,19 @@
 
                             // loop through images query and put the images into slideshow
                             $rows = $r2->num_rows;
-                            $i;
-                            for($i = 0; $i < $rows; $i++){
+                            $i = 0;
+                            // initially put photo from google in
+                            ?>
+                            <div class="image">
+                                <div class = "number"><?=$i+1?>/<?=$rows+1?></div>
+                                <img src="<?=$rowL["photo"]?>" style = "display:inline" width = "600 " height = "600" />
+                            </div>
+                            <?php
+                            for($i = 1; $i <= $rows; $i++){
                                 $rowA = $r2->fetch_assoc();
                                 ?>
                                     <div class="image">
-                                        <div class = "number"><?=$i+1?>/<?=$rows?></div>
+                                        <div class = "number"><?=$i+1?>/<?=$rows+1?></div>
                                         <img src="<?=$rowA["image"]?>" style = "display:inline" width = "600 " height = "600" />
                                     </div>
                                 <?php
@@ -141,7 +148,7 @@
 
                     <div class = "dots">
                         <?php
-                            for($i = 0; $i < $rows; $i++){
+                            for($i = 0; $i <= $rows; $i++){
                         ?>
                             <div class = "dot" onclick="slide(<?=$i+1?>)"></div>
                         <?php }?>
