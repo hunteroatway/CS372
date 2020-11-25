@@ -1,3 +1,28 @@
+<!-- 
+  SAMPLE QUERIES
+  ******************************************************************************************************************************************************
+  INSERT INTO Books(isbn_10, isbn_13, title, subtitle, publisher, description, edition, photo)
+  VALUES (1000000000, 1300000000001, "TestTitle", "TestSub", "pub", "test book", "8th", "../image/book_placeholder.jpg");
+  // will need to get these values from the api, initially do a search for the isbn, if nothing, insert into the DB, otherwise continue to listing
+  // image here is the image obtained from the google API. can simply use the URL given
+
+  // INSERT INTO Authors(isbn_13, first_name, last_name)
+  VALUES (1300000000001, "John", "Cena");
+  // similar to above, get from api, if the book exists in the DB, these authors will as well, do not insert duplicate copies
+
+  INSERT INTO Listings (isbn_10, isbn_13, uid, book_condition, price, list_date, active) 
+  VALUES (1000000001, 1300000000001, 1, "good", 63.14, curdate(), true);
+  // using the isbn values from the API, the current users ID and the populated fields
+
+  // get the listing ID in order to add it to the images table
+  // loop through all the images uploaded by the user
+  // name them as {lid}_{1,2,3...}.{fileExtension} in order to keep it organized
+  INSERT INTO Images(image, lid)
+  VALUES("../images/testBook.png", 1);
+
+  // after successful posting redirect to listing page with the LID in the url
+
+ -->
 <?php
     session_start();
 ?>
