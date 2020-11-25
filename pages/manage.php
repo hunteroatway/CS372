@@ -52,6 +52,7 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
     $pswdMatch = preg_match($reg_Pswd, $password);
     if ($pwCK == 1 && ($password == null || $password == "" || $pswdLen < 8 || $pswdMatch == false))
     {
+        $error .= "Invalid Password ";
         $validate = false;
     }
 
@@ -60,6 +61,7 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
     $pswdMatch = preg_match($reg_Pswd, $confirmPassword);
     if ($pwCK == 1 && ($confirmPassword == null || $confirmPassword == "" || $pswdLen < 8 || $pswdMatch == false || $confirmPassword != $password))
     {
+        $error .= "Invalid Password ";
         $validate = false;
     }
 
@@ -68,13 +70,13 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
     if ($fnCK == 1 && ($first_name == null || $first_name == "" || $first_nameV == false))
     {
         
-        $error .= "fn";
+        $error .= "Invalid First Name ";
         $validate = false;
     }
     $last_nameV = preg_match($nameREG, $last_name);
     if ($lnCK == 1 && ($last_name == null || $last_name == "" || $last_nameV == false))
     {
-        $error .= "ln";
+        $error .= "Invalid Last Name. ";
         $validate = false;
     }
 
@@ -84,7 +86,7 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
     $countryV = preg_match($country, $country_v);
     if($locCK == 1 && ($city == null || $province == null || $country == null || $city == "" || $province == "" || $country == "" || $cityV == false || $provinceV == false || $countryV == false))    
     {
-        $error .= "location";
+        $error .= "Invalid Location. ";
         $error .= $locCK;
         $validate = false;
     }
@@ -116,21 +118,21 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
             // Check file size
             if ($_FILES["fileToUpload"]["size"] > 500000)
             {
-                $error .= "Sorry, your file is too large.";
+                $error .= "Sorry, your file is too large. ";
                 $uploadOk = 0;
             }
             
             // Allow certain file formats
             if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" && $imageFileType ) {    
                 // set error to this
-                $error .=  "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                $error .=  "Sorry, only JPG, JPEG, PNG & GIF files are allowed. ";
                 $uploadOk = 0;
             }
 
             // Check if $uploadOk is set to 0 by an error
             if ($uploadOk == 0)
             {
-                $error .= "Sorry, your file was not uploaded.";
+                $error .= "Sorry, your file was not uploaded. ";
                 // if everything is ok, try to upload file
                 
             }
@@ -184,7 +186,7 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
     // if there is an error. inform the user
     else
     {
-        $error .= "Manage Failed.";
+        $error .= "Update To Profile Failed.";
         $db->close();
     }
 
@@ -309,7 +311,7 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
             <br>
             <input type="submit" name="manage" value="Update" />
             <input type="reset" name="Reset" value="Reset" /><br><br>
-            <p><?=$error?></p>
+            <p class = "err_msg"><?=$error?></p>
 
         </form>
         <script type="text/javascript" src="../js/location.js"></script>
