@@ -2,7 +2,7 @@
   SAMPLE QUERIES
   ******************************************************************************************************************************************************
   INSERT INTO Books(isbn_10, isbn_13, title, subtitle, publisher, description, edition, photo)
-  VALUES (1000000000, 1300000000001, "TestTitle", "TestSub", "pub", "test book", "8th", "../image/book_placeholder.jpg");
+  VALUES (1000000000, 1300000000001, "TestTitle", "TestSub", "pub", "test book", "8th", "../images/book_placeholder.jpg");
   // will need to get these values from the api, initially do a search for the isbn, if nothing, insert into the DB, otherwise continue to listing
   // image here is the image obtained from the google API. can simply use the URL given
 
