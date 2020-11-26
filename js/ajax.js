@@ -9,12 +9,22 @@ $(document).ready(function(){
     var suid = document.getElementById("suid").value;
 
     if(cidValue != ""){
-        if(buid == uidValue || suid == uidValue)
+        if(buid == uidValue || suid == uidValue || cidValue != -404)
             // make call to update chat
             getMessages(cidValue, uidValue, title, 0);
-        else
-            window.location = 'messages.php';
+        else{    
+            // create error message
+            var error = document.createElement("h1");      
+            var errorNode = document.createTextNode("404 Chat Not Found");            
+            error.appendChild(errorNode);            
+            error.classList.add("errorList");
+    
+            // append error messages
+            document.getElementById("msgs").appendChild(error);
+            //window.location = 'messages.php';
+        }
     }
+    $('html, body').animate({scrollTop:$(document).height()*5}, 'slow');
 });
 
 $(function(){
@@ -39,7 +49,6 @@ $(function(){
                 // on success, clear the chat box
                 success: function(){
                     $("#message-box").val('');
-                    console.log("test");
                 }
             });
 
@@ -83,6 +92,7 @@ $(function(){
         }
 
     });
+
 });
 
 //Function to load the message thread the user selected
@@ -104,18 +114,21 @@ function getMessages(cid, uid, title, lastUpdate) {
     
 }
 
-// set it to refresh the page every 10s
-setInterval(updatePage, 1000);
+// set it to refresh the page every 5s
+setInterval(updatePage, 5000);
 
 function updatePage(){
 
     // get the values from the current chat
     var cidValue = document.getElementById("cidValue").value;
-    var title = document.getElementById("chatTitle").innerHTML;
-    var uidValue = document.getElementById("uidValue").value;
-    var lastUpdate  = document.getElementById("lastUpdate").innerHTML;
-    lastUpdate = encodeURIComponent(lastUpdate);
 
-    getMessages(cidValue, uidValue, title, lastUpdate);
+    if (cidValue != -404) {
+        var title = document.getElementById("chatTitle").innerHTML;
+        var uidValue = document.getElementById("uidValue").value;
+        var lastUpdate  = document.getElementById("lastUpdate").innerHTML;
+        lastUpdate = encodeURIComponent(lastUpdate);
+
+        getMessages(cidValue, uidValue, title, lastUpdate);
+    }
 
 }

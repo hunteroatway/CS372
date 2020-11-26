@@ -102,6 +102,12 @@
                     WHERE C.cid = '$cidGet'";
 
                     $r2 = $db->query($q2);
+                    $numRestults = $r2->num_rows;
+
+                    // if there is no rows with the given CID. get it to -404 for error
+                    if($numRestults == 0)
+                        $cidGet = -404;
+
                     $chat = $r2->fetch_assoc();
                     $b_uid = $chat["buyer"];
                     $s_uid = $chat["seller"];
@@ -145,7 +151,6 @@
                 </div>
             </div>
         </div>
-
         <script type="text/javascript" src="../js/JavaScript.js"></script>
         <script type="text/javascript" src="../js/ajax.js"></script>
     <script type="text/javascript" src="../js/location.js"></script>
