@@ -258,7 +258,7 @@ table, p,label, li, a{
 }
 
 .post p{
-  width: 200px;
+  width: calc(100% - 210px);
 }
 
 .overflow{
