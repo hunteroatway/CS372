@@ -101,6 +101,7 @@ function getMessages(cid, uid, title, lastUpdate) {
     xmlhttp.onreadystatechange=function() {
       if (this.readyState==4 && this.status==200 && this.responseText != "") {
         document.getElementById("msgs").innerHTML=this.responseText;
+        $('html, body').animate({scrollTop:$(document).height()*5}, 'slow');
       } 
       
     }
@@ -114,8 +115,8 @@ function getMessages(cid, uid, title, lastUpdate) {
     
 }
 
-// set it to refresh the page every 5s
-setInterval(updatePage, 5000);
+// set it to refresh the page every 3s
+setInterval(updatePage, 3000);
 
 function updatePage(){
 
