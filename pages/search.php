@@ -158,12 +158,12 @@
 
 
             <div onclick="clickableSearch(<?=$lid?>)" class="post clickable">
-            <img class="postImage" src="<?=$image?>" width="200" height="220" alt="Book Image"/>
+                <img class="postImage" src="<?=$image?>" width="200" height="220" alt="Book Image"/>
                 <div class="postInfo">
-                    <p><?=$title?></p>
-                    <p><?=$author?></p>
-                    <p><?=$isbn13?></p>
-                    <p><?=$price?></p>
+                    <p class="overflow"><?=$title?></p>
+                    <p class="overflow"><?=$author?></p>
+                    <p>ISBN: <?=$isbn13?></p>
+                    <p>$<?=$price?></p>
                     <p><?=$location?></p>
                 </div>
             </div>

@@ -251,11 +251,20 @@ table, p,label, li, a{
   margin: 10px 10px 10px 10px;
   border-radius: 15px;
   border: 2px solid black;
-  text-overflow: ellipsis;
 }
 
 .postImage {
   float: right;
+}
+
+.post p{
+  width: 200px;
+}
+
+.overflow{
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .clickable{
@@ -273,7 +282,7 @@ table, p,label, li, a{
 }
 
 /* Responsive layout - makes a 3 column-layout instead of 4 columns */
-@media screen and (max-width: 1450px) {
+@media screen and (max-width: 1870px) {
   .result {
     display: grid;
     grid-template-columns: 33% 33% 33%;
@@ -281,7 +290,7 @@ table, p,label, li, a{
 }
 
 /* Responsive layout - makes a 2 column-layout instead of 3 columns */
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1430px) {
   .result {
     display: grid;
     grid-template-columns: 50% 50%;
@@ -289,7 +298,7 @@ table, p,label, li, a{
 }
 
 /* Responsive layout - makes a 1 column-layout instead of 2 columns */
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 960px) {
   .result {
     display: grid;
     grid-template-columns: 100%;
@@ -556,4 +565,8 @@ input:checked + .slider:before {
 .leaflet-locationiq-expanded {
   margin-top: 8px;
   height: 32px !important;
+}
+
+#bookTitle{
+  word-wrap: break-word;
 }
