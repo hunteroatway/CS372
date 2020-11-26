@@ -77,7 +77,7 @@
                 <div class="sidebar" id ="sidebar">
 
                 <?php
-                    $uid = 1;
+                    $uid = $_SESSION["uid"];
                     $cidGet = $_GET["cid"];
                 
                     //Query to get all chats the signed in user is apart of
