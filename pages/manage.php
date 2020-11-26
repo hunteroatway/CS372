@@ -81,9 +81,9 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
     }
 
     // test the location
-    $cityV = preg_match($city, $city_v);
-    $provinceV = preg_match($province, $province_v);
-    $countryV = preg_match($country, $country_v);
+    $cityV = preg_match($city_v, $city);
+    $provinceV = preg_match($province_v, $province);
+    $countryV = preg_match($country_v, $country);
     if($locCK == 1 && ($city == null || $province == null || $country == null || $city == "" || $province == "" || $country == "" || $cityV == false || $provinceV == false || $countryV == false))    
     {
         $error .= "Invalid Location. ";
