@@ -25,7 +25,6 @@ CREATE TABLE Books(
     publisher VARCHAR(64) NOT NULL,
     description VARCHAR(1024) NOT NULL,
     photo VARCHAR(255),
-    edition VARCHAR(16),
     PRIMARY KEY(isbn_13)
 
 ) engine = "innoDB";
