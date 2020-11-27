@@ -86,7 +86,6 @@
     
       <div class="type-selection">
         <form id="create-posting">
-          <div class="switch-container">
             <label>Manual</label>
             <label class="switch">
               <input id="toggle-switch" type="checkbox" checked>
@@ -94,31 +93,22 @@
             </label>
             <label>Automatic</label>
           </div>
-          <button id="submit-posting" type="button">Submit</button>
-        </form>
-        <form id="manual-fields" style="visibility:hidden">
-          <input id="title" type="text" placeholder="Title.." name="title" /> 
-          <input id="subtitle" type="text" placeholder="Subtitle.." name="subtitle" /> 
-          <input id="author" type="text" placeholder="Author.." name="author" /> 
-          <input id="description" type="text" placeholder="Description.." name="description" /> 
-          <input id="publisher" type="text" placeholder="Publisher.." name="publisher" /> 
-          <input id="isbn-10" type="text" placeholder="ISBN-10.." name="isbn-10" /> 
-          <input id="isbn-13" type="text" placeholder="ISBN-13.." name="isbn-13" /> 
-        </form>
-        </div>
-        <form id="automatic-fields" style="visibility:visible">
-          <label id="search_msg" class="err_msg"></label>
-          <input id="isbn" type="text" placeholder="ISBN" name="isbn" /> 
-          <button id="auto-fill" type="button">Auto-Fill</button> 
-        </form>
-      </div>
-      <div class="book-info">
-        <p id="auto-title">Title: </p>
-        <p id="auto-subtitle">Subtitle: </p>
-        <p id="auto-author">Author(s): </p>
-        <p id="auto-description">Description: </p>
-        <p id="auto-publisher">Publisher: </p>
-        <img id="auto-cover"></img>
+				</form>
+					<form id="submit-form" class="input" action="submitposting.php" method="post">
+						<input type="hidden" name="submitted" value="1">
+						<label>ISBN:</label>
+          	<input id="isbn" type="text" placeholder="ISBN.." name="isbn" />
+						<button id="auto-fill" type="button">Auto-Fill</button><br />
+						<label>Title:</label>
+						<input id="title" type="text" placeholder="Title.." name="title" readonly/><br />
+						<label>Author:</label>
+						<input id="author" type="text" placeholder="Author.." name="author" readonly/><br />
+						<label>Description:</label>
+						<input id="description" type="text" placeholder="Description.." name="description" readonly/><br />
+						<label>Publisher:</label>
+						<input id="publisher" type="text" placeholder="Publisher.." name="publisher" readonly/><br />
+						<button id="submit-posting" type="button">Submit</button>
+					</form>
       </div>
     <script type="text/javascript" src="../js/JavaScript.js"></script>
     <script type="text/javascript" src="../js/search.js"></script>
