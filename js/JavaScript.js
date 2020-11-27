@@ -17,10 +17,13 @@ if ( managePage = document.getElementById("manage")){
     managePage.addEventListener("submit", managePageForm, false);
 }
 
+
+/**************************************************************************************************************/
 function LogInForm(event) {
 
     var elements = event.currentTarget;
 
+    // get the values from the form
     var a = elements[1].value;
     var b = elements[2].value;
 
@@ -29,9 +32,12 @@ function LogInForm(event) {
 
     var result = true;
 
+    // variables for the reg ex
     var email_v = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
     var pswd_v = /^(\S*)?\d+(\S*)?$/;
 
+
+    // get the locations for the error messages
     document.getElementById("email_msg").innerHTML = "";
     document.getElementById("pswd_msg").innerHTML = "";
 
@@ -42,7 +48,7 @@ function LogInForm(event) {
         result = false;
     }
 
-
+    // password can not be empty
     if (b == null || b == "" || !pswd_v.test(b) || b.length < 8) {
         document.getElementById("pswd_msg").innerHTML = "Password is empty or invalid (Need to be 8 characters or longer,no space)";
         result = false;
@@ -50,6 +56,7 @@ function LogInForm(event) {
 
     // prevent form to be submitted if one of above field is invalid
     if (result == false) {
+        console.log("em");
         event.preventDefault();
     }
 
@@ -145,11 +152,11 @@ function SignUpForm(event) {
     }
 
     if (result == false) {
+        console.log("meh");
         event.preventDefault();
     }
 
 }
-
 
 
 /********************************************************************************************************************************************************/

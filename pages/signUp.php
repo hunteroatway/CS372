@@ -276,6 +276,7 @@ session_start();
         <form id="SignUp" action="signUp.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="submitted" value="1">
             <table>
+                <tr><td></td><td><label id="picupload_msg" class="err_msg"></label></td></tr>  
                 <tr><td>Upload an Avatar: </td><td><input type="file" name="fileToUpload" id="fileToUpload"></td></tr>
 
                 <tr><td></td><td><label id="email_msg" class="err_msg"></label></td></tr>
