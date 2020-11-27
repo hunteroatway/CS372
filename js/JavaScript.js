@@ -134,7 +134,7 @@ function SignUpForm(event) {
    
     // test the DOB, if invalid print message
     if (DOB == null || DOB == "" || !bday_v.test(DOB)) {
-        document.getElementById("bday_msg").innerHTML = "Birth date is empty or invalid (Enter date in mm/dd/yyyy Or mm-dd-yyyy)";
+        document.getElementById("bday_msg").innerHTML = "Birth date is empty or invalid (Enter date in yyyy-mm-dd)";
         result = false;
     } 
 
@@ -236,33 +236,6 @@ function managePageForm(event){
         event.preventDefault();
     }
 
-}
-
-
-/********************************************************************************************************************************************************/
-
-function ValidateFileUpload() {
-    var fuData = document.getElementById('fileToUpload');
-    var FileUploadPath = fuData.value;
-
-    if (FileUploadPath == '') {
-        //alert("Please chosse a profile picture");
-        console.log("not done");
-
-    } else {
-        var Extension = FileUploadPath.substring(
-            FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
-
-        if (Extension == "gif" || Extension == "png" || Extension == "jpeg" || Extension == "jpg") {
-
-            if (fuData.files && fuData.files[0]) {
-                var reader = new FileReader();
-            }
-        } else {
-            alert("Photo only allows file types of GIF, PNG, JPG, and JPEG.");
-
-        }
-    }
 }
 
 /********************************************************************************************************************************************************/
