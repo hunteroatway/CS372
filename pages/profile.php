@@ -43,6 +43,7 @@
 
             <a href="posting.php">Post Ad <i class="fa fa-book"></i></a>
             <a href="profile.php">Profile <i class="fa fa-user"></i></a>
+            <a href="manage.php">Manage <i class="fa fa-bars"></i></a>
             <a href="logout.php">LogOut <i class="fa fa-sign-out"></i></a></a>
 
         <?php

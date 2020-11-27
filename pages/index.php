@@ -54,8 +54,6 @@
             // if logged in
             if(isset($_SESSION["username"])) {
         ?>
-
-
             <a href="posting.php">Post Ad <i class="fa fa-book"></i></a>
             <a href="profile.php">Profile <i class="fa fa-user"></i></a>
             <a href="logout.php">LogOut <i class="fa fa-sign-out"></i></a></a>
