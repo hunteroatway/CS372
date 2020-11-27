@@ -154,9 +154,9 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
         // Check if $uploadOk is set to 0 by an error
         if ($uploadOk == 0)
         {
-            echo "Sorry, your file was not uploaded.";
-            // if everything is ok, try to upload file
+            $error .= "Sorry, your file was not uploaded.";
             
+        // if everything is ok, try to upload file    
         }
         else
         {
@@ -164,11 +164,11 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
             $target_file = $target_dir . $uid . "." . $imageFileType;
             // upload the file
             if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file));
-        }
             
-        // update the database
-        $q4 = "UPDATE Users U SET U.avatar = '$target_file' WHERE U.uid = '$uid'";
-        $r4 = $db->query($q4);
+            // update the database
+            $q4 = "UPDATE Users U SET U.avatar = '$target_file' WHERE U.uid = '$uid'";
+            $r4 = $db->query($q4);
+        }
 
     }
     // if there is an error. inform the user

@@ -144,10 +144,10 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
                 if(file_exists($target_file)) unlink($target_file);
                 // upload the file
                 if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file));
-            }
 
-            // append to query
-            $q .= "U.avatar = '$target_file' ";
+                // append to query
+                $q .= "U.avatar = '$target_file' ";               
+            }
             
         }
 
