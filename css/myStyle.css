@@ -572,3 +572,31 @@ input:checked + .slider:before {
 #bookTitle{
   word-wrap: break-word;
 }
+
+.listing{
+  display: grid;
+  grid-template-columns: 20% 80%;
+  font-size: 13pt;
+}
+
+.profileInfo{
+
+  padding: 10px 20px 10px 20px;
+  margin: 10px 10px 10px 10px;
+  border: solid 1px black;
+  border-radius: 15px;
+  height: 300px;
+  background: lightgrey;
+
+}
+
+.profileMessages{
+
+  padding: 10px 20px 10px 20px;
+  margin: 10px 10px 10px 10px;
+  border: solid 1px black;
+  border-radius: 15px;
+  background: lightgrey;
+  text-align: center;
+
+}
