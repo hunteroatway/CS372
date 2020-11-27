@@ -1,7 +1,27 @@
 // Changes input fields based on toggle switch input for automatic or manual data entry
 function selectPostingType(event) {
-  var e = event.currentTarget;
-	console.log(e);
+	var title = document.getElementById("title");
+	var author = document.getElementById("author");
+	var description = document.getElementById("description");
+	var publisher = document.getElementById("publisher");
+
+	// Toggle readonly attribute for each field
+	toggleReadOnly(title);
+	toggleReadOnly(author);	
+	toggleReadOnly(description);
+	toggleReadOnly(publisher);
+
+	// Reset placeholder values
+	title.value = '';
+	author.value = '';
+	description.value = '';
+	publisher.value = '';
+}
+
+// Toggle readonly attribute for the supplied parameter
+function toggleReadOnly(x) {
+	if (x.readOnly) x.readOnly = false;
+	else if (!x.readOnly) x.readOnly = true;
 }
 
 // Google API function to search by ISBN
