@@ -67,37 +67,26 @@
          <?php }?>
 
          <div class="search-container">
-                <form action="search.php" method="get">
-                <div class = "container">
-                    <div id="map"></div>
-                    <div id="search-box"></div>
-                </div>
-                <input type="hidden" id ="city" value = "" name="city">
-                    <input type="hidden" id ="province" value = "" name="province">
-                    <input type="hidden" id ="country" value = "" name="country">
-				<input id = "bookSearch" type="text" placeholder="Search.." name="search" value="<?=$search?>">
-				<button type="submit"><i class="fa fa-search"></i></button>
-				</form>
+            <form action="search.php" method="get">
+            <div class = "container">
+                <div id="map"></div>
+                <div id="search-box"></div>
             </div>
-        </div> 
+            <input type="hidden" id ="city" value = "" name="city">
+                <input type="hidden" id ="province" value = "" name="province">
+                <input type="hidden" id ="country" value = "" name="country">
+            <input id = "bookSearch" type="text" placeholder="Search.." name="search" value="<?=$search?>">
+            <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+    </div> 
 
         <?php
 
             // query to get users information
             $q1 = "SELECT U.first_name, U.last_name, U.city, U.province, U.country, U.avatar FROM Users U WHERE U.uid = '$uid'";
             $r1 = $db->query($q1);
-            $userInfo = $r1->fetch_assoc();
-
-            // query to get users listings
-            $q2 = "SELECT L.lid, L.isbn_10, L.isbn_13, L.price, L.list_date, A.first_name, A.last_name, B.title, U.city, U.province, U.country
-            FROM Listings L INNER JOIN Books B 
-            ON L.isbn_13 = B.isbn_13 INNER JOIN Authors A
-            ON B.isbn_13 = A.isbn_13 INNER JOIN Users U
-            ON L.uid = U.uid
-            WHERE L.active = true AND L.uid = '$uid'
-            ORDER BY L.list_date, L.lid, A.last_name";
-
-            $r2 = $db->query($q2);
+            $userInfo = $r1->fetch_assoc();   
 
             // query to get number of open chats
             $q3 = "SELECT COUNT(C.cid) AS count, C.last_message, C.cid FROM Chats C INNER JOIN Listings L ON C.lid = L.lid WHERE L.uid = '$uid' AND C.active = '1' AND L.active = '1' ORDER BY C.last_message DESC";
@@ -105,9 +94,10 @@
             $chats = $r3 ->fetch_assoc();
             $count = $chats["count"];
             $cid = $chats["cid"];
+
         ?>
 
-        <div class = "listing">
+        <div class = "listingProfile">
             <div class = "profile">
                 <div class = "profileInfo">
                     <h2>Profile</h2>
@@ -118,51 +108,72 @@
                     <p>Located in: <?=$userInfo["city"]?>, <?=$userInfo["province"]?>, <?=$userInfo["country"]?></p>
                 </div>
                 <div class = "clickable profileMessages">                              
-                    <a href="messages.php?cid=<?=$cid?>" style="text-decoration:none;"> 
+                    <a href="messages.php?cid=<?=$cid?>" style="text-decoration:none;">
                         <div>
                         <p>Currently have <?=$count?> selling chats open. </p>      
                             <span class = "messageListingText">Click Here To View Chats.</span>
                         </div>
+                    </a>
                 </div>
-            </div>  
+            </div> 
 
-                <div class = "profileListings">
-                <?php
+            <div class = "profileListings">
 
-                    //Generate the listings for each listing in the search result
-                    //Has to incorporate the fact that there may be multiple tuples for when there is more than one author of a book
-                    $currentRow = $r2->fetch_assoc();
-                    $multipleAuthors = false;
-                    for($i = 0; $i < $r2->num_rows; $i++) {
-                        
-                        $nextRow = $r2->fetch_assoc();
+                <label>Sort by: </label>
+                <select name="sort" id="sort" onchange="sortListing(<?=$uid?>)">
+                    <option value="postAsc">Posted: Ascending</option>
+                    <option value="postDesc">Posted: Descending</option>
+                    <option value="titleAsc">Book Title: Ascending</option>
+                    <option value="titleDesc">Book Title: Descending</option>
+                </select>
 
-                        if ($currentRow["lid"] == $nextRow["lid"]) {
-                            //Determine if the current row is the same listing but different author
-                            if ($multipleAuthors == false) {
-                                $author = $currentRow["last_name"] . ", " . $currentRow["first_name"] . " ...";
-                                $multipleAuthors = true;
-                            }
-                        } else {
-                            $lid = $currentRow["lid"];
-                            //Query to get image for the book
-                            $q3 = "SELECT image FROM Images WHERE lid = '$lid'";
-                            $r3 = $db->query($q3);
-                            $row = $r3->fetch_assoc();
+                <div id="selfListing">
+                    <?php
+                        // query to get users listings
+                        $q2 = "SELECT L.lid, L.isbn_10, L.isbn_13, L.price, L.list_date, A.first_name, A.last_name, B.title, U.city, U.province, U.country
+                        FROM Listings L INNER JOIN Books B 
+                        ON L.isbn_13 = B.isbn_13 INNER JOIN Authors A
+                        ON B.isbn_13 = A.isbn_13 INNER JOIN Users U
+                        ON L.uid = U.uid
+                        WHERE L.active = true AND L.uid = '$uid'
+                        ORDER BY L.list_date, L.lid, A.last_name";
 
-                            //Prep info to be shown in listing
-                            $image = $row["image"]; 
-                            $title = $currentRow["title"];                        
-                            $isbn13 = $currentRow["isbn_13"];
-                            $price = $currentRow["price"];
-                            $location = $currentRow["city"] . ", " . $currentRow["province"] . ", " . $currentRow["country"];
+                        $r2 = $db->query($q2);
 
-                            if ($multipleAuthors == false) {
-                                $author = $currentRow["last_name"] . ", " . $currentRow["first_name"];
-                            }
+                        //Generate the listings for each listing in the search result
+                        //Has to incorporate the fact that there may be multiple tuples for when there is more than one author of a book
+                        $currentRow = $r2->fetch_assoc();
+                        $multipleAuthors = false;
+                        for($i = 0; $i < $r2->num_rows; $i++) {
+                            
+                            $nextRow = $r2->fetch_assoc();
 
-                            $multipleAuthors = false;
-                            $currentRow = $nextRow;
+                            if ($currentRow["lid"] == $nextRow["lid"]) {
+                                //Determine if the current row is the same listing but different author
+                                if ($multipleAuthors == false) {
+                                    $author = $currentRow["last_name"] . ", " . $currentRow["first_name"] . " ...";
+                                    $multipleAuthors = true;
+                                }
+                            } else {
+                                $lid = $currentRow["lid"];
+                                //Query to get image for the book
+                                $q4 = "SELECT image FROM Images WHERE lid = '$lid'";
+                                $r4 = $db->query($q4);
+                                $row = $r4->fetch_assoc();
+
+                                //Prep info to be shown in listing
+                                $image = $row["image"]; 
+                                $title = $currentRow["title"];                        
+                                $isbn13 = $currentRow["isbn_13"];
+                                $price = $currentRow["price"];
+                                $location = $currentRow["city"] . ", " . $currentRow["province"] . ", " . $currentRow["country"];
+
+                                if ($multipleAuthors == false) {
+                                    $author = $currentRow["last_name"] . ", " . $currentRow["first_name"];
+                                }
+
+                                $multipleAuthors = false;
+                                $currentRow = $nextRow;
 
                     ?>
 
@@ -177,19 +188,20 @@
                             <p><?=$location?></p>
                         </div>
                     </div>
-        
+
                     <?php
                             }
                         }
                         $db->close();
                     ?>
-
-
                 </div>
+
+            </div>
         </div>
         
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type="text/javascript" src="../js/JavaScript.js"></script>
         <script type="text/javascript" src="../js/location.js"></script>
+        <script type="text/javascript" src="../js/profileAjax.js"></script>
     </body>
 </html>
