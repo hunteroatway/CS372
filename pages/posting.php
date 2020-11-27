@@ -109,6 +109,9 @@
 						<input id="description" type="text" placeholder="Description.." name="description" readonly/><br />
 						<label>Publisher:</label>
 						<input id="publisher" type="text" placeholder="Publisher.." name="publisher" readonly/><br />
+						<label>Upload Images:</label>
+						<input id="fileToUpload" type="file" name="fileToUpload" multiple/><br />
+						<img id="cover" src=""></img><br />
 						<button id="submit-posting" type="button">Submit</button>
 					</form>
       </div>
