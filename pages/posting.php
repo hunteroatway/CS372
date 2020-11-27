@@ -101,6 +101,8 @@
 						<button id="auto-fill" type="button">Auto-Fill</button><br />
 						<label>Title:</label>
 						<input id="title" type="text" placeholder="Title.." name="title" readonly/><br />
+						<label>Subtitle:</label>
+						<input id="subtitle" type="text" placeholder="Subtitle.." name="subtitle" readonly><br />
 						<label>Author:</label>
 						<input id="author" type="text" placeholder="Author.." name="author" readonly/><br />
 						<label>Description:</label>
@@ -111,8 +113,8 @@
 					</form>
       </div>
     <script type="text/javascript" src="../js/JavaScript.js"></script>
-    <script type="text/javascript" src="../js/search.js"></script>
-    <script type="text/javascript" src="../js/search-r.js"></script>
+    <script type="text/javascript" src="../js/googlebooksapi.js"></script>
+    <script type="text/javascript" src="../js/googlebooksapi-r.js"></script>
     <script type="text/javascript" src="../js/location.js"></script>
     </body>
 </html>
