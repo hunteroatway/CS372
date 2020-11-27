@@ -1,12 +1,12 @@
 <?php
-
-    session_start();
-    if(!isset($_SESSION["username"])){
-        echo ("<script LANGUAGE='JavaScript'>
+session_start();
+if (!isset($_SESSION["username"]))
+{
+    echo ("<script LANGUAGE='JavaScript'>
         window.alert('You need to LogIn in order to access Profile page.');
         window.location.href='Login.php';
         </script>");
-    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -35,10 +35,11 @@
     <body>
     <div class="topnav" id="pac-card">
             <a class="active" href="index.php">Home <i class="fa fa-fw fa-home"> </i></a>
-        <?php 
-            // if logged in
-            if(isset($_SESSION["username"])) {
-        ?>
+        <?php
+// if logged in
+if (isset($_SESSION["username"]))
+{
+?>
 
 
             <a href="posting.php">Post Ad <i class="fa fa-book"></i></a>
@@ -47,15 +48,19 @@
             <a href="logout.php">LogOut <i class="fa fa-sign-out"></i></a></a>
 
         <?php
-            //if not logged in have links to sign up
-            } else {
+    //if not logged in have links to sign up
+    
+}
+else
+{
 
-        ?>
+?>
 
             <a href="signUp.php">SignUp <i class="fa fa-user-plus"> </i></a>
             <a href="Login.php">LogIn <i class="fa fa-sign-in"></i></a>
 
-         <?php }?>
+         <?php
+} ?>
 
             <div class="search-container">
                 <form action="search.php" method="get">
@@ -72,10 +77,31 @@
             </div>
         </div>    
 <br>
-        <img class="pic" src="../images/avatar.gif" alt="profile" style = "display:inline" width = "100" height = "100" />
-        <p>UserID: hello@34</p>
-		<hr/>
-        <h1>Most Recent Posting</h1>
+        <img class="pic" src="../images/avatar.gif" alt="profile" style = "display:inline" width = "100" height = "100" /> <br> <br>
+	
+	<?php
+
+	$email = trim($_POST["email"]);
+
+	$db = new mysqli("localhost", "ottenbju", "Passw0rd", "ottenbju");
+
+	if ($db->connect_error)
+	{
+    	    die("Connection to database failed: " . $db->connect_error);
+	}
+
+	$q1 = "SELECT username FROM Users WHERE email = '$email'";
+	$r1 = $db->query($q1);
+	$row = $r1->fetch_assoc();
+	printf("Username: ", $row["username"]);
+	echo "test1";
+	$r1->free_result();
+	$db->close();
+
+	?>  
+	
+<hr/>
+        <h1>My Postings</h1>
         <div class="result">
 
             <div class="post">
