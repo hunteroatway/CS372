@@ -4,8 +4,11 @@ $error = "";
 $reg_Email = "/([a-zA-Z0-9\.\-\_]+)@[a-zA-Z]+.\.+[a-zA-Z]{2,5}$/";
 $reg_Username = "/[a-zA-Z0-9\-\_\@\$]+$/";
 $reg_Pswd = "/^(\S*)?\d+(\S*)?$/";
-$reg_Bday = "/\d{4}-(0[1-9]|1[0-2])-([0-2][0-9]|3[0-1])$/";
-$email = "";
+$reg_Bday = "/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/";
+$city_v = "/^[a-zA-Z '.,]*$/";
+$province_v = "/^[a-zA-Z '.,]*$/";
+$country_v = "/^[a-zA-Z '.,]*$/";
+$nameREG = "/^[a-z ,.'-]+$/";
 
 if (isset($_POST["submitted"]) && $_POST["submitted"])
 {
@@ -16,11 +19,16 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
     $password = trim($_POST["password"]);
     $confirmPassword = trim($_POST["confirmPassword"]);
     $first_name = trim($_POST["first_name"]);
+    $first_name = str_replace("'", "&#039", $first_name);
     $last_name = trim($_POST["last_name"]);
+    $last_name = str_replace("'", "&#039", $last_name);
     $DOB = trim($_POST['DOB']);
     $city = trim($_POST['citySU']);
+    $city = str_replace("'", "&#039", $city);
     $province = trim($_POST['provinceSU']);
+    $province = str_replace("'", "&#039", $province);
     $country = trim($_POST['countrySU']);
+    $country = str_replace("'", "&#039", $country);
 
     // connect to DB and check connection
     $db = new mysqli("localhost", "ottenbju", "Passw0rd", "ottenbju");
@@ -44,13 +52,15 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
         $emailMatch = preg_match($reg_Email, $email);
         if ($email == null || $email == "" || $emailMatch == false)
         {
+            $error .= "email";
             $validate = false;
         }
 
         // check the username
         $usernameMatch = preg_match($reg_Username, $email);
         if ($username == null || $username == "" || $usernameMatch == false)
-        {
+        {   
+            $error .= "uname";
             $validate = false;
         }
 
@@ -59,6 +69,7 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
         $pswdMatch = preg_match($reg_Pswd, $password);
         if ($password == null || $password == "" || $pswdLen < 8 || $pswdMatch == false)
         {
+            $error .= "pw";
             $validate = false;
         }
 
@@ -67,8 +78,35 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
         $pswdMatch = preg_match($reg_Pswd, $confirmPassword);
         if ($confirmPassword == null || $confirmPassword == "" || $pswdLen < 8 || $pswdMatch == false || $confirmPassword != $password)
         {
+            $error .= "pwc";
             $validate = false;
         }
+
+        // test the names
+        $first_nameV = preg_match($nameREG, $first_name);
+        if ($first_name == null || $first_name == "" || $first_nameV == false)
+        {
+            
+            $error .= "Invalid First Name ";
+            $validate = false;
+        }
+        $last_nameV = preg_match($nameREG, $last_name);
+        if ($last_name == null || $last_name == "" || $last_nameV == false)
+        {
+            $error .= "Invalid Last Name. ";
+            $validate = false;
+        }
+
+        // test the location
+        $cityV = preg_match($city_v, $city);
+        $provinceV = preg_match($province_v, $province);
+        $countryV = preg_match($country_v, $country);
+        if($city == null || $province == null || $country == null || $city == "" || $province == "" || $country == "" || $cityV == false || $provinceV == false || $countryV == false)   
+        {
+            $error .= "Invalid Location. ";
+            $validate = false;
+        }
+
     }
 
     // if it is true insert into database. then try to upload the image
@@ -80,10 +118,6 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
 
         $r2 = $db->query($q2);
 
-        // UPLOAD PHOTO
-        // RENAME PHOTO BASED ON UID (CALL IT UID.(FILEEXTENSION))
-        // UPDATE AVATAR IN DATABASE
-        
         // php code to upload an image
         $target_dir = "../avatar/";
         $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
@@ -140,7 +174,7 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
     // if there is an error. inform the user
     else
     {
-        $error = "email address or username is not available. Signup failed.";
+        $error .= "email address or username is not available. Signup failed.";
         $db->close();
     }
 
@@ -277,7 +311,7 @@ session_start();
             <br>
             <input type="submit" name="SignUp" value="SignUp" />
             <input type="reset" name="Reset" value="Reset" /><br><br>
-            <p><?=$error?></p>
+            <p class = "err_msg"><?=$error?></p>
             <p> Already have an account? <a href="Login.php">LogIn</a></p>
 
         </form>

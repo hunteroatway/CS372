@@ -9,10 +9,12 @@ $(document).ready(function(){
     var suid = document.getElementById("suid").value;
 
     if(cidValue != ""){
-        if(buid == uidValue || suid == uidValue || cidValue != -404)
+        if(buid == uidValue || suid == uidValue || cidValue != -404){
             // make call to update chat
             getMessages(cidValue, uidValue, title, 0);
-        else{    
+            //Scroll to bottom of chat
+            $('html, body').animate({scrollTop:$(document).height()*5}, 'slow');
+        } else{    
             // create error message
             var error = document.createElement("h1");      
             var errorNode = document.createTextNode("404 Chat Not Found");            
@@ -24,7 +26,6 @@ $(document).ready(function(){
             //window.location = 'messages.php';
         }
     }
-    $('html, body').animate({scrollTop:$(document).height()*5}, 'slow');
 });
 
 $(function(){
@@ -57,6 +58,7 @@ $(function(){
         }
 
     });
+    
      // function to automatically change the size of the scroll bar
      $(document).scroll(function(e) {
         // if scrolled within the top nav bar
@@ -66,7 +68,7 @@ $(function(){
             // edit the top margin to be this new value to keep sidebar touching nav bar
             $('#sidebar').css( "margin-top", top);
             // edit the height of the sidebar so it is the full height under the nav bar
-            height = $(window).height() - 60 - top;
+            height = $(window).height() - top;
             $('#sidebar').css( "height", height);
 
             // allow nav bar to stick to top
@@ -76,7 +78,7 @@ $(function(){
         } else if ($(window).scrollTop() > 190){
             
             $('#sidebar').css( "margin-top", 49);
-            $('#sidebar').css( "height", $(window).height()-109);
+            $('#sidebar').css( "height", $(window).height()-49);
             // edit the nav bar/ top of messages by same values
             $('.main').css( "margin-top", 79);
             $('#pac-card').addClass("fixedNav");
@@ -86,7 +88,7 @@ $(function(){
             
             $('.main').css( "margin-top", 0);
             $('#sidebar').css( "margin-top", 252);
-            $('#sidebar').css( "height", $(window).height()-312);
+            $('#sidebar').css( "height", $(window).height()-252);
             $('#pac-card').removeClass("fixedNav");
 
         }
@@ -101,6 +103,7 @@ function getMessages(cid, uid, title, lastUpdate) {
     xmlhttp.onreadystatechange=function() {
       if (this.readyState==4 && this.status==200 && this.responseText != "") {
         document.getElementById("msgs").innerHTML=this.responseText;
+        $('html, body').animate({scrollTop:$(document).height()*5}, 'slow');
       } 
       
     }
@@ -114,8 +117,8 @@ function getMessages(cid, uid, title, lastUpdate) {
     
 }
 
-// set it to refresh the page every 5s
-setInterval(updatePage, 5000);
+// set it to refresh the page every 3s
+setInterval(updatePage, 3000);
 
 function updatePage(){
 

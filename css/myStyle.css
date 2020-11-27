@@ -426,9 +426,11 @@ table, p,label, li, a{
 
 .message-area {
   position: fixed;
-  left: 170px;
+  left: 160px;
+  padding-left: 10px;
   bottom: 0;
   width: calc(100% - 170px);
+  background-color: lightgrey;
 }
 
 .message-box {

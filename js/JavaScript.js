@@ -4,10 +4,10 @@ if (a = document.getElementById("LogIn")){
     a.addEventListener("submit", LogInForm, false);
 }
 
-var b;
+var signUpPage;
 
-if ( b = document.getElementById("SignUp")){
-    b.addEventListener("submit", SignUpForm, false);
+if ( signUpPage = document.getElementById("SignUp")){
+    signUpPage.addEventListener("submit", SignUpForm, false);
 }
 
 
@@ -62,29 +62,31 @@ function SignUpForm(event) {
 
     var elements = event.currentTarget;
 
-    var q = elements[2].value;
-    var t = elements[3].value;
-    var w = elements[4].value;
-    var x = elements[5].value;
-    var e = elements[6].value;
-    var r = elements[7].value;
-    var h = elements[8].value;
-    var j = elements[9].value;
-    var i = elements[10].value;
-    var k = elements[11].value;
+    // get the values from the form
+    var email = elements[2].value;
+    var uname = elements[3].value;
+    var firstName = elements[4].value;
+    var lastName = elements[5].value;
+    var password = elements[6].value;
+    var passwordConfirm = elements[7].value;
+    var DOB = elements[8].value;
+    var city = elements[10].value;
+    var province = elements[11].value;
+    var country = elements[12].value;
 
     var result = true;
 
+    // variables for the reg ex
     var email_v = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
     var sname_v = /^[a-zA-Z0-9_-]+$/;
     var uname_v = /^[a-zA-Z '.-]*$/;
     var pswd_v = /^(\S*)?\d+(\S*)?$/;
-    //var bday_v = /^((0?[1-9]|1[012])[- /.](0?[1-9]|[12][0-9]|3[01])[- /.](19|20)?[0-9]{2})*$/; needs to be updated
+    var bday_v = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
     var city_v = /^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/;
     var province_v = /^[a-zA-Z '.,]*$/;
     var country_v = /^[a-zA-Z '.,]*$/;
 
-
+    // get the locations for the error messages
     document.getElementById("email_msg").innerHTML = "";
     document.getElementById("sname_msg").innerHTML = "";
     document.getElementById("uname_msg").innerHTML = "";
@@ -94,46 +96,53 @@ function SignUpForm(event) {
     document.getElementById("bday_msg").innerHTML = "";
     document.getElementById("location_msg").innerHTML = "";
 
-    if (q == null || q == "" || !email_v.test(q)) {
+    // test the email, if invalid print message
+    if (email == null || email == "" || !email_v.test(email)) {
         document.getElementById("email_msg").innerHTML = "Email is empty or invalid(example: email@gmail.com)";
         result = false;
     }
 
-    if (t == null || t == "" || !sname_v.test(t)) {
+    // test the username, if invalid print message
+    if (uname == null || uname == "" || !sname_v.test(uname)) {
         document.getElementById("sname_msg").innerHTML = "User name is empty or invalid(no spaces or other non-word characters)";
         result = false;
     }
 
-    if (w == null || w == "" || !uname_v.test(w)) {
+    // test the firstname, if invalid print message
+    if (firstName == null || firstName == "" || !uname_v.test(firstName)) {
         document.getElementById("uname_msg").innerHTML = "First name is empty or invalid(No spaces before or after)";
         result = false;
     }
 
-    if (x == null || x == "" || !uname_v.test(x)) {
+    // test the lastname, if invalid print message
+    if (lastName == null || lastName == "" || !uname_v.test(lastName)) {
         document.getElementById("name_msg").innerHTML = "Last name is empty or invalid(No spaces before or after)";
         result = false;
     }
 
-    if (e == null || e == "" || !pswd_v.test(e) || e.length < 8) {
+    // test the password, if invalid print message
+    if (password == null || password == "" || !pswd_v.test(password) || password.length < 8) {
         document.getElementById("pswd_msg").innerHTML = "Password is empty or invalid (Need to be 8 characters, and one non-letter)";
         result = false;
     }
 
-
-    if (r == null || r == "" || !pswd_v.test(r) || r != e) {
+    // test the confirm password, if invalid print message
+    if (passwordConfirm == null || passwordConfirm == "" || !pswd_v.test(passwordConfirm) || passwordConfirm != password) {
         document.getElementById("pswdr_msg").innerHTML = "The confirmed password must match with the password above";
         result = false;
     }
    
-    /* if (h == null || h == "" || !bday_v.test(h)) {
+    // test the DOB, if invalid print message
+    if (DOB == null || DOB == "" || !bday_v.test(DOB)) {
         document.getElementById("bday_msg").innerHTML = "Birth date is empty or invalid (Enter date in mm/dd/yyyy Or mm-dd-yyyy)";
         result = false;
-    } */
-
-    if (j == null || j == "" || !city_v.test(j) || i == null || i == "" || !province_v.test(i) || k == null || k == "" || !country_v.test(k)) {
-        document.getElementById("location_msg").innerHTML = "Location is empty or invalid (Please enter a valid location)";
-        result = false;
     } 
+
+    //test the location, if invalid print message
+    if(city == null || province == null || country == null || city == "" || province == "" || country == "" || !city_v.test(city) || !province_v.test(province) || !country_v.test(country)){
+        document.getElementById("location_msg").innerHTML = "Please enter a valid location";
+        valid = false;
+    }
 
     if (result == false) {
         event.preventDefault();
@@ -171,7 +180,6 @@ function managePageForm(event){
     var province_v = /^[a-zA-Z '.,]*$/;
     var country_v = /^[a-zA-Z '.,]*$/;
     var nameREG = /^[a-z ,.'-]+$/;
-
 
     // perform regex on each field with input
 
