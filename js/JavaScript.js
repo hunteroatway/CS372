@@ -87,7 +87,7 @@ function SignUpForm(event) {
     var email_v = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
     var sname_v = /^[a-zA-Z0-9_-]+$/;
     var uname_v = /^[a-zA-Z '.-]*$/;
-    var pswd_v = /^(\S*)?\d+(\S*)?$/;
+    var pswd_v = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}/;
     var bday_v = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
     var city_v = /^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/;
     var province_v = /^[a-zA-Z '.,]*$/;
@@ -129,7 +129,7 @@ function SignUpForm(event) {
 
     // test the password, if invalid print message
     if (password == null || password == "" || !pswd_v.test(password) || password.length < 8) {
-        document.getElementById("pswd_msg").innerHTML = "Password is empty or invalid (Need to be 8 characters, and one non-letter)";
+        document.getElementById("pswd_msg").innerHTML = "Password is empty or invalid (Need to be 8 characters, at least 1 lowercase, 1 uppercase and 1 number)";
         result = false;
     }
 
@@ -182,7 +182,7 @@ function managePageForm(event){
     var country = elements[14].value;
 
     //regex variables
-    var pswd_v = /^(\S*)?\d+(\S*)?$/;    
+    var pswd_v = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}/;    
     var city_v = /^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/;
     var province_v = /^[a-zA-Z '.,]*$/;
     var country_v = /^[a-zA-Z '.,]*$/;
@@ -217,7 +217,7 @@ function managePageForm(event){
 
     // test password
     if (pwCK && (PW == null || PW == "" || !pswd_v.test(PW) || PW.length < 8)) {
-        document.getElementById("pswd_msg").innerHTML = "Password is empty or invalid (Need to be 8 characters, and one non-letter)";
+        document.getElementById("pswd_msg").innerHTML = "Password is empty or invalid (Need to be 8 characters, at least 1 lowercase, 1 uppercase and 1 number)";
         valid = false;
     } else {
         document.getElementById("pswd_msg").innerHTML = "";

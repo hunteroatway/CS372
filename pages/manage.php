@@ -1,7 +1,7 @@
 <?php
 $validate = true;
 $error = "";
-$reg_Pswd = "/^(\S*)?\d+(\S*)?$/";
+$reg_Pswd = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}/";
 $city_v = "/^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/";
 $province_v = "/^[a-zA-Z '.,]*$/";
 $country_v = "/^[a-zA-Z '.,]*$/";
@@ -52,7 +52,7 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
     $pswdMatch = preg_match($reg_Pswd, $password);
     if ($pwCK == 1 && ($password == null || $password == "" || $pswdLen < 8 || $pswdMatch == false))
     {
-        $error .= "Invalid Password ";
+        $error .= "Invalid Password. Must be at least 8 characters long with at least 1 lowercase, 1 uppercase and 1 number ";
         $validate = false;
     }
 
@@ -61,7 +61,7 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
     $pswdMatch = preg_match($reg_Pswd, $confirmPassword);
     if ($pwCK == 1 && ($confirmPassword == null || $confirmPassword == "" || $pswdLen < 8 || $pswdMatch == false || $confirmPassword != $password))
     {
-        $error .= "Invalid Password ";
+        $error .= "Invalid Password. Must be at least 8 characters long with at least 1 lowercase, 1 uppercase and 1 number ";
         $validate = false;
     }
 

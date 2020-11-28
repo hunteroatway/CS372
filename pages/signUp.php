@@ -3,7 +3,7 @@ $validate = true;
 $error = "";
 $reg_Email = "/([a-zA-Z0-9\.\-\_]+)@[a-zA-Z]+.\.+[a-zA-Z]{2,5}$/";
 $reg_Username = "/[a-zA-Z0-9\-\_\@\$]+$/";
-$reg_Pswd = "/^(\S*)?\d+(\S*)?$/";
+$reg_Pswd = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}/";
 $reg_Bday = "/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/";
 $city_v = "/^[a-zA-Z '.,]*$/";
 $province_v = "/^[a-zA-Z '.,]*$/";
@@ -52,7 +52,7 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
         $emailMatch = preg_match($reg_Email, $email);
         if ($email == null || $email == "" || $emailMatch == false)
         {
-            $error .= "email";
+            $error .= "Invalid Email Entered ";
             $validate = false;
         }
 
@@ -60,7 +60,7 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
         $usernameMatch = preg_match($reg_Username, $email);
         if ($username == null || $username == "" || $usernameMatch == false)
         {   
-            $error .= "uname";
+            $error .= "Invalid Username Entered";
             $validate = false;
         }
 
@@ -69,7 +69,7 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
         $pswdMatch = preg_match($reg_Pswd, $password);
         if ($password == null || $password == "" || $pswdLen < 8 || $pswdMatch == false)
         {
-            $error .= "pw";
+            $error .= "Invalid Password. Must be at least 8 characters long with at least 1 lowercase, 1 uppercase and 1 number ";
             $validate = false;
         }
 
@@ -78,7 +78,7 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
         $pswdMatch = preg_match($reg_Pswd, $confirmPassword);
         if ($confirmPassword == null || $confirmPassword == "" || $pswdLen < 8 || $pswdMatch == false || $confirmPassword != $password)
         {
-            $error .= "pwc";
+            $error .= "Invalid Confirm Password Entered.";
             $validate = false;
         }
 
