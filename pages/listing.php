@@ -236,6 +236,7 @@
                                 <div class = "messageListing sendMessage clickable">
                                     <span class = "messageListingText">Click here to message this seller.</span>
                                 </div>
+                                </a>
                                 <?php 
                                 // if there isnt a chat open. redirect it to start a new chat
                                 } else {
@@ -244,6 +245,7 @@
                                 <div class = "messageListing sendMessage clickable">
                                     <span class = "messageListingText">Click here to message this seller.</span>
                                 </div>
+                                </a>
                                 <?php
                                 }
                             }
@@ -261,6 +263,7 @@
                                 <div class = "messageListing sendMessage clickable">
                                     <span class = "messageListingText">No Chats Available.</span>
                                 </div>
+                                </a>
                                 <?php
                                 } else {
                                     // set it to the most recent chat
@@ -271,6 +274,7 @@
                                     <div class = "messageListing sendMessage clickable">
                                         <span class = "messageListingText">View Chats.</span>
                                     </div>
+                                    </a>
                                     <?php
                                 }
                                 // give area for seller to mark as sold
@@ -279,11 +283,11 @@
                                 <div class = "messageListing sendMessage clickable">
                                     <span class = "messageListingText">Mark Item as Sold.</span>
                                 </div>
+                                </a>    
                                 <?php
                             }
                         }
                     ?>
-                    </a>
 
                     <?php
                         //if not logged in
