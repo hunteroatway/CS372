@@ -1,6 +1,6 @@
 <?php
     session_start();
-/*     if (!isset($_SESSION["username"])) {
+     if (!isset($_SESSION["username"])) {
         echo ("<script LANGUAGE='JavaScript'>
             window.alert('You need to LogIn in order to access Profile page.');
             window.location.href='Login.php';
@@ -8,8 +8,7 @@
     }
 
     // get the uid
-    $uid = $_SESSION["uid"]; */
-    $uid = 1;
+    $uid = $_SESSION["uid"];
 
     // connect to database
     $db = new mysqli("localhost", "ottenbju", "Passw0rd", "ottenbju");
