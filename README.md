@@ -9,7 +9,7 @@ git clone https://github.com/hunteroatway/CS372.git
 ```
 Then you will need to grant the correct permissions to all of the folders. Initially run 
 ```
-chmod 711 CS372
+chmod 711 CS372/
 ``` 
 to grant the correct permissions to the main directory. Once inside the CS372 directory run **./perm.sh** in order to give the subdirectories and files the correct permissions.
 
@@ -31,4 +31,3 @@ Lastly, the user is able to go to their profile page to get to the most recent c
 This project used the following API's:
  - [Google Books](https://developers.google.com/books "Google Books API") In order to allow the user to simply input the ISBN of the textbook so that the website can automatically populate the information on the book.
  - [LocationIQ](https://locationiq.com/ "LocationIQ") In order to provide autocompletion on locations in order to help speed up the user inputting their location and ensuring that all of the information is stored accurately and consistently.
- 
