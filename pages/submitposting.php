@@ -80,9 +80,11 @@
         // get first and last name
         list($firstName, $lastName) = explode(" ", $value);
         // append to query
-        $q3 .= "('$isbn13', '$firstName', '$lastName')";
+        $q3 .= "('$isbn13', '$firstName', '$lastName'), ";
       }
-
+      
+      $q3 = substr($q3, 0, -2);
+      echo $q3;
       // insert all authors into DB
       $r3 = $db->query($q3);
     }
@@ -139,10 +141,10 @@
         }
         $inc++;
       }
-      echo $error;
-      echo $q6;
+      // remove extra comma from query
+      $q6 = substr($q6, 0, -2);
       // input the images to the DB
-      //$r6 = $db->query($q6);
+      $r6 = $db->query($q6);
     } 
     // if there is an error. inform the user
     else {
@@ -150,7 +152,7 @@
         $db->close();
     }
     // if querys work. send to the listing page
-    if ($r2 == true && $r3 == true && $r4 == true && $r6 === true)
+    if ($r4 == true && $r6 === true)
     {
         header("Location: listing.php?lid=" . $lid);
         $db->close();
