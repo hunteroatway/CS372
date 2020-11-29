@@ -70,6 +70,7 @@ function SignUpForm(event) {
     var elements = event.currentTarget;
 
     // get the values from the form
+    var picupload = elements[1].value;
     var email = elements[2].value;
     var uname = elements[3].value;
     var firstName = elements[4].value;
@@ -84,6 +85,7 @@ function SignUpForm(event) {
     var result = true;
 
     // variables for the reg ex
+    var picupload_v = /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i;
     var email_v = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
     var sname_v = /^[a-zA-Z0-9_-]+$/;
     var uname_v = /^[a-zA-Z '.-]*$/;
@@ -94,6 +96,7 @@ function SignUpForm(event) {
     var country_v = /^[a-zA-Z '.,]*$/;
 
     // get the locations for the error messages
+    document.getElementById("picupload_msg").innerHTML = "";
     document.getElementById("email_msg").innerHTML = "";
     document.getElementById("sname_msg").innerHTML = "";
     document.getElementById("uname_msg").innerHTML = "";
@@ -102,6 +105,13 @@ function SignUpForm(event) {
     document.getElementById("pswdr_msg").innerHTML = "";
     document.getElementById("bday_msg").innerHTML = "";
     document.getElementById("location_msg").innerHTML = "";
+
+    // test the avatar upload, if invalid print message
+    if (picupload == null || picupload == "" || !picupload_v.test(picupload)) {
+        document.getElementById("picupload_msg").innerHTML = "Please upload an avatar (Must be .Jpg, .Jpeg, .Png, or .gif file)";
+        result = false;
+    }
+
 
     // test the email, if invalid print message
     if (email == null || email == "" || !email_v.test(email)) {
@@ -182,6 +192,7 @@ function managePageForm(event){
     var country = elements[14].value;
 
     //regex variables
+    var avatar_v = /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i;
     var pswd_v = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}/;    
     var city_v = /^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/;
     var province_v = /^[a-zA-Z '.,]*$/;
@@ -192,8 +203,8 @@ function managePageForm(event){
 
     //ensure there is a file for avatar
     // test first name
-    if(changeAvatarCK && (avatar == null || avatar == "" )){
-        document.getElementById("avatar_msg").innerHTML = "Please upload an avatar";
+    if(changeAvatarCK && (avatar == null || avatar == "" || !avatar_v.test(avatar))){
+        document.getElementById("avatar_msg").innerHTML = "Please upload an avatar (Must be .Jpg, .Jpeg, .Png, or .gif file)";
         valid = false;
     } else {
         document.getElementById("avatar_msg").innerHTML = "";
