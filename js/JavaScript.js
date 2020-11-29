@@ -1,7 +1,7 @@
-var a;
+var loginPage;
 
-if (a = document.getElementById("LogIn")){
-    a.addEventListener("submit", LogInForm, false);
+if (loginPage = document.getElementById("LogIn")){
+    loginPage.addEventListener("submit", LogInForm, false);
 }
 
 var signUpPage;
@@ -24,11 +24,8 @@ function LogInForm(event) {
     var elements = event.currentTarget;
 
     // get the values from the form
-    var a = elements[1].value;
-    var b = elements[2].value;
-
-    console.log(a);
-    console.log(b);
+    var email = elements[1].value;
+    var password = elements[2].value;
 
     var result = true;
 
@@ -43,20 +40,19 @@ function LogInForm(event) {
 
 
     // email can not be empty or wrong format
-    if (a == null || a == "" || !email_v.test(a)) {
+    if (email == null || email == "" || !email_v.test(email)) {
         document.getElementById("email_msg").innerHTML = "Email is empty or invalid(example: email@gmail.com)";
         result = false;
     }
 
     // password can not be empty
-    if (b == null || b == "" || !pswd_v.test(b) || b.length < 8) {
+    if (password == null || password == "" || !pswd_v.test(password) || password.length < 8) {
         document.getElementById("pswd_msg").innerHTML = "Password is empty or invalid (Need to be 8 characters or longer,no space)";
         result = false;
     }
 
     // prevent form to be submitted if one of above field is invalid
     if (result == false) {
-        console.log("em");
         event.preventDefault();
     }
 
@@ -85,7 +81,7 @@ function SignUpForm(event) {
     var result = true;
 
     // variables for the reg ex
-    var picupload_v = /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i;
+    var picupload_v = /\.(gif|jpe?g|png)$/i;
     var email_v = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
     var sname_v = /^[a-zA-Z0-9_-]+$/;
     var uname_v = /^[a-zA-Z '.-]*$/;
@@ -162,7 +158,6 @@ function SignUpForm(event) {
     }
 
     if (result == false) {
-        console.log("meh");
         event.preventDefault();
     }
 
@@ -182,6 +177,7 @@ function managePageForm(event){
     var lastCK = elements[6].checked;
     var pwCK = elements[8].checked;
     var locCK = elements[11].checked;
+
     var avatar = elements[1].value;
     var FN = elements[3].value;
     var LN = elements[5].value;
@@ -192,7 +188,7 @@ function managePageForm(event){
     var country = elements[14].value;
 
     //regex variables
-    var avatar_v = /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i;
+    var avatar_v = /\.(gif|jpe?g|png)$/i;
     var pswd_v = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}/;    
     var city_v = /^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/;
     var province_v = /^[a-zA-Z '.,]*$/;
@@ -250,7 +246,6 @@ function managePageForm(event){
 
     // if validate fails, do not send form
     if (valid == false) {
-        console.log("lol");
         event.preventDefault();
     }
 
