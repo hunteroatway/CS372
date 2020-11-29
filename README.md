@@ -31,3 +31,7 @@ Lastly, the user is able to go to their profile page to get to the most recent c
 This project used the following API's:
  - [Google Books](https://developers.google.com/books "Google Books API") In order to allow the user to simply input the ISBN of the textbook so that the website can automatically populate the information on the book.
  - [LocationIQ](https://locationiq.com/ "LocationIQ") In order to provide autocompletion on locations in order to help speed up the user inputting their location and ensuring that all of the information is stored accurately and consistently.
+
+## Link
+Link to our website:
+ - [Pick-A-Book](http://www2.cs.uregina.ca/~ottenbju/CS372/pages/index.php "Pick-A-Book")
