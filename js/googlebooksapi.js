@@ -49,11 +49,21 @@ function searchBookByISBN() {
 		// Parse JSON object
         var title_val = obj.items[0].volumeInfo.title;
         var subtitle_val = obj.items[0].volumeInfo.subtitle;
-        var authors_val = obj.items[0].volumeInfo.authors[0];
         var description_val = obj.items[0].volumeInfo.description;
         var publisher_val = obj.items[0].volumeInfo.publisher;
-        var cover_val = obj.items[0].volumeInfo.imageLinks.smallThumbnail;
-				
+		var cover_val = obj.items[0].volumeInfo.imageLinks.smallThumbnail;
+		
+		// Handle multiple authors for one book
+		var authors_val = "";
+		var num_authors = obj.items[0].volumeInfo.authors.length;
+		for (var i = 0; i < num_authors; i++) {
+			if (i == num_authors-1) {
+				authors_val += obj.items[0].volumeInfo.authors[i];
+			} else {
+				authors_val += obj.items[0].volumeInfo.authors[i] + ", ";
+			}
+		}
+
 		// Update input field values
 		title.value = title_val;
         subtitle.value = subtitle_val;

@@ -256,7 +256,7 @@
             <label id="publisher_err" class="err_msg"></label><br />
 
             <label>Price:</label>
-            <input id="price" type="text" placeholder="Price.." name="price"/>
+            <input id="price" type="number" placeholder="Price.." name="price" step="0.01" min="0"/>
             <label id="price_err" class="err_msg"></label><br />
 
             <label>Condition:</label>
