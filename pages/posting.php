@@ -229,21 +229,46 @@
 				</form>
 					<form id="submit-form" class="input" action="submitposting.php" method="post">
 						<input type="hidden" name="submitted" value="1">
+            
 						<label>ISBN:</label>
           	<input id="isbn" type="text" placeholder="ISBN.." name="isbn" />
-						<button id="auto-fill" type="button">Auto-Fill</button><br />
+						<button id="auto-fill" type="button">Auto-Fill</button>
+            <label id="isbn_err" class="err_msg"></label><br />
+
 						<label>Title:</label>
-						<input id="title" type="text" placeholder="Title.." name="title" readonly/><br />
+						<input id="title" type="text" placeholder="Title.." name="title" readonly/>
+            <label id="title_err" class="err_msg"></label><br />
+
 						<label>Subtitle:</label>
-						<input id="subtitle" type="text" placeholder="Subtitle.." name="subtitle" readonly><br />
+						<input id="subtitle" type="text" placeholder="Subtitle.." name="subtitle" readonly>
+            <label id="subtitle_err" class="err_msg"></label><br />
+
 						<label>Author:</label>
-						<input id="author" type="text" placeholder="Author.." name="author" readonly/><br />
+						<input id="author" type="text" placeholder="Author.." name="author" readonly/>
+            <label id="author_err" class="err_msg"></label><br />
+
 						<label>Description:</label>
-						<input id="description" type="text" placeholder="Description.." name="description" readonly/><br />
+						<input id="description" type="text" placeholder="Description.." name="description" readonly/>
+            <label id="description_err" class="err_msg"></label><br />
+
 						<label>Publisher:</label>
-						<input id="publisher" type="text" placeholder="Publisher.." name="publisher" readonly/><br />
+						<input id="publisher" type="text" placeholder="Publisher.." name="publisher" readonly/>
+            <label id="publisher_err" class="err_msg"></label><br />
+
+            <label>Price:</label>
+            <input id="price" type="text" placeholder="Price.." name="price"/>
+            <label id="price_err" class="err_msg"></label><br />
+
+            <label>Condition:</label>
+            <select id="condition" name="condition">
+              <option value="good">Good</option>
+              <option value="fair">Fair</option>
+              <option value="poor">Poor</option>
+            </select><br />
+
 						<label>Upload Images:</label>
 						<input id="fileToUpload" type="file" name="fileToUpload" multiple/><br />
+
 						<img id="cover" src=""></img><br />
 						<button id="submit-posting" type="button">Submit</button>
 					</form>
