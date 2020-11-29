@@ -71,9 +71,10 @@ function searchBookByISBN() {
 		description.value = description_val;
 		publisher.value = publisher_val;
 
-		// Update hidden ISBN values
+		// Update hidden values
 		document.getElementById("isbn-10").value = obj.items[0].volumeInfo.industryIdentifiers[0].identifier;
 		document.getElementById("isbn-13").value = obj.items[0].volumeInfo.industryIdentifiers[1].identifier;
+		document.getElementById("cover-link").value = cover_val;
 		
 		// Handle undefined values returned from API
 		if (title_val == null)

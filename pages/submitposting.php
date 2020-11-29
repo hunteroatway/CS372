@@ -39,7 +39,7 @@
     $publisher = trim($_POST["publisher"]);
     $condition = trim($_POST["condition"]);    
     $price = trim($_POST["price"]);
-    $cover = trim($_POST["cover"]);
+    $cover = trim($_POST["cover-link"]);
     
     // change ' to &#039
     $isbn10 = str_replace("'","&#039", $isbn10);
@@ -50,6 +50,7 @@
     $description = str_replace("'","&#039", $description);
     $publisher = str_replace("'","&#039", $publisher);
     $condition = str_replace("'","&#039", $condition);
+    $cover = str_replace("'","&#039", $cover);
     $price = str_replace("'","&#039", $price);
 
     // connect to DB and check connection

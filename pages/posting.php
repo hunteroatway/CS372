@@ -112,7 +112,8 @@
 						<input id="fileToUpload" type="file" name="fileToUpload" multiple/><br />
 
 						<img id="cover" src=""></img><br />
-						<button id="submit-posting" type="submit">Submit</button>
+            <input type="hidden" id="cover-link" name="cover-link">
+            <button id="submit-posting" type="submit">Submit</button>
 					</form>
       </div>
     <script type="text/javascript" src="../js/JavaScript.js"></script>
