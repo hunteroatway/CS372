@@ -79,7 +79,7 @@
         // get first and last name
         list($firstName, $lastName) = explode(" ", $value);
         // append to query
-        $q3 .= "('$isbn13, $firstName, $lastName)";
+        $q3 .= "('$isbn13', '$firstName', '$lastName')";
       }
 
       // insert all authors into DB
@@ -97,7 +97,7 @@
     //prep query
     $q6 = "INSERT INTO Images(image, lid) VALUES ";
     // loop through all the images uploaded and upload them to the DB
-    $target_dir = "../avatar/";
+    $target_dir = "../uploads/";
     $fileNames = array_filter($_FILES['fileToUpload']['name']); 
     if(!empty($fileNames)){ 
       foreach($_FILES['fileToUpload']['name'] as $key=>$val){ 
@@ -134,7 +134,7 @@
             if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"][$key], $target_file));
             
             // append to query
-            $q6 .= "('$target_file', '$lid') ";
+            $q6 .= "('$target_file', '$lid')";
         }
         $inc++;
       }
@@ -154,5 +154,4 @@
         exit();
     }
   } 
-  }
 ?>
