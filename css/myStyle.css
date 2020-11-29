@@ -420,6 +420,12 @@ table, p,label, li, a{
   text-align: center;
 }
 
+.chat p {
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .sellerName{
   font-size: 10pt;
 }
