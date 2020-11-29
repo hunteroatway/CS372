@@ -98,24 +98,24 @@
     //prep query
     $q6 = "INSERT INTO Images(image, lid) VALUES ";
     // loop through all the images uploaded and upload them to the DB
-    $target_dir = "../uploads/";
-    $fileNames = array_filter($_FILES['fileToUpload']['name']); 
+    $target_dir = "../images/";
+    $fileNames = $_FILES['files']['name']; 
     if(!empty($fileNames)){ 
-      foreach($_FILES['fileToUpload']['name'] as $key=>$val){ 
+      $inc = 1;
+      foreach($_FILES['files']['name'] as $key=>$val){ 
         // value to give each image
-        $inc = 1;
-        
-        $fileName = basename($_FILES['fileToUpload']['name'][$key]); 
+        $uploadOk = 1;
+        $fileName = basename($_FILES['files']['name'][$key]); 
         $targetFilePath = $targetDir . $fileName; 
         $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION); 
         // Allow certain file formats
-        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" && $imageFileType ) {    
+        if($fileType != "jpg" && $fileType != "png" && $fileType != "jpeg" && $fileType != "gif" && $fileType ) {    
           // set error to this
-          $error =  "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+          $error .=  "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
           $uploadOk = 0;
         }        
         // Check file size
-        if ($_FILES["fileToUpload"]["size"][$key] > 500000)
+        if ($_FILES["files"]["size"][$key] > 500000)
         {
             echo "Sorry, your file is too large.";
             $uploadOk = 0;
@@ -130,18 +130,20 @@
         else
         {
             //change the name of the file to the userID
-            $target_file = $target_dir . $lid . "_" . $inc . "." . $imageFileType;
+            $target_file = $target_dir . $lid . "_" . $inc . "." . $fileType;
             // upload the file
-            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"][$key], $target_file));
+            if (move_uploaded_file($_FILES["files"]["tmp_name"][$key], $target_file));
             
             // append to query
-            $q6 .= "('$target_file', '$lid')";
+            $q6 .= "('$target_file', '$lid'), ";
         }
         $inc++;
       }
+      echo $error;
+      echo $q6;
       // input the images to the DB
-      $r6 = $db->query($q6);
-    }
+      //$r6 = $db->query($q6);
+    } 
     // if there is an error. inform the user
     else {
         $error .= "Please select a file to upload";

@@ -66,7 +66,7 @@
             <label>Automatic</label>
           </div>
 				</form>
-					<form id="submit-form" class="input" action="submitposting.php" method="post">
+					<form id="submit-form" class="input" action="submitposting.php" method="post" enctype="multipart/form-data">
 						<input type="hidden" name="submitted" value="1">
             
 						<label>ISBN:</label>
@@ -109,7 +109,7 @@
             </select><br />
 
 						<label>Upload Images:</label>
-						<input id="fileToUpload" type="file" name="fileToUpload" multiple/><br />
+            <input type="file" name="files[]" multiple ><br />
 
 						<img id="cover" src=""></img><br />
             <input type="hidden" id="cover-link" name="cover-link">
