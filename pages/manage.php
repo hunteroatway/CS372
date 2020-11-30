@@ -66,15 +66,13 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
     }
 
     // test the names
-    $first_nameV = preg_match($nameREG, $first_name);
-    if ($fnCK == 1 && ($first_name == null || $first_name == "" || $first_nameV == false))
+    if ($fnCK == 1 && ($first_name == null || $first_name == ""))
     {
         
         $error .= "Invalid First Name ";
         $validate = false;
     }
-    $last_nameV = preg_match($nameREG, $last_name);
-    if ($lnCK == 1 && ($last_name == null || $last_name == "" || $last_nameV == false))
+    if ($lnCK == 1 && ($last_name == null || $last_name == ""))
     {
         $error .= "Invalid Last Name. ";
         $validate = false;

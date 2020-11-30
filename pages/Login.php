@@ -22,57 +22,43 @@
     </header>
 
     <body>
+    <div class="topnav" id="pac-card">
+            <a class="active" href="index.php">Home <i class="fa fa-fw fa-home"> </i></a>
         <?php 
             // if logged in
             if(isset($_SESSION["username"])) {
         ?>
 
-        <div class="topnav" id="pac-card">
-            <a class="active" href="index.php">Home <i class="fa fa-fw fa-home"> </i></a>
+
             <a href="posting.php">Post Ad <i class="fa fa-book"></i></a>
             <a href="profile.php">Profile <i class="fa fa-user"></i></a>
             <a href="logout.php">LogOut <i class="fa fa-sign-out"></i></a></a>
-            <div class="search-container">
-                <form action="/action_page.php">
-                <div class = "container">
-                    <div id="map"></div>
-                    <div id="search-box"></div>
-                </div>
-                <input type="hidden" id ="city" value = "">
-                <input type="hidden" id ="province" value = "">
-                <input type="hidden" id ="country" value = "">
-				<input id = "bookSearch" type="text" placeholder="Search.." name="search">
-				<button type="submit"><i class="fa fa-search"></i></button>
-				</form>
-            </div>
-        </div>
 
-        
         <?php
             //if not logged in have links to sign up
             } else {
 
         ?>
-        <div class="topnav" id="pac-card">
-            <a class="active" href="index.php">Home <i class="fa fa-fw fa-home"> </i></a>
+
             <a href="signUp.php">SignUp <i class="fa fa-user-plus"> </i></a>
             <a href="Login.php">LogIn <i class="fa fa-sign-in"></i></a>
-			  <div class="search-container">
-                <form action="/action_page.php">
+
+         <?php }?>
+
+            <div class="search-container">
+                <form action="search.php" method="get">
                 <div class = "container">
                     <div id="map"></div>
                     <div id="search-box"></div>
                 </div>
-                <input type="hidden" id ="city" value = "">
-                <input type="hidden" id ="province" value = "">
-                <input type="hidden" id ="country" value = "">
-				<input id = "bookSearch" type="text" placeholder="Search.." name="search">
+                <input type="hidden" id ="city" value = "" name="city">
+                    <input type="hidden" id ="province" value = "" name="province">
+                    <input type="hidden" id ="country" value = "" name="country">
+				<input id = "bookSearch" type="text" placeholder="Search.." name="search" value="<?=$search?>">
 				<button type="submit"><i class="fa fa-search"></i></button>
 				</form>
             </div>
-        </div>
-
-        <?php }?>
+        </div>  
 
 		<div class="login">
             <h1>Log In</h1>

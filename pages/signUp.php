@@ -8,7 +8,6 @@ $reg_Bday = "/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/";
 $city_v = "/^[a-zA-Z '.,]*$/";
 $province_v = "/^[a-zA-Z '.,]*$/";
 $country_v = "/^[a-zA-Z '.,]*$/";
-$nameREG = "/^[a-z ,.'-]+$/";
 
 if (isset($_POST["submitted"]) && $_POST["submitted"])
 {
@@ -83,15 +82,13 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
         }
 
         // test the names
-        $first_nameV = preg_match($nameREG, $first_name);
-        if ($first_name == null || $first_name == "" || $first_nameV == false)
+        if ($first_name == null || $first_name == "")
         {
             
             $error .= "Invalid First Name ";
             $validate = false;
         }
-        $last_nameV = preg_match($nameREG, $last_name);
-        if ($last_name == null || $last_name == "" || $last_nameV == false)
+        if ($last_name == null || $last_name == "")
         {
             $error .= "Invalid Last Name. ";
             $validate = false;
@@ -218,57 +215,43 @@ session_start();
     </header>
 
     <body>
+    <div class="topnav" id="pac-card">
+            <a class="active" href="index.php">Home <i class="fa fa-fw fa-home"> </i></a>
         <?php 
             // if logged in
             if(isset($_SESSION["username"])) {
         ?>
 
-        <div class="topnav" id="pac-card">
-            <a class="active" href="index.php">Home <i class="fa fa-fw fa-home"> </i></a>
+
             <a href="posting.php">Post Ad <i class="fa fa-book"></i></a>
             <a href="profile.php">Profile <i class="fa fa-user"></i></a>
             <a href="logout.php">LogOut <i class="fa fa-sign-out"></i></a></a>
-            <div class="search-container">
-                <form action="/action_page.php">
-                <div class = "container">
-                    <div id="map"></div>
-                    <div id="search-box"></div>
-                </div>
-                <input type="hidden" id ="city" value = "">
-                <input type="hidden" id ="province" value = "">
-                <input type="hidden" id ="country" value = "">
-				<input id = "bookSearch" type="text" placeholder="Search.." name="search">
-				<button type="submit"><i class="fa fa-search"></i></button>
-				</form>
-            </div>
-        </div>
 
-        
         <?php
             //if not logged in have links to sign up
             } else {
 
         ?>
-        <div class="topnav" id="pac-card">
-            <a class="active" href="index.php">Home <i class="fa fa-fw fa-home"> </i></a>
+
             <a href="signUp.php">SignUp <i class="fa fa-user-plus"> </i></a>
             <a href="Login.php">LogIn <i class="fa fa-sign-in"></i></a>
-			  <div class="search-container">
-                <form action="/action_page.php">
+
+         <?php }?>
+
+            <div class="search-container">
+                <form action="search.php" method="get">
                 <div class = "container">
                     <div id="map"></div>
                     <div id="search-box"></div>
                 </div>
-                <input type="hidden" id ="city" value = "">
-                <input type="hidden" id ="province" value = "">
-                <input type="hidden" id ="country" value = "">
-				<input id = "bookSearch" type="text" placeholder="Search.." name="search">
+                <input type="hidden" id ="city" value = "" name="city">
+                    <input type="hidden" id ="province" value = "" name="province">
+                    <input type="hidden" id ="country" value = "" name="country">
+				<input id = "bookSearch" type="text" placeholder="Search.." name="search" value="<?=$search?>">
 				<button type="submit"><i class="fa fa-search"></i></button>
 				</form>
             </div>
-        </div>
-
-        <?php }?>
+        </div>  
 
         <h1>Sign Up</h1>
              

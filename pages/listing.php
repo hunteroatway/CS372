@@ -180,9 +180,9 @@
                         </p>
 
                         <p id = "isbn">
-                            isbn-10: <?=$rowL["isbn_10"]?> 
+                            ISBN-10: <?=$rowL["isbn_10"]?> 
                             </br>
-                            isbn-13: <?=$rowL["isbn_13"]?>
+                            ISBN-13: <?=$rowL["isbn_13"]?>
                         </p>
 
                         <div class="boxed">
@@ -191,8 +191,8 @@
                             </p>
                         </div>
 
-                        <p id = "condtion">
-                            Condtion: <?=$rowL["book_condition"]?>
+                        <p id = "condition">
+                            Condition: <?=$rowL["book_condition"]?>
                         </p>
                     </div>
                 </div>  
