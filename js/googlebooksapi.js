@@ -2,7 +2,7 @@
 var isbn_format = /^(97(8|9))?\d{9}(\d|X)$/;
 var price_format = /(\d+\.\d{1,2})/;
 
-var postingPage.managePage = document.getElementById("submit-form")
+var postingPage = document.getElementById("submit-form")
 postingPage.addEventListener("submit", submitPosting, false);
 
 // Changes input fields based on toggle switch input for automatic or manual data entry
