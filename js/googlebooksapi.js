@@ -86,7 +86,7 @@ function searchBookByISBN() {
 
 		if(obj.items[0].volumeInfo.industryIdentifiers[1].type === "ISBN_10")
 			isbn_10 = obj.items[0].volumeInfo.industryIdentifiers[1].identifier;
-		else if(obj.items[0].volumeInfo.industryIdentifiers[0].type === "ISBN_13")
+		else if(obj.items[0].volumeInfo.industryIdentifiers[1].type === "ISBN_13")
 			isbn_13 = obj.items[0].volumeInfo.industryIdentifiers[1].identifier
 
 		// Update hidden values
@@ -121,6 +121,8 @@ function submitPosting(event) {
 	var description = document.getElementById("description").value;
 	var publisher = document.getElementById("publisher").value;
 	var price = document.getElementById("price").value;
+
+	valid = 1;
 
 	// ISBN
 	if (isbn == "" || isbn == null) {

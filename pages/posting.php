@@ -1,6 +1,138 @@
-<?php 
-// start the php session
+ <?php
   session_start();
+
+  //get the uid
+  $uid = $_SESSION["uid"];
+  if (isset($_POST["submitted"]) && $_POST["submitted"]) {
+    // get the values from the form
+    $isbn10 = trim($_POST["isbn-10"]);
+    $isbn13 = trim($_POST["isbn-13"]);
+    $title = trim($_POST["title"]);
+    $subtitle = trim($_POST["subtitle"]);
+    $authorList = trim($_POST["author"]);
+    $description = trim($_POST["description"]);
+    $publisher = trim($_POST["publisher"]);
+    $condition = trim($_POST["condition"]);    
+    $price = trim($_POST["price"]);
+    $cover = trim($_POST["cover-link"]);
+    
+    // change ' to &#039
+    $isbn10 = str_replace("'","&#039", $isbn10);
+    $isbn13 = str_replace("'","&#039", $isbn13);
+    $title = str_replace("'","&#039", $title);
+    $subtitle = str_replace("'","&#039", $subtitle);
+    $authors = str_replace("'","&#039", $authors);
+    $description = str_replace("'","&#039", $description);
+    $publisher = str_replace("'","&#039", $publisher);
+    $condition = str_replace("'","&#039", $condition);
+    $cover = str_replace("'","&#039", $cover);
+    $price = str_replace("'","&#039", $price);
+
+    // connect to DB and check connection
+    $db = new mysqli("localhost", "ottenbju", "Passw0rd", "ottenbju");
+    if ($db->connect_error)
+    {
+        die ("Connection failed: " . $db->connect_error);
+    }
+
+    // check to see if the book is in the DB
+    $q1 = "SELECT B.isbn_13 FROM Books B WHERE B.isbn_13 = '$isbn13' OR B.isbn_10 = '$isbn10'";
+    $r1 = $db->query($q1);
+
+    // if number of rows == 0 add book. otherwise go to adding the listing
+    if($r1->num_rows == 0) {
+
+      // add the book to the DB
+      $q2 = "INSERT INTO Books(isbn_10, isbn_13, title, subtitle, publisher, description, photo) VALUES ('$isbn10', '$isbn13', '$title', '$subtitle', '$publisher', '$description', '$cover')";
+      $r2 = $db->query($q2);
+
+      // split the authors up based off ", "
+      $authors = explode(", ", $authorList);
+      // go through the list of authors and seperate via first/ lastname and upload into DB
+      // prep query
+      $q3 = "INSERT INTO Authors(isbn_13, first_name, last_name) VALUES ";
+      foreach ($authors as $value){
+        // get first and last name
+        list($firstName, $lastName) = explode(" ", $value);
+        // append to query
+        $q3 .= "('$isbn13', '$firstName', '$lastName'), ";
+      }
+      
+      $q3 = substr($q3, 0, -2);
+      // insert all authors into DB
+      $r3 = $db->query($q3);
+    }
+
+    // create query for listing, and insert into DB
+    $q4 = "INSERT INTO Listings (isbn_10, isbn_13, uid, book_condition, price, list_date, active) VALUES ('$isbn10', '$isbn13', '$uid', '$condition', '$price', curdate(), true)"; 
+    $r4 = $db->query($q4); 
+    //get the lid
+    $q5 = "SELECT L.lid FROM Listings L WHERE uid = '$uid' AND isbn_13 = '$isbn13' ORDER BY L.lid DESC";
+    $r5 = $db->query($q5); 
+    $lidQ = $r5->fetch_assoc();
+    $lid = $lidQ["lid"];
+    //prep query
+    $q6 = "INSERT INTO Images(image, lid) VALUES ";
+    // loop through all the images uploaded and upload them to the DB
+    $target_dir = "../images/";
+    $fileNames = $_FILES['files']['name']; 
+    if(!empty($fileNames)){ 
+      $inc = 1;
+      foreach($_FILES['files']['name'] as $key=>$val){ 
+        // value to give each image
+        $uploadOk = 1;
+        $fileName = basename($_FILES['files']['name'][$key]); 
+        $targetFilePath = $targetDir . $fileName; 
+        $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION); 
+        // Allow certain file formats
+        if($fileType != "jpg" && $fileType != "png" && $fileType != "jpeg" && $fileType != "gif" && $fileType ) {    
+          // set error to this
+          $error .=  "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+          $uploadOk = 0;
+        }        
+        // Check file size
+        if ($_FILES["files"]["size"][$key] > 500000)
+        {
+            $error .= "Sorry, your file is too large.";
+            $uploadOk = 0;
+        }
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0)
+        {
+            $error .= "Sorry, your file was not uploaded.";
+            
+        // if everything is ok, try to upload file    
+        }
+        else
+        {
+            //change the name of the file to the userID
+            $target_file = $target_dir . $lid . "_" . $inc . "." . $fileType;
+            // upload the file
+            if (move_uploaded_file($_FILES["files"]["tmp_name"][$key], $target_file));
+            
+            // append to query
+            $q6 .= "('$target_file', '$lid'), ";
+        }
+        $inc++;
+      }
+      // remove extra comma from query
+      $q6 = substr($q6, 0, -2);
+      // input the images to the DB
+      $r6 = $db->query($q6);
+    } 
+    // if there is an error. inform the user
+    else {
+        $error .= "Please select a file to upload";
+        $db->close();
+    }
+    // if querys work. send to the listing page
+    if ($r4 == true && $r6 === true)
+    {
+        header("Location: listing.php?lid=" . $lid);
+        $db->close();
+        exit();
+    }
+  } 
 ?>
 
 
@@ -60,15 +192,14 @@
             </div>
         </div>    
     
-					<form id="submit-form" class="input" action="submitposting.php" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="submitted" value="1">
             
-            <table class="formTable">
+          <table class="formTable">
+					  <form id="submit-form" class="input" action="posting.php" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="submitted" value="1">
               <tr>
                 <td><label>ISBN:</label></td>
-                <td><input id="isbn" type="text" placeholder="ISBN.." name="isbn" /></td>
-                <td><button id="auto-fill" type="button">Auto-Fill</button></td>
-                <label id="isbn_err" class="err_msg"></label></td>
+                <td><input id="isbn" type="text" placeholder="ISBN.." name="isbn" /><button id="auto-fill" type="button">Auto-Fill</button><div class = "tooltip"><i class="fa fa-info-circle" id = "isbnToolTip" aria-hidden="true">  <span class="tooltiptext">The ISBN value can either be found on the back of the book near the barcode or on the inside cover near the publication information. It will be either 10 or 13 digits long. Enter those digits without the dashes (EX: ISBN-13: 9781565926103)</span></i></div></td>
+                <td><label id="isbn_err" class="err_msg"></label></td>
               </tr>
 
               <input type="hidden" id="isbn-10" name="isbn-10">
@@ -129,11 +260,11 @@
               <input type="hidden" id="cover-link" name="cover-link">
 
               <tr>
-                <td></td><td><button id="submit-posting" type="submit">Submit</button></td>
+                <td></td><td><button id="submit-posting" type="submit">Submit</button></td><td><p class = "err_msg"><?=$error?></td>
               </tr>
 
+              </form>
             </table>
-          </form>
           
           <div class="type-selection">
             <form id="create-posting">

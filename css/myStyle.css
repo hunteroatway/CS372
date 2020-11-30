@@ -638,3 +638,34 @@ input:checked + .slider:before {
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
+
+#isbnToolTip{
+
+  font-size: 16pt;
+
+}
+
+/* to make a tool tip to show off information about the isbn */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 400px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  top: -5px;
+  left: 105%;
+  z-index: 1;
+  font-size: 12pt;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
