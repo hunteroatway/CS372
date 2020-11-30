@@ -2,6 +2,9 @@
 var isbn_format = /^(97(8|9))?\d{9}(\d|X)$/;
 var price_format = /(\d+\.\d{1,2})/;
 
+var postingPage.managePage = document.getElementById("submit-form")
+postingPage.addEventListener("submit", submitPosting, false);
+
 // Changes input fields based on toggle switch input for automatic or manual data entry
 function selectPostingType(event) {
 	var title = document.getElementById("title");
@@ -71,9 +74,24 @@ function searchBookByISBN() {
 		description.value = description_val;
 		publisher.value = publisher_val;
 
+
+		// get the correct isbn values
+		var isbn_10;
+		var isbn_13;
+		if(obj.items[0].volumeInfo.industryIdentifiers[0].type === "ISBN_10")
+			isbn_10 = obj.items[0].volumeInfo.industryIdentifiers[0].identifier;
+		else if(obj.items[0].volumeInfo.industryIdentifiers[0].type === "ISBN_13")
+			isbn_13 = obj.items[0].volumeInfo.industryIdentifiers[0].identifier
+
+
+		if(obj.items[0].volumeInfo.industryIdentifiers[1].type === "ISBN_10")
+			isbn_10 = obj.items[0].volumeInfo.industryIdentifiers[1].identifier;
+		else if(obj.items[0].volumeInfo.industryIdentifiers[0].type === "ISBN_13")
+			isbn_13 = obj.items[0].volumeInfo.industryIdentifiers[1].identifier
+
 		// Update hidden values
-		document.getElementById("isbn-10").value = obj.items[0].volumeInfo.industryIdentifiers[0].identifier;
-		document.getElementById("isbn-13").value = obj.items[0].volumeInfo.industryIdentifiers[1].identifier;
+		document.getElementById("isbn-10").value = isbn_10;
+		document.getElementById("isbn-13").value = isbn_13;
 		document.getElementById("cover-link").value = cover_val;
 		
 		// Handle undefined values returned from API
@@ -96,7 +114,7 @@ function searchBookByISBN() {
 	return false;
 }  
 
-function submitPosting() {
+function submitPosting(event) {
 	var isbn = document.getElementById("isbn").value;
 	var title = document.getElementById("title").value;
 	var author = document.getElementById("author").value;
@@ -107,8 +125,10 @@ function submitPosting() {
 	// ISBN
 	if (isbn == "" || isbn == null) {
 		document.getElementById("isbn_err").innerHTML = "ISBN search field cannot be empty!";
+		valid = 0;
 	} else if (!isbn_format.test(isbn)) {
 		document.getElementById("isbn_err").innerHTML = "Search must be in ISBN-10 or ISBN-13 format!";
+		valid = 0;
 	} else {
 		document.getElementById("isbn_err").innerHTML = "";
 	}
@@ -116,6 +136,7 @@ function submitPosting() {
 	// Title
 	if (title == "" || title == null) {
 		document.getElementById("title_err").innerHTML = "Title field cannot be empty!";
+		valid = 0;
 	} else {
 		document.getElementById("title_err").innerHTML = "";
 	}
@@ -123,11 +144,13 @@ function submitPosting() {
 	// Authors
 	if (author == "" || author == null) {
 		document.getElementById("author_err").innerHTML = "Author(s) field cannot be empty!";
+		valid = 0;
 	} else {
 		document.getElementById("author_err").innerHTML = "";
 	}
 
-	// Description
+	/* Google API does not always have this information. No reason to warn user
+ 	// Description
 	if (description == "" || description == null) {
 		document.getElementById("description_err").innerHTML = "Description field cannot be empty!";
 	} else {
@@ -139,14 +162,20 @@ function submitPosting() {
 		document.getElementById("publisher_err").innerHTML = "Publisher field cannot be empty!";
 	} else {
 		document.getElementById("publisher_err").innerHTML = "";
-	}
+	} */
 
-	// Publisher
+	// price
 	if (price == "" || price == null) {
 		document.getElementById("price_err").innerHTML = "Price field cannot be empty!";
+		valid = 0;
 	} else if (!price_format.test(price)) {
 		document.getElementById("price_err").innerHTML = "Price values must be in the following format: $1, $1.00!";
+		valid = 0;
 	} else {
 		document.getElementById("price_err").innerHTML = "";
 	}
+
+	if (valid == 0)
+		event.preventDefault();
+
 }
