@@ -125,7 +125,6 @@ table, p,label, li, a{
 }
 
 .sendMessage:hover{
-  
   background-color: rgb(211, 211, 211);
 }
 
@@ -539,8 +538,10 @@ table, p,label, li, a{
 }
 
 .formTable {
+  padding-top: 50px;;
   margin-left: 20px;
-  border-spacing: 0 10px;
+  border-spacing: 5px 10px;
+  border-collapse: separate;
 }
 
 .formTable input[type=text] {
@@ -553,17 +554,23 @@ table, p,label, li, a{
 
 .formTable input[type=text], input[type=number], textarea {
   padding: 10px;
-  border: 2px solid black;
+  border: 1px solid black;
   border-radius: 4px;
 
   border-radius: 6px;
 }
 
 .formTable button {
+  border: 1px solid black;
   border-radius: 6px;
   font-size: 14px;
   padding: 8px 24px;
   background-color: white;
+}
+
+.formTable button:hover {
+  background-color: rgb(201, 201, 201);
+  cursor: pointer;
 }
 
 textarea {
@@ -633,8 +640,8 @@ input:checked + .slider:before {
 #create-posting {
   margin: 0;
   position: absolute;
-  top: 850px;
-  left: 200px;
+  top: 300px;
+  left: 415px;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }

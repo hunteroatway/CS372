@@ -192,13 +192,25 @@
             </div>
         </div>    
     
+          <div class="type-selection">
+            <form id="create-posting">
+              <label>Manual</label>
+              <label class="switch">
+                <input id="toggle-switch" type="checkbox" checked>
+                <span class="slider round"></span>
+              </label>
+              <label>Automatic</label>
+            </form>
+          </div>
             
           <table class="formTable">
 					  <form id="submit-form" class="input" action="posting.php" method="post" enctype="multipart/form-data">
             <input type="hidden" name="submitted" value="1">
               <tr>
                 <td><label>ISBN:</label></td>
-                <td><input id="isbn" type="text" placeholder="ISBN.." name="isbn" /><button id="auto-fill" type="button">Auto-Fill</button><div class = "tooltip"><i class="fa fa-info-circle" id = "isbnToolTip" aria-hidden="true">  <span class="tooltiptext">The ISBN value can either be found on the back of the book near the barcode or on the inside cover near the publication information. It will be either 10 or 13 digits long. Enter those digits without the dashes (EX: ISBN-13: 9781565926103)</span></i></div></td>
+                <td><input id="isbn" type="text" placeholder="ISBN.." name="isbn" /></td>
+                <td><button id="auto-fill" type="button">Auto-Fill</button></td>
+                <td><div class = "tooltip"><i class="fa fa-info-circle" id = "isbnToolTip" aria-hidden="true">  <span class="tooltiptext">The ISBN value can either be found on the back of the book near the barcode or on the inside cover near the publication information. It will be either 10 or 13 digits long. Enter those digits without the dashes (EX: ISBN-13: 9781565926103)</span></i></div></td>
                 <td><label id="isbn_err" class="err_msg"></label></td>
               </tr>
 
@@ -265,17 +277,6 @@
 
               </form>
             </table>
-          
-          <div class="type-selection">
-            <form id="create-posting">
-              <label>Manual</label>
-              <label class="switch">
-                <input id="toggle-switch" type="checkbox" checked>
-                <span class="slider round"></span>
-              </label>
-              <label>Automatic</label>
-            </form>
-          </div>
 
       </div>
     <script type="text/javascript" src="../js/JavaScript.js"></script>
