@@ -220,14 +220,11 @@ session_start();
         <?php 
             // if logged in
             if(isset($_SESSION["username"])) {
-        ?>
 
+                /* Redirect user to index page */
+                header("Location: index.php"); 
+                exit();
 
-            <a href="posting.php">Post Ad <i class="fa fa-book"></i></a>
-            <a href="profile.php">Profile <i class="fa fa-user"></i></a>
-            <a href="logout.php">LogOut <i class="fa fa-sign-out"></i></a></a>
-
-        <?php
             //if not logged in have links to sign up
             } else {
 
