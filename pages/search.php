@@ -29,7 +29,7 @@
     AND U.province = '$province'
     AND U.country = '$country'
     AND ((B.title LIKE CONCAT('%', '$search', '%')) OR (A.first_name LIKE CONCAT('%', '$search', '%')) OR (A.last_name LIKE CONCAT('%', '$search', '%')) OR (B.publisher LIKE CONCAT('%', '$search', '%')) OR L.isbn_10 = '$isbn' OR L.isbn_13 = '$isbn')
-    ORDER BY L.list_date, L.lid, A.last_name";
+    ORDER BY L.list_date DESC, L.lid DESC, A.last_name";
 
     $r1 = $db->query($q1);
 

@@ -16,8 +16,7 @@
       ON B.isbn_13 = A.isbn_13 INNER JOIN Users U
       ON L.uid = U.uid
       WHERE L.active = true
-      ORDER BY L.list_date DESC, L.lid, A.last_name
-      LIMIT 12";
+      ORDER BY L.list_date DESC, L.lid DESC, A.last_name LIMIT 12";
   
       //Query the DB
       $r1 = $db->query($q1);
