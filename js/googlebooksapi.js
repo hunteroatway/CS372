@@ -180,4 +180,42 @@ function submitPosting(event) {
 	if (valid == 0)
 		event.preventDefault();
 
+
+	// secretly get the default photo from google as well as the missing ISBN values
+	// API query URL
+	var req_url = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn;
+	var req = new XMLHttpRequest();
+
+	// HTTP Request to Google Books API and parsing the resulting JSON data
+	req.onreadystatechange = function() {    
+		if (this.readyState == 4 && this.status == 200) {
+			var obj = JSON.parse(this.responseText);
+			// get the correct isbn values
+			var isbn_10;
+			var isbn_13;
+			var cover_val = obj.items[0].volumeInfo.imageLinks.smallThumbnail;
+			if(obj.items[0].volumeInfo.industryIdentifiers[0].type === "ISBN_10")
+				isbn_10 = obj.items[0].volumeInfo.industryIdentifiers[0].identifier;
+			else if(obj.items[0].volumeInfo.industryIdentifiers[0].type === "ISBN_13")
+				isbn_13 = obj.items[0].volumeInfo.industryIdentifiers[0].identifier
+
+
+			if(obj.items[0].volumeInfo.industryIdentifiers[1].type === "ISBN_10")
+				isbn_10 = obj.items[0].volumeInfo.industryIdentifiers[1].identifier;
+			else if(obj.items[0].volumeInfo.industryIdentifiers[1].type === "ISBN_13")
+				isbn_13 = obj.items[0].volumeInfo.industryIdentifiers[1].identifier
+
+			// Update hidden values
+			document.getElementById("isbn-10").value = isbn_10;
+			document.getElementById("isbn-13").value = isbn_13;
+			document.getElementById("cover-link").value = cover_val;
+			console.log("test");
+
+		}
+	}		
+	
+	// Open and send HTTP request
+    req.open("GET", req_url, false);
+    req.send();
+	return false;
 }
