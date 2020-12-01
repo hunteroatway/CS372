@@ -1,6 +1,8 @@
 <?php
     //php code to deal with adding a message into the database
 
+    session_start();
+
     // get the values from the post request
     $cid = trim($_POST["cid"]);
     $uid = trim($_POST["uid"]);
@@ -8,9 +10,8 @@
 
     // data has been cleaned in Jquery, use php to clean it again
     $message = stripslashes($message);
-    $message = htmlspecialchars($message);
-    $message = str_replace("'", "&#039;", $message);
-    echo $message;
+    $message = htmlspecialchars($message, ENT_COMPAT);
+    $message = str_replace("'", "&#039", $message);
 
     // connect to the database
     // connect to DB and check connection

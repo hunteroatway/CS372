@@ -34,7 +34,7 @@ $(function(){
     $("#test").on("submit", function (e){
 
         // get the input and serilaize it and remove any single quotes
-        var string = $(this).serialize().replace("'", "&#39;");
+        var string = $(this).serialize();
 
         // get the length of the string. if it is 0, return and do not send the request
         var strLength = $("#message-box").val().length;
@@ -49,6 +49,7 @@ $(function(){
                 data: string,
                 // on success, clear the chat box
                 success: function(){
+                    console.log(string);
                     $("#message-box").val('');
                 }
             });
