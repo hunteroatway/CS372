@@ -74,26 +74,6 @@ function searchBookByISBN() {
 		description.value = description_val;
 		publisher.value = publisher_val;
 
-
-		// get the correct isbn values
-		var isbn_10;
-		var isbn_13;
-		if(obj.items[0].volumeInfo.industryIdentifiers[0].type === "ISBN_10")
-			isbn_10 = obj.items[0].volumeInfo.industryIdentifiers[0].identifier;
-		else if(obj.items[0].volumeInfo.industryIdentifiers[0].type === "ISBN_13")
-			isbn_13 = obj.items[0].volumeInfo.industryIdentifiers[0].identifier
-
-
-		if(obj.items[0].volumeInfo.industryIdentifiers[1].type === "ISBN_10")
-			isbn_10 = obj.items[0].volumeInfo.industryIdentifiers[1].identifier;
-		else if(obj.items[0].volumeInfo.industryIdentifiers[1].type === "ISBN_13")
-			isbn_13 = obj.items[0].volumeInfo.industryIdentifiers[1].identifier
-
-		// Update hidden values
-		document.getElementById("isbn-10").value = isbn_10;
-		document.getElementById("isbn-13").value = isbn_13;
-		document.getElementById("cover-link").value = cover_val;
-		
 		// Handle undefined values returned from API
 		if (title_val == null)
 			title.value = '';
