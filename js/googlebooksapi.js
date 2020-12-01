@@ -50,43 +50,50 @@ function searchBookByISBN() {
         console.log(obj);          
 
 		// Parse JSON object
-        var title_val = obj.items[0].volumeInfo.title;
-        var subtitle_val = obj.items[0].volumeInfo.subtitle;
-        var description_val = obj.items[0].volumeInfo.description;
-        var publisher_val = obj.items[0].volumeInfo.publisher;
-		var cover_val = obj.items[0].volumeInfo.imageLinks.smallThumbnail;
+		var title_val, subtitle_val, authors_val, description_val, publisher_val, cover_val = '';
+		var num_authors = '';
+		try {
+			title_val = obj.items[0].volumeInfo.title;
+			title.value = title_val;
+		} catch (e) {}
+		try {
+			subtitle_val = obj.items[0].volumeInfo.subtitle;
+			subtitle.value = subtitle_val;
+		} catch (e) {}
+		try {
+			description_val = obj.items[0].volumeInfo.description;
+			description.value = description_val;
+		} catch (e) {}
+		try {
+			publisher_val = obj.items[0].volumeInfo.publisher;
+			publisher.value = publisher_val;
+		} catch (e) {}
+		try {
+			cover_val = obj.items[0].volumeInfo.imageLinks.smallThumbnail;
+		} catch (e) {}
 		
 		// Handle multiple authors for one book
-		var authors_val = "";
-		var num_authors = obj.items[0].volumeInfo.authors.length;
-		for (var i = 0; i < num_authors; i++) {
-			if (i == num_authors-1) {
-				authors_val += obj.items[0].volumeInfo.authors[i];
-			} else {
-				authors_val += obj.items[0].volumeInfo.authors[i] + ", ";
+		 try {
+			num_authors = obj.items[0].volumeInfo.authors.length;
+			for (var i = 0; i < num_authors; i++) {
+				if (i == num_authors-1) {
+					authors_val += obj.items[0].volumeInfo.authors[i];
+				} else {
+					authors_val += obj.items[0].volumeInfo.authors[i] + ", ";
+				}
 			}
-		}
+			author.value = authors_val;
+		 } catch (e) {}
 
-		// Update input field values
-		title.value = title_val;
-        subtitle.value = subtitle_val;
-		author.value = authors_val;
-		description.value = description_val;
-		publisher.value = publisher_val;
-
-		// Handle undefined values returned from API
-		if (title_val == null)
-			title.value = '';
-		if (subtitle_val == null)
-			subtitle.value = '';	 
-		if (authors_val == null)
-			authors.value = '';
-		if (description_val == null)
-			description.value = '';
-		if (publisher_val == null)
-			publisher.value = '';	
-		}
-    };
+		// Handle undefined values
+		 if (title_val == null) title.value = '';
+		 if (subtitle_val == null) subtitle.value = '';
+		 if (authors_val == null) author.value = '';
+		 if (description_val == null) description.value = '';
+		 if (publisher_val == null) publisher.value = '';
+		 if (cover_val == null) cover_val.value = '';
+	}
+};
 
 	// Open and send HTTP request
     req.open("GET", req_url, false);
@@ -130,22 +137,6 @@ function submitPosting(event) {
 	} else {
 		document.getElementById("author_err").innerHTML = "";
 	}
-
-	/* Google API does not always have this information. No reason to warn user
- 	// Description
-	if (description == "" || description == null) {
-		document.getElementById("description_err").innerHTML = "Description field cannot be empty!";
-	} else {
-		document.getElementById("description_err").innerHTML = "";
-	}
-
-	// Publisher
-	if (publisher == "" || publisher == null) {
-		document.getElementById("publisher_err").innerHTML = "Publisher field cannot be empty!";
-	} else {
-		document.getElementById("publisher_err").innerHTML = "";
-	} */
-
 	// price
 	if (price == "" || price == null) {
 		document.getElementById("price_err").innerHTML = "Price field cannot be empty!";
@@ -160,7 +151,6 @@ function submitPosting(event) {
 	if (valid == 0)
 		event.preventDefault();
 
-
 	// secretly get the default photo from google as well as the missing ISBN values
 	// API query URL
 	var req_url = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn;
@@ -170,6 +160,7 @@ function submitPosting(event) {
 	req.onreadystatechange = function() {    
 		if (this.readyState == 4 && this.status == 200) {
 			var obj = JSON.parse(this.responseText);
+
 			// get the correct isbn values
 			var isbn_10;
 			var isbn_13;
@@ -190,7 +181,6 @@ function submitPosting(event) {
 			document.getElementById("isbn-13").value = isbn_13;
 			document.getElementById("cover-link").value = cover_val;
 			console.log("test");
-
 		}
 	}		
 	
