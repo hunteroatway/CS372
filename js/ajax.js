@@ -3,7 +3,7 @@ $(document).ready(function(){
 
     // get the values
     var cidValue = document.getElementById("cidValue").value;
-    var title = document.getElementById("titleValue").innerHTML;
+    var title = document.getElementById("titleValue").value;
     var uidValue = document.getElementById("uidValue").value;
     var buid = document.getElementById("buid").value;
     var suid = document.getElementById("suid").value;

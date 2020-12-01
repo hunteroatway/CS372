@@ -79,6 +79,16 @@
                 <?php
                     $uid = $_SESSION["uid"];
                     $cidGet = $_GET["cid"];
+
+                    //get the title for the current chat
+                    $q3 = "SELECT B.title FROM Chats C INNER JOIN Listings L
+                    ON C.lid = L.lid INNER JOIN Users UB
+                    ON C.uid_buyer = UB.uid INNER JOIN Users US
+                    ON L.uid = US.uid INNER JOIN Books B
+                    ON L.isbn_13 = B.isbn_13 WHERE C.cid = '$cidGet'";
+                    $r3 = $db->query($q3);
+                    $titleRow = $r3->fetch_assoc();
+                    $titleGet = $titleRow["title"];
                 
                     //Query to get all chats the signed in user is apart of
                     $q1 = "SELECT B.title, C.cid, C.uid_buyer as Buyer, L.uid as Seller, 
@@ -141,7 +151,7 @@
                         <form name = "messageForm" id="test">
                             <input id="cidValue" type="hidden" name="cid" value="<?=$cidGet?>">
                             <input id="uidValue" type="hidden" name="uid" value="<?=$uid?>">
-                            <input id="titleValue" type="hidden" name="title" value="<?=$title?>">
+                            <input id="titleValue" type="hidden" name="title" value="<?=$titleGet?>">
                             <input id="buid" type="hidden" name="buid" value="<?=$b_uid?>">
                             <input id="suid" type="hidden" name="suid" value="<?=$s_uid?>">
                             <input type="text" name = "message" placeholder="Type your message here..." class="message-box" id ="message-box"/>
