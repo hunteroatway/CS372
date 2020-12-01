@@ -179,11 +179,21 @@
                             Publisher: <?=$rowL["publisher"]?>
                         </p>
 
+                        <?php 
+                            //do a check on isbn_10 being -404. print a single isbn value that was supplied by user
+                            if ($rowL["isbn_10"] == -404) {
+                            ?>
+                                <p>ISBN: <?=$rowL["isbn_13"]?> </p>
+                            <?php
+                            // otherwise print print both isbn values got from DB
+                            } else {
+                        ?>
                         <p id = "isbn">
                             ISBN-10: <?=$rowL["isbn_10"]?> 
                             </br>
                             ISBN-13: <?=$rowL["isbn_13"]?>
                         </p>
+                        <?php } ?>
 
                         <div class="boxed">
                             <p id = "description">
