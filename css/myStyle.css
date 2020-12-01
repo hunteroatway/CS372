@@ -652,6 +652,12 @@ input:checked + .slider:before {
 
 }
 
+#imageToolTip{
+
+  font-size: 16pt;
+
+}
+
 /* to make a tool tip to show off information about the isbn */
 .tooltip {
   position: relative;

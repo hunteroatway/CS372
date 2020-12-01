@@ -267,6 +267,7 @@
               <tr>
                 <td><label>Upload Images:</label></td>
                 <td><input type="file" name="files[]" multiple ></td>
+                <td><div class = "tooltip"><i class= "fa fa-exclamation-triangle" id = "imageToolTip" aria-hidden="true">  <span class="tooltiptext">Uploaded images must be under 500KB each, and must not surpass 2MB total. Doing so will cause the images to not upload and will thus be empty.</span></i></div></td>
               </tr>
 
               <img id="cover" src=""></img><br />
