@@ -142,7 +142,7 @@ function submitPosting(event) {
 		document.getElementById("price_err").innerHTML = "Price field cannot be empty!";
 		valid = 0;
 	} else if (!price_format.test(price)) {
-		document.getElementById("price_err").innerHTML = "Price values must be in the following format: $1, $1.00!";
+		document.getElementById("price_err").innerHTML = "Price values must be in the following format: 1.00";
 		valid = 0;
 	} else {
 		document.getElementById("price_err").innerHTML = "";
