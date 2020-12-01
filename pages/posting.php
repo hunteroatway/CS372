@@ -108,10 +108,11 @@
             //change the name of the file to the userID
             $target_file = $target_dir . $lid . "_" . $inc . "." . $fileType;
             // upload the file
-            if (move_uploaded_file($_FILES["files"]["tmp_name"][$key], $target_file));
+            if (move_uploaded_file($_FILES["files"]["tmp_name"][$key], $target_file)){
+              // append to query
+              $q6 .= "('$target_file', '$lid'), ";
+            }
             
-            // append to query
-            $q6 .= "('$target_file', '$lid'), ";
         }
         $inc++;
       }

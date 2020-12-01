@@ -74,6 +74,7 @@ function searchBookByISBN() {
 		
 		// Handle multiple authors for one book
 		 try {
+			authors_val = "";
 			num_authors = obj.items[0].volumeInfo.authors.length;
 			for (var i = 0; i < num_authors; i++) {
 				if (i == num_authors-1) {
