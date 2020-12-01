@@ -142,7 +142,7 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
                 if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file));
 
                 // append to query
-                $q .= "U.avatar = '$target_file' ";               
+                $q .= "U.avatar = '$target_file', ";               
             }
             
         }
@@ -151,27 +151,29 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
         if($pwCK == 1){
             
             // append to query
-            $q .= "U.password = '$password' ";
+            $q .= "U.password = '$password', ";
         }
         // if first name checked off 
         if($fnCK == 1){
             
             // append to query
-            $q .= "U.first_name = '$first_name' ";
+            $q .= "U.first_name = '$first_name', ";
         }
         // if last name checked off 
         if($lnCK == 1){
             
             // append to query
-            $q .= "U.last_name = '$last_name' ";
+            $q .= "U.last_name = '$last_name', ";
         }
         // if location checked off 
         if($locCK == 1){
             
             // append to query
-            $q .= "U.city = '$city_v' U.province = '$province' U.country = '$country' ";
+            $q .= "U.city = '$city', U.province = '$province', U.country = '$country', ";
         }
 
+        //remove extra comma
+        $q = substr($q, 0, -2);
         // finish the query
         $q .= "WHERE U.uid = '$uid'";
 
@@ -192,6 +194,11 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
         header("Location: profile.php");
         $db->close();
         exit();
+    } // if there is an error. inform the user
+    else
+    {
+        $error .= "Update To Profile Failed.";
+        $db->close();
     }
 
 }
