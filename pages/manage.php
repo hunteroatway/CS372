@@ -2,10 +2,9 @@
 $validate = true;
 $error = "";
 $reg_Pswd = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}/";
-$city_v = "/^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/";
+$city_v = "/^[a-zA-Z '.,]*$/";
 $province_v = "/^[a-zA-Z '.,]*$/";
 $country_v = "/^[a-zA-Z '.,]*$/";
-$nameREG = "/^[a-z ,.'-]+$/";
 
 session_start();
 // if user is logged in, continue, else put to index.php
@@ -85,7 +84,6 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
     if($locCK == 1 && ($city == null || $province == null || $country == null || $city == "" || $province == "" || $country == "" || $cityV == false || $provinceV == false || $countryV == false))    
     {
         $error .= "Invalid Location. ";
-        $error .= $locCK;
         $validate = false;
     }
 

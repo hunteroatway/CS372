@@ -193,7 +193,7 @@ function managePageForm(event){
     var city_v = /^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/;
     var province_v = /^[a-zA-Z '.,]*$/;
     var country_v = /^[a-zA-Z '.,]*$/;
-    var nameREG = /^[a-z ,.'-]+$/;
+    var nameREG = /^[a-zA-Z '.-]*$/;
 
     // perform regex on each field with input
 
