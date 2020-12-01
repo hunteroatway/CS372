@@ -1,36 +1,38 @@
-# CS372
-A project created for CS 372 - Software Engineering Methodology course.
+# Pick-A-Book
+Pick-A-Book is a online classifed web application specifically designed for the re-sale of textbooks. Current classified pages are general and provide the ability to post any item for sale. A general classifieds website poses changes for textbook re-sale because it can make it difficult to verify you are getting the right book that you need. Our website provides a unique experience that is specific to textbook re-sale, which allows us to implement book specific features that make for a much faster and enjoyable user experience both for buyers and sellers. 
 
-## Set up
-In order to set up this website on your own server, you will need to transition to your web servers directory.
-Once in the location run
+## Setup
+In order to host this website on your own server, you will need to transition to your web servers root directory. Once in the root directory, clone the directoy by running the following command:
 ```
 git clone https://github.com/hunteroatway/CS372.git
 ```
-Then you will need to grant the correct permissions to all of the folders. Initially run 
+You will need to ensure the directories have the correct permissions to allow access via a web browser. Running the following command provides the correct permissions to the main directory. 
 ```
 chmod 711 CS372/
 ``` 
-to grant the correct permissions to the main directory. Once inside the CS372 directory run **./perm.sh** in order to give the subdirectories and files the correct permissions.
+Once inside the CS372 directory run **./perm.sh** in order to give the sub-directories and files the correct permissions.
 
 ## How To Use
-On this website, there is different functionality based on whether the user is logged in or not.
+### Homepage
+On the homepage (**index.html**), you will see the most recent postings to the database without being logged in. They are viewable, but to message the seller you will need to create an account.
 
-### Not Logged In
-When the user is not logged in, many of the features will not exist for the user. The user will be able to log in, sign up to create a new account, or search/ view listings without being able to message the seller.
-To sign up, the user will have to submit a unique email address and username, as well as a password with at least 8 characters with at least one lowercase, one uppercase and one number, their first and last name, date of birth, location, as well as avatar image.
+### Login / Signup
+You can create an account at the **signup.php** page. Once an account has been created you are able to login with your email and password using the **login.php** page. Having an account provides you access to many features that aren't available to non-account users, such as creating posting, managing your account and messaging other users.
 
-### Logged In
-When the user is logged in, they have access to all of the features of the website. Similar to above, the user is able to search/ view listings based upon a selected location and search terms. Once selecting a listing they want to view they are able to go to the listings page to get more information on the book. Here they are able to open a message/ create a new message to send to the user. This will take them to the messaging page where the user can send a message to the seller and the seller is able to respond to the buyer.
+Once you have created an account and are logged into the site, you can view your active posting's, view chat messages from other users looking to purchase your textbooks and manage your account. 
 
-The user is now able to post a listing of their own by navagating to the posting page via the "Post Ad" icon on the top naviagation bar. Here the user can input the ISBN value of their book and have the details automatically populated. Then the user just has to fill in the books quality and the asking price. If the user prefers a manual approach, they can also input all of the necessary information for the book themseleves. Once the listing has been posted, the seller is able to view the listing and go to the open chats for the listing as well mark the book as sold so it no longer appears in the search results. 
+### Create a Posting
+Creating a new posting is easy. It can be done at the **posting.php** page. Within the page there are two modes, manual and automatic which specify which information needs to be entered by the user.
+* Manual Mode: In the manual mode, users are required to enter all the details regarding the book to create an advertisement. This includes, ISBN, title, subtitle, author(s), description, publisher, price, condition, etc.
+* Automatic Mode: In automatic mode, users are only required to enter the ISBN of the book, price, condition and upload images of their physical copy. All other information is pull from the Google Books API. (Note: If the book does not pull an ISBN from the API, it is not considered a recognized book and will not be able to be posted)
 
-Lastly, the user is able to go to their profile page to get to the most recent chat they are a part of, view all of their active listings and modify their information to change password, names, location or avatar. 
+### Messaging Users
+Pick-A-Book offers an in-app messaging system that enables user to send and receive messages regarding a specific posting. This features enables users to message regarding individual books and negotiate prices, without the confusion of which book the user is looking for when compared to other classified websites. 
 
 ## API's Used
-This project used the following API's:
+This project uses the following API's:
  - [Google Books](https://developers.google.com/books "Google Books API") In order to allow the user to simply input the ISBN of the textbook so that the website can automatically populate the information on the book.
- - [LocationIQ](https://locationiq.com/ "LocationIQ") In order to provide autocompletion on locations in order to help speed up the user inputting their location and ensuring that all of the information is stored accurately and consistently.
+ - [LocationIQ](https://locationiq.com/ "LocationIQ") In order to provide auto-completion on location information in order to help speed up the user inputting their location and ensuring that all of the information is stored accurately and consistently.
 
 ## Link
 Link to our website:
