@@ -52,23 +52,26 @@ function searchBookByISBN() {
 		// Parse JSON object
 		var title_val, subtitle_val, authors_val, description_val, publisher_val, cover_val = '';
 		var num_authors = '';
+		var emptyBook = 0;
 		try {
 			title_val = obj.items[0].volumeInfo.title;
 			title.value = title_val;
-		} catch (e) {}
+		} catch (e) {emptyBook += 1;}
 		try {
 			subtitle_val = obj.items[0].volumeInfo.subtitle;
 			subtitle.value = subtitle_val;
-		} catch (e) {}
+		} catch (e) {emptyBook += 1;}
 		try {
 			description_val = obj.items[0].volumeInfo.description;
 			description.value = description_val;
-		} catch (e) {}
+		} catch (e) {emptyBook += 1;}
 		try {
 			publisher_val = obj.items[0].volumeInfo.publisher;
 			publisher.value = publisher_val;
-		} catch (e) {}
+		} catch (e) {emptyBook += 1;}
 
+		if (emptyBook == 4)
+			document.getElementById("isbn_err").innerHTML = "Google Books could not find a book with this ISBN. Please enter a different ISBN."
 		
 		// Handle multiple authors for one book
 		 try {
