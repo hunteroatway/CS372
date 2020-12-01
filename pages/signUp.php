@@ -5,9 +5,9 @@ $reg_Email = "/([a-zA-Z0-9\.\-\_]+)@[a-zA-Z]+.\.+[a-zA-Z]{2,5}$/";
 $reg_Username = "/[a-zA-Z0-9\-\_\@\$]+$/";
 $reg_Pswd = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}/";
 $reg_Bday = "/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/";
-$city_v = "/^[a-zA-Z '.,]*$/";
-$province_v = "/^[a-zA-Z '.,]*$/";
-$country_v = "/^[a-zA-Z '.,]*$/";
+$city_v = "/^[a-zA-Z0-9 '.,&#]*$/";
+$province_v = "/^[a-zA-Z0-9 '.,&#]*$/";
+$country_v = "/^[a-zA-Z0-9 '.,&#]*$/";
 
 if (isset($_POST["submitted"]) && $_POST["submitted"])
 {
@@ -100,6 +100,12 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
         $countryV = preg_match($country_v, $country);
         if($city == null || $province == null || $country == null || $city == "" || $province == "" || $country == "" || $cityV == false || $provinceV == false || $countryV == false)   
         {
+            $error .= $city .= " ";
+            $error .= $cityV .= " ";
+            $error .= $province .= " ";
+            $error .= $provinceV .= " ";
+            $error .= $country .= " ";
+            $error .= $countryV .= " ";
             $error .= "Invalid Location. ";
             $validate = false;
         }

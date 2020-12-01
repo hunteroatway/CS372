@@ -2,9 +2,9 @@
 $validate = true;
 $error = "";
 $reg_Pswd = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}/";
-$city_v = "/^[a-zA-Z '.,]*$/";
-$province_v = "/^[a-zA-Z '.,]*$/";
-$country_v = "/^[a-zA-Z '.,]*$/";
+$city_v = "/^[a-zA-Z0-9 '.,&#]*$/";
+$province_v = "/^[a-zA-Z0-9 '.,&#]*$/";
+$country_v = "/^[a-zA-Z0-9 '.,&#]*$/";
 
 session_start();
 // if user is logged in, continue, else put to index.php

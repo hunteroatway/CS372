@@ -68,9 +68,7 @@ function searchBookByISBN() {
 			publisher_val = obj.items[0].volumeInfo.publisher;
 			publisher.value = publisher_val;
 		} catch (e) {}
-		try {
-			cover_val = obj.items[0].volumeInfo.imageLinks.smallThumbnail;
-		} catch (e) {}
+
 		
 		// Handle multiple authors for one book
 		 try {
@@ -92,7 +90,6 @@ function searchBookByISBN() {
 		 if (authors_val == null) author.value = '';
 		 if (description_val == null) description.value = '';
 		 if (publisher_val == null) publisher.value = '';
-		 if (cover_val == null) cover_val.value = '';
 	}
 };
 
@@ -165,22 +162,38 @@ function submitPosting(event) {
 			// get the correct isbn values
 			var isbn_10;
 			var isbn_13;
-			var cover_val = obj.items[0].volumeInfo.imageLinks.smallThumbnail;
-			if(obj.items[0].volumeInfo.industryIdentifiers[0].type === "ISBN_10")
-				isbn_10 = obj.items[0].volumeInfo.industryIdentifiers[0].identifier;
-			else if(obj.items[0].volumeInfo.industryIdentifiers[0].type === "ISBN_13")
-				isbn_13 = obj.items[0].volumeInfo.industryIdentifiers[0].identifier
+			var cover_val;
+			// deal with situations where no image
+			try {
+				cover_val = obj.items[0].volumeInfo.imageLinks.smallThumbnail;
+			} catch (e) {}
 
-			if(obj.items[0].volumeInfo.industryIdentifiers[1].type === "ISBN_10")
-				isbn_10 = obj.items[0].volumeInfo.industryIdentifiers[1].identifier;
-			else if(obj.items[0].volumeInfo.industryIdentifiers[1].type === "ISBN_13")
-				isbn_13 = obj.items[0].volumeInfo.industryIdentifiers[1].identifier
+			// deal with situations where there is no isbn values (Google has no information)
+			try{
+				if(obj.items[0].volumeInfo.industryIdentifiers[0].type === "ISBN_10")
+					isbn_10 = obj.items[0].volumeInfo.industryIdentifiers[0].identifier;
+				else if(obj.items[0].volumeInfo.industryIdentifiers[0].type === "ISBN_13")
+					isbn_13 = obj.items[0].volumeInfo.industryIdentifiers[0].identifier
+			} catch (e){}
 
+			try{
+				if(obj.items[0].volumeInfo.industryIdentifiers[1].type === "ISBN_10")
+					isbn_10 = obj.items[0].volumeInfo.industryIdentifiers[1].identifier;
+				else if(obj.items[0].volumeInfo.industryIdentifiers[1].type === "ISBN_13")
+					isbn_13 = obj.items[0].volumeInfo.industryIdentifiers[1].identifier
+			} catch (e) {}
+
+			// fix null values
+			if (cover_val == null) cover_val = "../images/imageNotFound.png";
+			if (isbn_13 == null) isbn_13 = document.getElementById("isbn").value; // use the value given
+			if (isbn_10 == null) isbn_10 = -404;
 			// Update hidden values
 			document.getElementById("isbn-10").value = isbn_10;
 			document.getElementById("isbn-13").value = isbn_13;
 			document.getElementById("cover-link").value = cover_val;
-			console.log("test");
+
+			console.log(cover_val);
+			return false;
 		}
 	}		
 	

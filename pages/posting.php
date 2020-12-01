@@ -36,7 +36,7 @@
     }
 
     // check to see if the book is in the DB
-    $q1 = "SELECT B.isbn_13 FROM Books B WHERE B.isbn_13 = '$isbn13' OR B.isbn_10 = '$isbn10'";
+    $q1 = "SELECT B.isbn_13 FROM Books B WHERE B.isbn_13 = '$isbn13'";
     $r1 = $db->query($q1);
 
     // if number of rows == 0 add book. otherwise go to adding the listing
