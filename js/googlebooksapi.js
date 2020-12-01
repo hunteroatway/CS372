@@ -179,7 +179,6 @@ function submitPosting(event) {
 			else if(obj.items[0].volumeInfo.industryIdentifiers[0].type === "ISBN_13")
 				isbn_13 = obj.items[0].volumeInfo.industryIdentifiers[0].identifier
 
-
 			if(obj.items[0].volumeInfo.industryIdentifiers[1].type === "ISBN_10")
 				isbn_10 = obj.items[0].volumeInfo.industryIdentifiers[1].identifier;
 			else if(obj.items[0].volumeInfo.industryIdentifiers[1].type === "ISBN_13")
