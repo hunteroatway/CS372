@@ -17,7 +17,7 @@ var geocoderOptions = {
   focus: true,
   params: {               
     dedupe: 1, // avoid duplicate values
-    tag: 'place:*', // used to limit to only places. Remove buisness/ attractions from results
+    tag: 'place:city,place:town,place:village', // used to limit to only places. Remove buisness/ attractions from results
   }
 }
 
