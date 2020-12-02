@@ -264,7 +264,7 @@
                             // if posting is active. display information to get to chats/ mark sold. Otherwise leave area blank
                             if($rowL["active"]){
                                 // fetch all the chats
-                                $q4 = "SELECT C.cid FROM Chats C INNER JOIN Listings L on C.lid = L.lid WHERE L.lid = '$lid' AND L.uid = '$lid' ORDER BY C.last_message DESC";
+                                $q4 = "SELECT C.cid FROM Chats C INNER JOIN Listings L on C.lid = L.lid WHERE L.lid = '$lid' AND L.uid = '$uid' ORDER BY C.last_message DESC";
                                 $r4 = $db->query($q4);
                                 $numChats = $r4->num_rows;
                                 if($numChats == 0){

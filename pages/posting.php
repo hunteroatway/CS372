@@ -87,7 +87,7 @@
         // Allow certain file formats
         if($fileType != "jpg" && $fileType != "png" && $fileType != "jpeg" && $fileType != "gif" && $fileType ) {    
           // set error to this
-          $error .=  "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+          $error .=  "Sorry, only JPG, JPEG, PNG & GIF files are allowed. ";
           $uploadOk = 0;
         }        
         // Check file size
