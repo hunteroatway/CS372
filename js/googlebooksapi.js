@@ -1,6 +1,6 @@
 // Regex values
 var isbn_format = /^(97(8|9))?\d{9}(\d|X)$/;
-var price_format = /[0-9]+[.]?[0-9]{1,2}/;
+var price_format = /([0-9]+[.]?)?[0-9]{1,2}/;
 
 // Changes input fields based on toggle switch input for automatic or manual data entry
 function selectPostingType(event) {
@@ -225,7 +225,7 @@ function validate() {
 		document.getElementById("price_err").innerHTML = "Price field cannot be empty!";
 		isValid = false;
 	} else if (!price_format.test(price)) {
-		document.getElementById("price_err").innerHTML = "Price values must be in the following format: 1.00";
+		document.getElementById("price_err").innerHTML = "Price values must be in the following format: 1, 10, 100, 1.0, 1.00, 10.00, 100.00";
 		isValid = false;
 	} else
 		document.getElementById("price_err").innerHTML = "";
