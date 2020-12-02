@@ -70,11 +70,11 @@
         <script src="https://maps.locationiq.com/v2/libs/leaflet-geocoder/1.9.6/leaflet-geocoder-locationiq.min.js?v=0.1.7"></script>
         </head>
 
-    <header>
-	<img src="../images/logo.png" style = "display:inline" width = "250" height = "200" />
-    </header>
-
     <body>
+    <header>
+	    <img src="../images/logo.png" alt = "Logo" style = "display:inline" width = "250" height = "200" />
+    </header>
+    
     <div class="topnav" id="pac-card">
             <a class="active" href="index.php">Home <i class="fa fa-fw fa-home"> </i></a>
         <?php 

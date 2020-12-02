@@ -153,10 +153,10 @@
     </head>
     <title>Pick-a-Book</title> 
     </head>
-    <header>
-	    <img src="../images/logo.png" style = "display:inline" width = "250" height = "200" />
-    </header>
     <body>
+    <header>
+	    <img src="../images/logo.png" alt = "Logo" style = "display:inline" width = "250" height = "200" />
+    </header>
     <div class="topnav" id="pac-card">
             <a class="active" href="index.php">Home <i class="fa fa-fw fa-home"> </i></a>
             <?php 
