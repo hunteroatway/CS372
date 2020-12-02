@@ -99,6 +99,7 @@
                             $multipleAuthors = true;
                         }
                     } else {
+                        $lid = $currentRow["lid"];
 
                         $image = $currentRow["photo"]; 
                         $title = $currentRow["title"];                        
@@ -106,8 +107,15 @@
                         $price = $currentRow["price"];
                         $location = $currentRow["city"] . ", " . $currentRow["province"] . ", " . $currentRow["country"];
 
+                        //If there is only one author, store that name
                         if ($multipleAuthors == false) {
-                            $author = $currentRow["last_name"] . ", " . $currentRow["first_name"];
+                            //Check to ensure author has both first and last name
+                            if($currentRow["last_name"] != "" && $currentRow["first_name"] != "")
+                                $author = $currentRow["last_name"] . ", " . $currentRow["first_name"];
+                            else if($currentRow["last_name"] != "")
+                                $author = $currentRow["last_name"];
+                            else
+                                $author = $currentRow["first_name"];
                         }
 
                         $multipleAuthors = false;
