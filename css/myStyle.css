@@ -538,13 +538,13 @@ table, p,label, li, a{
 }
 
 .formTable {
-  padding-top: 50px;;
+  
   margin-left: 20px;
   border-spacing: 5px 10px;
   border-collapse: separate;
 }
 
-.formTable input[type=text] {
+.formTable input[type=text],.formTable input[type=password] {
   width: 499px;
 }
 
@@ -552,7 +552,7 @@ table, p,label, li, a{
   width: 80px;
 }
 
-.formTable input[type=text], input[type=number], textarea {
+.formTable input[type=text],.formTable input[type=number],.formTable input[type=password],.formTable textarea {
   padding: 10px;
   border: 1px solid black;
   border-radius: 4px;
@@ -681,4 +681,8 @@ input:checked + .slider:before {
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
+}
+
+.posting {
+  padding-top: 50px;;
 }

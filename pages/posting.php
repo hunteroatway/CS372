@@ -204,7 +204,7 @@
             </form>
           </div>
             
-          <table class="formTable">
+          <table class="formTable posting">
 	    <form id="submit-form" class="input" action="posting.php" method="post" enctype="multipart/form-data">
             <input type="hidden" name="submitted" value="1">
               <tr>

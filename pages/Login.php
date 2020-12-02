@@ -64,7 +64,7 @@
 
 		<div class="login">
             <h1>Log In</h1>
-            <form id="LogIn" class = "input" action="signin.php" method="post">
+            <form id="LogIn" class = "input formTable" action="signin.php" method="post">
                 <input type="hidden" name="submitted" value="1">
                 <form>
                 <table>

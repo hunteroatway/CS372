@@ -259,7 +259,7 @@ session_start();
         <h1>Sign Up</h1>
              
 
-        <form id="SignUp" action="signUp.php" method="post" enctype="multipart/form-data">
+        <form class="formTable" id="SignUp" action="signUp.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="submitted" value="1">
             <table>
                 <tr><td></td><td><label id="picupload_msg" class="err_msg"></label></td></tr>  
