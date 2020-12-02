@@ -20,7 +20,7 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
     }
 
     // Get users information from table
-    $q = "SELECT email, password, username, uid, avatar FROM Users WHERE email = '$email' AND password = '$password'";
+    $q = "SELECT email, password, username, uid, avatar FROM Users WHERE email = '$email' AND password = BINARY '$password'";
 
     $return = $db->query($q);
     $row = $return->fetch_assoc();
