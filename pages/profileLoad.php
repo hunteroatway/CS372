@@ -28,7 +28,7 @@
     
 
     // query to get users listings
-    $q1 = "SELECT L.lid, L.isbn_10, L.isbn_13, L.price, L.list_date, A.first_name, A.last_name, B.title, U.city, U.province, U.country
+    $q1 = "SELECT L.lid, L.isbn_10, L.isbn_13, L.price, L.list_date, A.first_name, A.last_name, B.title, B.photo, U.city, U.province, U.country
     FROM Listings L INNER JOIN Books B 
     ON L.isbn_13 = B.isbn_13 INNER JOIN Authors A
     ON B.isbn_13 = A.isbn_13 INNER JOIN Users U
@@ -54,20 +54,23 @@
             }
         } else {
             $lid = $currentRow["lid"];
-            //Query to get image for the book
-            $q2 = "SELECT image FROM Images WHERE lid = '$lid'";
-            $r2 = $db->query($q2);
-            $row = $r2->fetch_assoc();
 
             //Prep info to be shown in listing
-            $image = $row["image"]; 
+            $image = $currentRow["photo"]; 
             $title = $currentRow["title"];                        
             $isbn13 = $currentRow["isbn_13"];
             $price = $currentRow["price"];
             $location = $currentRow["city"] . ", " . $currentRow["province"] . ", " . $currentRow["country"];
 
+            //If there is only one author, store that name
             if ($multipleAuthors == false) {
-                $author = $currentRow["last_name"] . ", " . $currentRow["first_name"];
+                //Check to ensure author has both first and last name
+                if($currentRow["last_name"] != "" && $currentRow["first_name"] != "")
+                    $author = $currentRow["last_name"] . ", " . $currentRow["first_name"];
+                else if($currentRow["last_name"] != "")
+                    $author = $currentRow["last_name"];
+                else
+                    $author = $currentRow["first_name"];
             }
 
             $multipleAuthors = false;
