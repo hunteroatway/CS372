@@ -37,3 +37,11 @@ This project uses the following API's:
 ## Link
 Link to our website:
  - [Pick-A-Book](http://www2.cs.uregina.ca/~ottenbju/CS372/pages/index.php "Pick-A-Book")
+
+## Our Info
+Our student ID Numbers:
+ - Justin Ottenbreit - 200251932
+ - Hunter Oatway - 200378986
+ - Patrick LeBlanc - 200374786
+ - Muhammad Hamza Imtiaz - 200366379
+ - Subah Turna - 200357563
